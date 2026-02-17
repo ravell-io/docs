@@ -1,33 +1,64 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "API overview"
+description: "Authentication, base URL, and workspace headers"
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Base URL
 
-## Welcome
+```
+https://api.ravell.io/api/v1
+```
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+For local development, use `http://localhost:3000/api/v1`.
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+---
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API requests require a **JWT** in the `Authorization` header:
+
+```
+Authorization: Bearer <your_jwt_token>
+```
+
+Obtain a JWT by signing in via the web app or the authentication endpoints. Tokens expire; refresh as needed.
+
+---
+
+## Workspace headers
+
+Ravell is multi-tenant. Most endpoints are scoped to a workspace. Include the workspace ID in the request:
+
+```
+X-Workspace-Id: <workspace_uuid>
+```
+
+Some endpoints (e.g. user, workspaces) do not require this header. Endpoints under `/workspaces/:id/...` use the URL path for workspace scope.
+
+---
+
+## Response format
+
+Responses follow a consistent structure:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "status": "success",
+  "data": { ... }
+}
 ```
+
+Errors:
+
+```json
+{
+  "status": "error",
+  "errors": ["Error message"]
+}
+```
+
+---
+
+## Rate limits
+
+API rate limits apply. Check response headers for `X-RateLimit-*` when available.

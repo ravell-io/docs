@@ -1,0 +1,51 @@
+---
+title: "Slack"
+description: "Connect Slack channels for indexing and use the Slack Agent"
+---
+
+## Overview
+
+Connect **Slack** to Ravell for two main capabilities:
+
+1. **Indexing**: Ravell indexes selected channels so you can search Slack content in Asks (e.g. "What did we discuss about the API last week?").
+2. **Slack Agent**: Ask questions in Slack via slash commands and get answers with citations. Create or update Linear issues from Slack.
+
+---
+
+## Connect Slack
+
+1. Go to **Sources** or **Settings → Integrations**.
+2. Click **Connect** next to Slack.
+3. Sign in to Slack and authorize Ravell.
+4. Select which **channels** to index. Only messages from selected channels are searchable.
+5. Ravell starts syncing. Initial sync may take a few minutes.
+
+---
+
+## What gets synced
+
+- **Messages**: From the channels you selected.
+- **Threads**: Thread replies are included for context.
+
+Ravell uses this data to answer questions about discussions, decisions, and context shared in Slack.
+
+---
+
+## Slack Agent
+
+The **Slack Agent** lets you ask Ravell directly from Slack.
+
+### Slash commands
+
+- Use the configured slash command (e.g. `/ravell`) in any channel or DM.
+- Type your question after the command.
+- Ravell responds in-thread with an answer and citations.
+
+### Linear actions from Slack
+
+From a Slack Agent response, you can:
+
+- **Create Linear issue**: Turn a suggestion or finding into a Linear issue.
+- **Update Linear issue**: Add a comment or update status from Slack.
+
+This keeps your workflow in Slack while still capturing action items in Linear.

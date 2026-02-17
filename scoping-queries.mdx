@@ -1,0 +1,47 @@
+---
+title: "Scoping queries"
+description: "Limit questions to specific sources or time ranges"
+---
+
+## Why scope queries?
+
+By default, Ravell searches across all connected sources (Linear, Notion, Intercom, Slack). Sometimes you want to narrow the search:
+
+- **Faster answers**: Fewer sources mean less data to search.
+- **Focused results**: When you know the answer is in one tool (e.g. Linear only).
+- **Time bounds**: Limit to recent data (e.g. "last 7 days") for more relevant results.
+
+---
+
+## Scope to specific sources
+
+When asking a question, you can limit the search to one or more sources:
+
+- **Linear only**: "What are the top open issues?" → searches only Linear.
+- **Intercom only**: "What did customers say about pricing?" → searches only Intercom.
+- **Slack + Linear**: Combine sources when the answer might span both.
+
+Use the source selector (if available) in the Ask input or in the question composer to choose which sources to include.
+
+---
+
+## Scope to time ranges
+
+Some questions support time filters:
+
+- "What did we ship **last week**?"
+- "Summarize Intercom feedback from **last month**."
+- "What are the top issues **in our current cycle**?"
+
+Ravell interprets relative time ranges and scopes the search accordingly. For cycle-based questions, Linear cycle dates are used when Linear is connected.
+
+---
+
+## Scoping in Automations
+
+When creating an Automation, you can set a default scope:
+
+- **Sources**: Limit the automation to specific sources (e.g. Linear only).
+- **Time**: The question text can include time bounds (e.g. "this week", "current cycle").
+
+This keeps automation reports focused and consistent.

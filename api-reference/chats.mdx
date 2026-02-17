@@ -1,0 +1,88 @@
+---
+title: "Chats"
+description: "Create chat, ask, follow-up, and history"
+---
+
+## Overview
+
+Chats are conversation threads for Asks. You create a chat, send messages (ask), and can follow up in the same thread. The API supports creating chats, asking questions, and retrieving history.
+
+---
+
+## Create chat
+
+`POST /api/v1/chats`
+
+Creates a new chat. Optionally include an initial message or title.
+
+**Request body** (optional):
+
+```json
+{
+  "title": "Optional initial title"
+}
+```
+
+**Response**: Chat object with `id`, `title`, `slug`, `created_at`, etc.
+
+---
+
+## Ask (send message)
+
+`POST /api/v1/chats/:id/ask`
+
+Sends a message to the chat and streams or returns the answer.
+
+**Request body**:
+
+```json
+{
+  "message": "What are the top open issues in our current cycle?",
+  "source_ids": ["uuid1", "uuid2"]
+}
+```
+
+- `message`: Required. The question or follow-up.
+- `source_ids`: Optional. Limit search to specific integration IDs.
+
+**Response**: Answer with citations. May be streamed depending on client support.
+
+---
+
+## Get chat
+
+`GET /api/v1/chats/:id`
+
+Returns a single chat with its messages and metadata.
+
+---
+
+## List chats
+
+`GET /api/v1/chats`
+
+Returns the user's chats, optionally filtered. Supports pagination.
+
+---
+
+## Chat history
+
+`GET /api/v1/chats/history`
+
+Returns chat history for the current user, ordered by recent activity.
+
+---
+
+## Update chat
+
+`PATCH /api/v1/chats/:id`
+
+Updates chat metadata (e.g. title).
+
+---
+
+## Delete chat
+
+`DELETE /api/v1/chats/:id`
+
+Deletes a chat and its messages.

@@ -19,7 +19,38 @@
         "groups": [
           {
             "group": "Getting started",
-            "pages": ["index", "quickstart", "asks"]
+            "pages": ["index", "quickstart", "asks", "workspace-setup"]
+          },
+          {
+            "group": "Core features",
+            "pages": ["inbox", "automations", "sources"]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/linear",
+              "integrations/notion",
+              "integrations/intercom",
+              "integrations/slack"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": ["profiles", "memory", "scoping-queries", "slack-agent"]
+          },
+          {
+            "group": "API reference",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/chats",
+              "api-reference/queries",
+              "api-reference/evidences",
+              "api-reference/integrations"
+            ]
+          },
+          {
+            "group": "Admin",
+            "pages": ["billing", "workspace-management"]
           }
         ]
       }

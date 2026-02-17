@@ -1,7 +1,7 @@
-/* Sidebar: zinc-50 background, zinc-100 border (matches app) */
+/* Sidebar: white background, no border */
 #sidebar {
-  background: #fafafa !important;
-  border-right-color: #f4f4f5;
+  background: #ffffff !important;
+  border-right: none;
 }
 
 /* Logo: smaller */

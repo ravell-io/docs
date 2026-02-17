@@ -1,0 +1,52 @@
+---
+title: "Slack Agent"
+description: "Ask Ravell in Slack and create Linear issues from Slack"
+---
+
+## Overview
+
+The **Slack Agent** lets you use Ravell directly from Slack. Ask questions via slash commands, get answers in-thread with citations, and create or update Linear issues without leaving Slack.
+
+---
+
+## Setup
+
+1. Connect **Slack** as a source (see [Slack integration](/integrations/slack)).
+2. The Slack Agent is enabled when Slack is connected.
+3. Use the configured slash command (e.g. `/ravell`) in any channel or DM where the app is installed.
+
+---
+
+## Ask questions in Slack
+
+1. Type `/ravell` followed by your question.
+2. Send the message.
+3. Ravell responds in-thread with an answer and citations, same format as in the app.
+
+Examples:
+
+- `/ravell What are the top open issues in our current cycle?`
+- `/ravell Summarize customer feedback from Intercom this week.`
+
+---
+
+## In-thread follow-ups
+
+You can reply in the thread to ask follow-up questions. Ravell keeps conversation context and answers accordingly.
+
+---
+
+## Create Linear issues from Slack
+
+From a Slack Agent response, you can:
+
+- **Create Linear issue**: Turn a finding or suggestion into a new Linear issue. Ravell pre-fills title and description from the context.
+- **Update Linear issue**: Add a comment or update status on an existing issue.
+
+This keeps your workflow in Slack while capturing action items in Linear.
+
+---
+
+## Permissions
+
+The Slack Agent respects your workspace permissions. You can only ask questions about data you have access to, and create/update Linear issues in workspaces you're a member of.

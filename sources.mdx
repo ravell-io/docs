@@ -1,0 +1,51 @@
+---
+title: "Sources"
+description: "Connect Linear, Notion, Intercom, and Slack to power your answers"
+---
+
+## What are Sources?
+
+**Sources** are the tools you connect to Ravell via OAuth: Linear, Notion, Intercom, and Slack. Ravell syncs data from these sources, indexes it for search, and uses it to answer your questions with citations.
+
+The more sources you connect, the richer and more accurate your answers.
+
+---
+
+## Connect a source
+
+1. Open **Sources** in the sidebar (or **Settings → Integrations**).
+2. Click **Connect** next to Linear, Notion, Intercom, or Slack.
+3. Complete the OAuth flow in the popup. Authorize Ravell to read the data you need.
+4. For **Linear**: Select which teams to sync. For **Slack**: Select which channels to index.
+5. Ravell starts syncing. Initial sync can take a few minutes depending on data volume.
+
+---
+
+## Sync status
+
+In **Sources**, you can see the status of each connection:
+
+- **Synced**: Data is up to date.
+- **Syncing**: Sync in progress.
+- **Error**: Sync failed. Check the connection and re-authorize if needed.
+
+Use **Reindex** or **Sync** to refresh data manually when needed.
+
+---
+
+## Scope queries to sources
+
+When asking questions, you can scope to specific sources:
+
+- **All sources** (default): Ravell searches across everything you've connected.
+- **Specific source**: Limit the search to one tool (e.g. "Linear only") for faster, more focused answers.
+
+Scoping is useful when you know the answer is likely in one place.
+
+---
+
+## Disconnect a source
+
+1. Go to **Settings → Integrations** (or **Sources**).
+2. Find the integration and click **Disconnect**.
+3. Ravell stops syncing and removes the data from its index. Past Ask answers that cited that source will still show the citations, but the underlying data may no longer be available.
