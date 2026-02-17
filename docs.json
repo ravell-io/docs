@@ -9,8 +9,7 @@
     "dark": "#09090b"
   },
   "fonts": {
-    "heading": "Inter",
-    "body": "Inter"
+    "family": "Inter"
   },
   "favicon": "/favicon.svg",
   "navigation": {
