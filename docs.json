@@ -4,9 +4,9 @@
   "name": "Ravell",
   "mode": "light",
   "colors": {
-    "primary": "#2563eb",
-    "light": "#3b82f6",
-    "dark": "#1d4ed8"
+    "primary": "#18181b",
+    "light": "#27272a",
+    "dark": "#09090b"
   },
   "fonts": {
     "heading": "Inter",
