@@ -81,6 +81,52 @@ Updates chat metadata (e.g. title).
 
 ---
 
+## Move chat
+
+`PATCH /api/v1/chats/:id/move`
+
+Moves a chat to a folder or changes its visibility.
+
+**Request body**:
+
+```json
+{
+  "visibility": "private",
+  "query_folder_id": "uuid"
+}
+```
+
+- `visibility`: Optional. `"private"` or `"shared"`.
+- `query_folder_id`: Optional. UUID of the folder to move the chat into.
+
+---
+
+## Rewrite title
+
+`POST /api/v1/chats/rewrite_title`
+
+Uses AI to generate a title from query text. Useful for auto-titling new chats.
+
+**Request body**:
+
+```json
+{
+  "query_text": "What did customers say about checkout last month?"
+}
+```
+
+**Response**: `{ "title": "...", "source": "llm" | "fallback" }`
+
+---
+
+## Get chat by slug
+
+`GET /api/v1/chats/by_slug?slug=<slug>`
+
+Returns a chat by its slug. Used for shared links (e.g. `https://app.ravell.io/app?chat=<slug>`). Requires workspace access.
+
+---
+
 ## Delete chat
 
 `DELETE /api/v1/chats/:id`

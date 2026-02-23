@@ -1,11 +1,69 @@
 ---
 title: "Slack Agent"
-description: "Ask Ravell in Slack and create Linear issues from Slack"
+description: "Ask questions, create Linear records, and manage automations from Slack"
 ---
 
-## Overview
+## What is the Slack Agent?
 
-The **Slack Agent** lets you use Ravell directly from Slack. Ask questions via slash commands, get answers in-thread with citations, and create or update Linear issues without leaving Slack.
+The **Slack Agent** brings Ravell into Slack. Use the slash command (e.g. `/ravell`) in any channel or DM to ask questions, create or update Linear records, and manage automations — all in natural language. No forms, no buttons: just type what you want.
+
+Ravell responds in-thread with answers and citations. Long answers include a **View full answer** button to open the full report in the app. While processing, you may see **Follow along in Ravell** to watch the answer stream in real time.
+
+---
+
+## How it differs from Web Asks
+
+| Aspect | Web Asks | Slack Agent |
+|--------|----------|-------------|
+| **Where** | app.ravell.io | Slack (channel or DM) |
+| **Input** | Main input, sidebar | Slash command + message |
+| **Response** | Full answer with Sources rail | In-thread answer; long answers truncated with link |
+| **Linear actions** | Via follow-up agent | Natural language ("Create a bug about X") |
+| **Automations** | In Automations view | Natural language ("Create an automation that...") |
+| **Context** | Full UI, Context view | Thread context, Memory |
+
+The Slack Agent uses the same search pipeline and sources as Web Asks. It also has dedicated sub-agents for Linear and Automations, so you can create issues, update projects, or manage automations without leaving Slack.
+
+---
+
+## How it works under the hood
+
+For the technically curious, here's the detailed flow from Slack message to response.
+
+### 1. Slash command or message
+
+When you type `/ravell` or reply in a thread, Slack sends the payload to Ravell. The **Slack Commands** controller handles slash commands; the **Slack Events** controller handles app mentions and thread replies. A `SlackThreadSession` tracks the conversation; each turn becomes a `SlackTurn`.
+
+### 2. Query critic
+
+Before processing, a **query critic** checks for off-topic or prompt-injection attempts. If the query fails, Ravell responds with a polite deflection (e.g. "I'm only useful for your actual product work...") instead of running the pipeline.
+
+### 3. Routing: follow-up vs agent
+
+A **router** decides how to handle the message:
+
+- **Stream follow-up** — For simple follow-ups answerable from conversation memory (e.g. "Which of those?"), the Follow-up agent answers from context or uses tools. No full pipeline.
+- **Slack agent** — For new questions or action requests, the Slack Agent runs. It has access to: `pipeline` (full search), `structured_retrieval` (lookups), `delegate_to_linear` (Linear CRUD), `delegate_to_automations` (automation CRUD), and `explain_capabilities` (help).
+
+### 4. Agent execution
+
+The Slack Agent is an LLM with tools. It chooses which tool to call based on the question:
+
+- **Search questions** → `pipeline` tool. This creates a `QuerySession` and runs the same pipeline as Web Asks (intent, plan, search, synthesize). The agent receives the full answer and formats it for Slack.
+- **Lookups** ("Find ENG-142") → `structured_retrieval`.
+- **Create/update Linear** → `delegate_to_linear` (delegates to the Linear sub-agent).
+- **Automation requests** → `delegate_to_automations` (delegates to the Automations sub-agent).
+- **Help** → `explain_capabilities`.
+
+The agent has a max of 3 tool calls per turn. If it fails, it falls back along a chain: `structured_retrieval` → `pipeline` → `explain_capabilities`.
+
+### 5. Response formatting
+
+For long answers, a **TLDR generator** produces a short summary. The **AnswerFormatter** builds Slack Block Kit: section (answer text), context blocks (citations), and a "View full answer" button linking to `app.ravell.io/app/c/{slug}`.
+
+### 6. Posting to Slack
+
+The response is posted in-thread. If the answer was long, the user sees the TLDR + button; the full answer lives in the linked chat. A progress message ("Still working...") may be posted ephemerally with a "Follow along in Ravell" button while the pipeline runs.
 
 ---
 
@@ -17,36 +75,94 @@ The **Slack Agent** lets you use Ravell directly from Slack. Ask questions via s
 
 ---
 
-## Ask questions in Slack
+## Ask questions
 
-1. Type `/ravell` followed by your question.
-2. Send the message.
-3. Ravell responds in-thread with an answer and citations, same format as in the app.
+Type `/ravell` followed by your question. Ravell searches your connected sources (Linear, Notion, Intercom, Slack) and responds in-thread with an answer and citations.
 
 Examples:
 
 - `/ravell What are the top open issues in our current cycle?`
 - `/ravell Summarize customer feedback from Intercom this week.`
+- `/ravell Find ENG-142` — Look up a specific Linear issue.
+- `/ravell What did we discuss about the API last week?` — Search Slack (when indexed).
+
+---
+
+## Linear actions (natural language)
+
+You can create and update Linear records by typing requests in plain language. No forms or buttons — just describe what you want.
+
+### Issues
+
+- `/ravell Create a bug about login timeouts`
+- `/ravell File a ticket for the auth problem we discussed`
+- `/ravell Update ENG-123 to done`
+- `/ravell Close that issue` — Uses thread context when you say "that" or "this".
+
+### Projects, initiatives, documents
+
+- `/ravell Create a project for the checkout redesign`
+- `/ravell Update the Backend initiative status`
+- `/ravell Create a Linear document for the API spec`
+
+### Customer requests
+
+- `/ravell Log this as a customer request on ENG-123` — Links feedback to an issue.
+- `/ravell Create a customer record for Acme Corp`
+
+Ravell checks for duplicates before creating issues and uses conversation context when you refer to "this" or "that". **Linear must be connected** for these actions to work.
+
+---
+
+## Manage automations from Slack
+
+You can create, update, list, pause, resume, and delete automations directly from Slack.
+
+Examples:
+
+- `/ravell Create an automation that runs every Monday at 9am summarizing top issues`
+- `/ravell Create an automation that fires every morning gathering customer complaints`
+- `/ravell Send that report to #product instead` — Update delivery channel.
+- `/ravell What automations do I have?`
+- `/ravell Pause the weekly report`
+- `/ravell Resume the standup digest`
 
 ---
 
 ## In-thread follow-ups
 
-You can reply in the thread to ask follow-up questions. Ravell keeps conversation context and answers accordingly.
+Reply in the thread to ask follow-up questions. Ravell keeps conversation context, so you can say things like:
+
+- "Which of those are high priority?"
+- "Create a bug for that"
+- "Update the automation to run on Fridays"
 
 ---
 
-## Create Linear issues from Slack
+## View full answer and follow along
 
-From a Slack Agent response, you can:
+- **View full answer**: When an answer is long, Ravell posts a summary with a **View full answer** button. Click it to open the full answer with citations in the Ravell app.
+- **Follow along in Ravell**: While Ravell is processing, you may see a **Follow along in Ravell** button. Click it to watch the answer stream in the app in real time.
 
-- **Create Linear issue**: Turn a finding or suggestion into a new Linear issue. Ravell pre-fills title and description from the context.
-- **Update Linear issue**: Add a comment or update status on an existing issue.
+---
 
-This keeps your workflow in Slack while capturing action items in Linear.
+## Help
+
+Ask what Ravell can do:
+
+- `/ravell What can you do?`
+- `/ravell Help`
+
+Ravell will explain its capabilities: search, Linear actions, automations, and more.
+
+---
+
+## Channel vs DM
+
+You can use the Slack Agent in both channels and DMs. In channels, the conversation is visible to everyone in the channel; in DMs, only you and Ravell see it. Choose based on whether the question is team-wide or personal.
 
 ---
 
 ## Permissions
 
-The Slack Agent respects your workspace permissions. You can only ask questions about data you have access to, and create/update Linear issues in workspaces you're a member of.
+The Slack Agent respects your workspace permissions. You can only ask questions about data you have access to, and create or update Linear records in workspaces you are a member of.

@@ -14,14 +14,13 @@
 
 ## Terminology
 
-<!-- Add product-specific terms and preferred usage -->
-<!-- Example: Use "workspace" not "project", "member" not "user" -->
+- **Ask**: A conversation thread (chat) with questions and answers.
+- **Context**: The unified view of profiles (individual + workspace) and Memory.
+- **Source**: A connected integration (Linear, Notion, Intercom, Slack).
 
 ## Style preferences
 
-<!-- Add any project-specific style rules below -->
-
-- Use active voice and second person ("you")
+- Use active voice and second person (you)
 - Keep sentences concise — one idea per sentence
 - Use sentence case for headings
 - Bold for UI elements: Click **Settings**
@@ -29,5 +28,4 @@
 
 ## Content boundaries
 
-<!-- Define what should and shouldn't be documented -->
-<!-- Example: Don't document internal admin features -->
+- Do not document internal admin features, dev tools, or Polar webhook details.

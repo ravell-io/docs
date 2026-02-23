@@ -19,11 +19,20 @@
         "groups": [
           {
             "group": "Getting started",
-            "pages": ["index", "quickstart", "asks", "workspace-setup"]
+            "pages": [
+              "index",
+              "quickstart",
+              "asks",
+              "workspace-setup"
+            ]
           },
           {
             "group": "Core features",
-            "pages": ["inbox", "automations", "sources"]
+            "pages": [
+              "inbox",
+              "automations",
+              "sources"
+            ]
           },
           {
             "group": "Integrations",
@@ -36,7 +45,15 @@
           },
           {
             "group": "Advanced",
-            "pages": ["profiles", "memory", "scoping-queries", "slack-agent"]
+            "pages": [
+              "context",
+              "profiles",
+              "memory",
+              "visibility-sharing",
+              "shortcuts",
+              "scoping-queries",
+              "slack-agent"
+            ]
           },
           {
             "group": "API reference",
@@ -50,7 +67,10 @@
           },
           {
             "group": "Admin",
-            "pages": ["billing", "workspace-management"]
+            "pages": [
+              "billing",
+              "workspace-management"
+            ]
           }
         ]
       }
@@ -68,7 +88,9 @@
     }
   },
   "contextual": {
-    "options": ["copy"]
+    "options": [
+      "copy"
+    ]
   },
   "footer": {}
 }

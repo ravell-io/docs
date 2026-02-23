@@ -5,3 +5,8 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Project instructions (not docs pages)
+AGENTS.md
+
+# Mintlify template docs (not in nav)

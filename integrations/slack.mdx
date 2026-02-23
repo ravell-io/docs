@@ -33,19 +33,16 @@ Ravell uses this data to answer questions about discussions, decisions, and cont
 
 ## Slack Agent
 
-The **Slack Agent** lets you ask Ravell directly from Slack.
+The **Slack Agent** lets you use Ravell directly from Slack via the slash command (e.g. `/ravell`). You can:
 
-### Slash commands
+- **Ask questions** — Search across Linear, Notion, Intercom, and Slack; get answers with citations.
+- **Create and update Linear records** — Issues, projects, initiatives, documents, customer requests — in natural language (e.g. "Create a bug about login timeouts").
+- **Manage automations** — Create, update, list, pause, resume, or delete automations from Slack.
 
-- Use the configured slash command (e.g. `/ravell`) in any channel or DM.
-- Type your question after the command.
-- Ravell responds in-thread with an answer and citations.
+See the [Slack Agent](/slack-agent) guide for full details and examples.
 
-### Linear actions from Slack
+---
 
-From a Slack Agent response, you can:
+## Automation delivery
 
-- **Create Linear issue**: Turn a suggestion or finding into a Linear issue.
-- **Update Linear issue**: Add a comment or update status from Slack.
-
-This keeps your workflow in Slack while still capturing action items in Linear.
+When creating an **Automation**, you can enable **Deliver to Slack** to post reports to a channel when the automation runs. Reports appear in the channel with citations, same as in the Inbox. Requires the automation to be shared with the workspace. See [Automations](/automations) for details.

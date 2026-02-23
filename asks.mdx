@@ -1,32 +1,102 @@
 ---
-title: "Asks"
+title: "Web Asks"
 description: "Ask questions in plain language and get evidence-backed answers with citations"
 ---
 
-## What are Asks?
+## What are Web Asks?
 
-**Asks** are one-off questions you pose to Ravell. Each Ask is a conversation thread: you ask a question, get an answer with citations, and can follow up to go deeper. Answers are grounded in your connected sources — Linear, Notion, Intercom, Slack — so you always see where the information came from.
+**Web Asks** are the primary way to use Ravell in the app. You type a question in plain language, and Ravell searches your connected sources (Linear, Notion, Intercom, Slack), retrieves relevant evidence, and synthesizes an answer with citations. Each Ask is a conversation thread: you can follow up to go deeper without repeating context.
+
+Answers are grounded in your data — every claim ties back to a source. You always see where the information came from and can verify it yourself.
 
 ---
 
-## How to ask a question
+## How it works
+
+When you submit a question, Ravell runs a multi-stage pipeline:
+
+1. **Intent** — Understands what you're asking (e.g. find issues, summarize feedback, compare trends).
+2. **Plan** — Breaks the query into sub-questions and selects which sources to search.
+3. **Search** — Retrieves relevant documents from Linear, Notion, Intercom, and Slack using semantic and hybrid search.
+4. **Cluster & rank** — Groups evidence by theme and ranks by relevance.
+5. **Synthesize** — Generates the answer, grounding each claim in the retrieved evidence.
+6. **Verify** — Checks that claims match the evidence and marks confidence where needed.
+
+You see this progress as **streaming thoughts** — short status updates like "Breaking the query into sub-questions...", "Searching Linear, Intercom...", "Synthesizing answer...". This transparency helps you understand what Ravell is doing and how long it might take.
+
+---
+
+## How it works under the hood
+
+For the technically curious, here's the detailed flow from question to answer.
+
+### 1. Intent classification
+
+An LLM classifies the query intent (e.g. `list_issues`, `sentiment_analysis`, `trend_analysis`, `general_search`) and extracts structured signals: timeframe, sources mentioned, priorities, teams. It also assigns a complexity tier (`brief`, `standard`, `deep`, `strategic`) that influences how much reasoning and evidence the pipeline uses.
+
+### 2. Retrieval planning
+
+A planner breaks the query into sub-questions and selects which sources to search (Linear, Notion, Intercom, Slack). It produces a retrieval plan with lanes (e.g. semantic, keyword) and stop criteria (max passes, when to halt).
+
+### 3. Strategy routing
+
+The query type classifier determines the retrieval strategy: `specific_topic` (semantic lookup), `aggregate_ranking` (top-N lists), `comprehensive` (broad search), `trend`, `statistical`, or `comparative`. For statistical queries (e.g. "How many bugs?"), structured aggregation can short-circuit to a direct answer without full retrieval.
+
+### 4. Search stack
+
+Retrieval runs through a hybrid pipeline:
+
+- **Hybrid retriever** — Runs semantic (pgvector) and keyword search in parallel.
+- **RRF fusion** — Combines results from multiple lanes using Reciprocal Rank Fusion.
+- **Graph expander** — Expands via conversation links (related documents).
+- **Prefilter** — Filters by scope, freshness, and relevance.
+- **Reranker** — Re-ranks the top candidates with a cross-encoder for final relevance.
+
+### 5. Clustering and distillation
+
+Evidence chips (normalized snippets from sources) are clustered by theme. An evidence distillation step may reduce the set and produce a brief of key claims for synthesis.
+
+### 6. Synthesis and verification
+
+A streaming synthesizer generates the answer, grounding each claim in the retrieved evidence. An inline verifier checks that claims match the evidence and marks confidence. A reflection pass may refine the answer for clarity and completeness.
+
+### 7. Streaming and broadcast
+
+Progress is streamed via ActionCable: thought chunks (e.g. "Searching lanes..."), answer tokens, and citations. The frontend subscribes and renders in real time.
+
+---
+
+## Asking a question
 
 ### Start a new Ask
 
 1. Click **New Ask** in the sidebar, or use the main input when no chat is selected.
-2. Type your question in plain language. Examples:
-   - "What did customers say about checkout last month?"
-   - "What are the top open issues in our current cycle?"
-   - "Summarize feedback from Intercom about pricing."
-3. Press Enter or click Send. The answer streams in with citations.
+2. Type your question in plain language. Be as specific as you can — time ranges, topics, and source hints improve results.
+3. Optionally set **visibility** (private or shared) and **scope** (all sources or specific ones).
+4. Press Enter or click Send. The answer streams in with citations.
 
-### Follow up
+### Example questions
 
-You can ask follow-up questions in the same thread. Ravell keeps context from the conversation, so you can say things like:
+| Question | What Ravell does |
+|----------|-------------------|
+| "What are the top open issues in our current cycle?" | Searches Linear, ranks by relevance, synthesizes a list with links. |
+| "What did customers say about checkout last month?" | Searches Intercom (and optionally Linear/Notion), clusters themes, summarizes. |
+| "Summarize feedback from Intercom about pricing." | Filters to Intercom, extracts pricing-related content, synthesizes. |
+| "Find ENG-142" | Direct lookup in Linear. |
+| "What did we discuss about the API last week?" | Searches Slack (when indexed) for API-related threads. |
 
-- "Which of those issues are high priority?"
+---
+
+## Follow-ups
+
+Reply in the same thread to ask follow-up questions. Ravell keeps the full conversation context, so you can say things like:
+
+- "Which of those are high priority?"
 - "Show me the Linear links for the top 3."
 - "What did we decide about the checkout flow?"
+- "Create a bug for that" — Ravell uses the most recent topic when you say "that" or "this".
+
+You don't need to repeat the original question. Follow-ups can refine, narrow, or extend the answer.
 
 ---
 
@@ -37,18 +107,36 @@ Every answer includes **citations** — clickable references to the source data.
 - You see the exact excerpt Ravell used.
 - You can jump to the original item (Linear issue, Notion page, Intercom conversation, Slack message).
 
-Citations let you verify answers and dig into the evidence yourself.
+Citations let you verify answers and dig into the evidence yourself. If something seems off, check the source.
+
+### Context used panel
+
+The **Sources** rail (next to the answer) may show a "Context used" panel. This displays which profiles (individual and workspace) and Memory were used for the answer, their freshness, and any quality flags. Use **View context used** to jump to the Context view and see or edit your profiles.
 
 ---
 
-## Scoping your question
+## Scoping
 
-You can scope questions to specific sources for faster, more focused answers:
+By default, Ravell searches across all connected sources. You can narrow the search:
 
-- **All sources** (default): Ravell searches across everything you've connected.
-- **Specific source**: Use the source selector to limit the search (e.g. "Linear only" or "Notion only").
+- **All sources** (default) — Linear, Notion, Intercom, Slack.
+- **Specific source** — Use the source selector to limit (e.g. "Linear only" or "Notion only").
 
-Scoping is useful when you know the answer is likely in one tool.
+Scoping is useful when:
+- You know the answer is in one tool.
+- You want faster results (fewer sources = less to search).
+- You're testing or comparing answers across tools.
+
+---
+
+## Visibility and sharing
+
+When creating a new Ask, you choose **private** or **shared**:
+
+- **Private** — Only you can see it. Good for exploratory questions or sensitive topics.
+- **Shared** — Visible to your workspace. Teammates can open it from the sidebar. Good for collaboration and shared context.
+
+You can change visibility later from the report menu (**Make private** / **Share with workspace**). Use **Copy link** to share a direct URL to an Ask.
 
 ---
 
@@ -61,7 +149,7 @@ When Notion is connected, you can **push** an answer to a Notion page:
 3. Choose the Notion page or database to add the report.
 4. The answer (with citations) is added as content in Notion.
 
-Use this to turn Ask results into shared docs, meeting prep, or recurring reports.
+Use this to turn Ask results into shared docs, meeting prep, or recurring reports. The content is formatted for Notion (headings, lists, links).
 
 ---
 
@@ -77,20 +165,29 @@ Use this to turn Ask results into shared docs, meeting prep, or recurring report
   <Accordion icon="lightbulb" title="Connect more sources">
     The more Linear, Notion, Intercom, and Slack data you connect, the richer and more accurate the answers.
   </Accordion>
+  <Accordion icon="lightbulb" title="Scope when you know">
+    If you know the answer is in Linear, scope to Linear only. It's faster and often more focused.
+  </Accordion>
 </AccordionGroup>
 
 ---
 
 ## Where Asks live
 
-- **Sidebar → Asks**: List of your past and current conversations. Click one to reopen it.
-- **Sidebar → New Ask**: Start a fresh conversation.
-- **Shared links**: You can copy a link to an Ask from the answer card to share with teammates.
+- **Sidebar → Asks** — List of your past and current conversations. Click one to reopen it.
+- **Sidebar → New Ask** — Start a fresh conversation.
+- **Cmd+K** — Open chat search to find an Ask by title.
+- **Copy link** — Share a direct URL (e.g. `https://app.ravell.io/app?chat=<slug>`).
 
 ---
 
 ## Next steps
 
-<Card title="Quickstart" icon="rocket" href="/quickstart">
-  New to Ravell? Get set up in minutes.
-</Card>
+<CardGroup cols={2}>
+  <Card title="Context" icon="sparkles" href="/context">
+    Set up profiles and Memory for personalized answers.
+  </Card>
+  <Card title="Shortcuts" icon="keyboard" href="/shortcuts">
+    Speed up with keyboard shortcuts.
+  </Card>
+</CardGroup>

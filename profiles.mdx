@@ -3,6 +3,16 @@ title: "Profiles"
 description: "Individual and workspace profiles for personalized answers"
 ---
 
+## Access via Context
+
+Profiles live in the **Context** view. Open **Context** from the sidebar to view and edit your individual and workspace profiles alongside Memory.
+
+<Card title="Context" icon="sparkles" href="/context">
+  See how profiles and Memory work together.
+</Card>
+
+---
+
 ## What are Profiles?
 
 **Profiles** describe who you are and what you work on. Ravell uses profiles to personalize answers — for example, prioritizing issues assigned to you or focusing on projects you care about.
@@ -16,11 +26,12 @@ There are two types:
 
 ## Individual profile
 
-Your individual profile helps Ravell tailor answers to you:
+Your individual profile helps Ravell tailor answers to you. It includes:
 
-- **Role**: e.g. "Product Manager", "Engineer".
-- **Focus areas**: What you work on (e.g. "Checkout flow", "Mobile app").
-- **Projects**: Specific projects or initiatives you care about.
+- **Who you are**: Role (e.g. "Product Manager", "Engineer"), focus areas.
+- **Preferences**: How you like answers formatted, level of detail.
+- **Current work**: What you're actively working on.
+- **Planned work**: Upcoming initiatives or projects.
 
 Ravell uses this to surface relevant issues, conversations, and context when you ask questions.
 
@@ -28,11 +39,14 @@ Ravell uses this to surface relevant issues, conversations, and context when you
 
 ## Workspace profile
 
-The workspace profile describes your team:
+The workspace profile describes your team. It includes:
 
-- **Mission**: What the team is trying to achieve.
-- **Key projects**: Important initiatives or products.
-- **Priorities**: Current focus areas.
+- **Company context**: What the company does, market position.
+- **Product context**: Main products or services.
+- **Goals**: What the team is trying to achieve.
+- **Team projects**: Important initiatives or products.
+- **ICP (Ideal customer profile)**: Who you serve.
+- **Operating context**: How the team works, constraints.
 
 This helps Ravell understand context when answering questions that span the whole workspace.
 
@@ -40,8 +54,9 @@ This helps Ravell understand context when answering questions that span the whol
 
 ## Refresh and exclusions
 
-- **Refresh**: Update your profile when your role or focus changes. Stale profiles lead to less relevant answers.
-- **Exclusions**: You can exclude certain topics or sources from being used in your answers if needed (e.g. for privacy or relevance).
+- **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
+- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
+- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
 
 ---
 
@@ -54,3 +69,9 @@ When you ask a question, Ravell considers:
 - The sources you've connected (Linear, Notion, Intercom, Slack).
 
 Better profiles lead to more relevant, actionable answers.
+
+---
+
+## Context used panel
+
+When viewing an answer, the **Sources** rail may show a "Context used" panel. This displays which profile versions were used, freshness, and any quality flags. Quality flags indicate when profile data may need attention (e.g. stale or incomplete sections).
