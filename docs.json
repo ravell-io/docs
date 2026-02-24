@@ -29,10 +29,6 @@
         "pages": ["integrations/linear", "integrations/notion", "integrations/intercom", "integrations/slack"]
       },
       {
-        "group": "API",
-        "pages": ["api-reference/introduction", "api-reference/chats", "api-reference/queries", "api-reference/evidences", "api-reference/integrations"]
-      },
-      {
         "group": "Admin",
         "pages": ["billing", "workspace-management"]
       }
