@@ -8,7 +8,9 @@
     "isHidden": true
   },
   "colors": {
-    "primary": "#18181b"
+    "primary": "#18181b",
+    "light": "#155dfc",
+    "dark": "#084de2"
   },
   "favicon": "/favicon.svg",
   "logo": "/logo/light.svg",
@@ -46,6 +48,18 @@
       "type": "button",
       "label": "Open Ravell",
       "href": "https://app.ravell.io"
+    }
+  },
+  "appearance": {
+    "strict": true
+  },
+  "fonts": {
+    "family": "Inter",
+    "heading": {
+      "family": "Inter"
+    },
+    "body": {
+      "family": "Inter"
     }
   }
 }
