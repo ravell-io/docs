@@ -1,0 +1,11 @@
+{
+  "name": "ravell-docs",
+  "private": true,
+  "scripts": {
+    "dev": "mint dev --port 3333",
+    "broken-links": "mint broken-links"
+  },
+  "devDependencies": {
+    "mint": "latest"
+  }
+}
