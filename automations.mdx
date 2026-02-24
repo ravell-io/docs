@@ -1,70 +1,44 @@
 ---
-title: "Automations"
+title: "Agents"
 description: "Schedule recurring questions and get reports in your Inbox or Slack"
 ---
 
-## What are Automations?
+## What are Agents?
 
-**Automations** are scheduled queries that run on a recurring basis. You define a question (e.g. "What are the top open issues in our current cycle?") and a schedule (e.g. every Monday at 9am). Ravell runs the question at the scheduled time and delivers the report to your Inbox — and optionally to a Slack channel.
+**Agents** are scheduled queries that run on a recurring basis. You define a question (e.g. "What are the top open issues in our current cycle?") and a schedule (e.g. every Monday at 9am). Ravell runs the question at the scheduled time and delivers the report to your Inbox — and optionally to a Slack channel.
 
 Each run produces the same kind of evidence-backed answer you get from a Web Ask: citations, grounded in your connected sources. You can open a run to read it, follow up with more questions, or push it to Notion.
+
+**Why it matters:** Same search and synthesis quality as Web Asks, on a schedule. You run it once; Ravell runs it when you need it. Simple questions stay fast; complex ones get the extra effort they need. Proactive insights without manually asking each time.
 
 ---
 
 ## How it works
 
-1. You create an automation with a question and schedule.
+1. You create an agent with a question and schedule.
 2. At the scheduled time, Ravell runs the question through the same pipeline as Web Asks (intent, plan, search, synthesize).
 3. The report appears in your **Inbox** (and in Slack if you enabled delivery).
 4. You can open the run, read it, or use **Open in Chats** to follow up.
 
-Automations use the same search and synthesis quality as Web Asks. The only difference is timing: you run it once, Ravell runs it on a schedule.
+Agents use the same search and synthesis quality as Web Asks. The only difference is timing: you run it once, Ravell runs it on a schedule.
 
 ---
 
-## How it works under the hood
+## Behind the scenes
 
-For the technically curious, here's the detailed flow from schedule to report.
-
-### 1. Scheduler (cron)
-
-A **scheduler job** runs every minute (`enqueue_due_prompt_runs`). It finds all automations where `next_run_at <= now` and `status = active`, and for each:
-
-- Creates a `PromptAutomationRun` with status `queued`.
-- Enqueues `RunPromptAutomationJob`.
-- Updates `next_run_at` to the next occurrence (using the RRULE and timezone).
-
-Idempotency keys prevent duplicate runs for the same scheduled time.
-
-### 2. Run executor
-
-When the job runs, the **RunExecutor**:
-
-1. **Validates** — Automation still active, creator still has workspace access. If not, marks run as `skipped`.
-2. **Creates query session** — Uses `Queries::Creators::Create` with the automation's prompt. This creates a `QuerySession` and a `Chat` (if the automation has one).
-3. **Runs pipeline** — Calls `ProcessQueryJob.perform_now` with `streaming: false`. The same pipeline as Web Asks runs: intent, plan, search, cluster, synthesize, verify. No real-time streaming — the job runs synchronously until complete.
-4. **Finalizes** — On success: updates run status, stores `query_session_id`, updates `last_run_at` and `next_run_at`, resets `consecutive_failures`. On error: increments `consecutive_failures`, auto-pauses after 5 failures.
-
-### 3. Inbox and Slack delivery
-
-- **Inbox** — The run is linked to the automation's chat. The frontend subscribes via ActionCable (`automation_run_completed`); new runs appear in the Inbox.
-- **Slack delivery** — If `slack_delivery_enabled` is true, `ReportDeliveryService` posts the report to the configured channel. Long answers get a TLDR; the full report is linked via `View full answer` to the chat in the app.
-
-### 4. Caching
-
-If the same question was recently answered (cache hit), the executor can skip the pipeline and use the cached response. This speeds up repeated runs (e.g. hourly automations with the same prompt).
+At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after several failures, the agent pauses so you can fix the issue.
 
 ---
 
-## Create an automation
+## Create an agent
 
-1. Open **Automations** in the sidebar.
-2. Click **Create automation** (or start from a template).
+1. Open **Agents** in the sidebar.
+2. Click **Create agent** (or start from a template).
 3. Enter your question — same format as Web Asks. Be specific: time ranges and topics improve results.
 4. Choose a schedule (see below).
 5. Set visibility (private or shared).
 6. Optionally enable **Deliver to Slack** and select a channel (requires shared visibility).
-7. Save. The automation runs at the next scheduled time.
+7. Save. The agent runs at the next scheduled time.
 
 ---
 
@@ -88,19 +62,19 @@ Run every N hours. Examples:
 - Every 2 hours
 - Every 4 hours
 
-Useful for high-frequency digests (e.g. "What's new in the last hour?"). The interval starts from when the automation was created.
+Useful for high-frequency digests (e.g. "What's new in the last hour?"). The interval starts from when the agent was created.
 
 ---
 
 ## Timezone
 
-Automations run in the timezone you select when creating. Default is your browser timezone. Use this to align with your team's schedule (e.g. 9am local time for standup prep).
+Agents run in the timezone you select when creating. Default is your browser timezone. Use this to align with your team's schedule (e.g. 9am local time for standup prep).
 
 ---
 
 ## Templates
 
-When creating an automation, you can start from a **template**. Templates pre-fill the question and schedule for common use cases:
+When creating an agent, you can start from a **template**. Templates pre-fill the question and schedule for common use cases:
 
 - **Weekly product roundup** — Top issues and feature requests from Linear.
 - **Daily standup prep** — Customer feedback from yesterday.
@@ -116,36 +90,36 @@ You can edit the template's question and schedule before saving.
 
 ## Visibility
 
-- **Private** — Only you see the automation and its runs. Runs appear in your Inbox only.
-- **Shared** — Visible to your workspace. Teammates can see the automation and its runs. Required for Slack delivery.
+- **Private** — Only you see the agent and its runs. Runs appear in your Inbox only.
+- **Shared** — Visible to your workspace. Teammates can see the agent and its runs. Required for Slack delivery.
 
 ---
 
-## Manage automations
+## Manage agents
 
-- **Pause** — Pause an automation to stop it from running. Resume when ready.
+- **Pause** — Pause an agent to stop it from running. Resume when ready.
 - **Edit** — Change the question, schedule, visibility, or Slack delivery.
 - **Run now** — Trigger a run immediately instead of waiting for the schedule.
-- **Delete** — Remove the automation. Past runs remain in the Inbox.
+- **Delete** — Remove the agent. Past runs remain in the Inbox.
 
 ---
 
 ## Reports in the Inbox
 
-Each automation run produces a report that appears in your **Inbox**. The report has the same format as an Ask answer: evidence-backed, with citations. Open a run to read it, or use **Open in Chats** to follow up with more questions.
+Each agent run produces a report that appears in your **Inbox**. The report has the same format as an Ask answer: evidence-backed, with citations. Open a run to read it, or use **Open in Chats** to follow up with more questions.
 
-Runs are ordered by most recent first. If a run fails, you'll see the status; you can retry by running the automation manually.
+Runs are ordered by most recent first. If a run fails, you'll see the status; you can retry by running the agent manually.
 
 ---
 
 ## Deliver to Slack
 
-When Slack is connected, you can deliver automation reports directly to a Slack channel:
+When Slack is connected, you can deliver agent reports directly to a Slack channel:
 
-1. Create or edit an automation.
-2. Set visibility to **Shared with workspace** (Slack delivery requires shared automations).
+1. Create or edit an agent.
+2. Set visibility to **Shared with workspace** (Slack delivery requires shared agents).
 3. Enable **Deliver to Slack** and select the channel.
-4. Save. When the automation runs, the report is posted to the selected channel.
+4. Save. When the agent runs, the report is posted to the selected channel.
 
 Reports appear in the channel with the same format as in the Inbox: evidence-backed, with citations. Teammates can read them without opening Ravell.
 
@@ -161,6 +135,6 @@ Reports appear in the channel with the same format as in the Inbox: evidence-bac
 
 ---
 
-## Future: Automations as agent
+## Future: Richer agent experience
 
-Automations are evolving toward a more agent-like experience — you'll be able to manage them conversationally (e.g. from the Slack Agent or Web Asks) with richer scheduling and delivery options. The core idea stays the same: define a question, set a schedule, get reports in your Inbox or Slack.
+Agents are evolving toward a more conversational experience — you'll be able to manage them from the Slack Agent or Web Asks with richer scheduling and delivery options. The core idea stays the same: define a question, set a schedule, get reports in your Inbox or Slack.

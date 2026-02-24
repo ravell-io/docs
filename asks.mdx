@@ -9,6 +9,8 @@ description: "Ask questions in plain language and get evidence-backed answers wi
 
 Answers are grounded in your data — every claim ties back to a source. You always see where the information came from and can verify it yourself.
 
+**Why it matters:** Ravell searches in several ways at once — by meaning, by exact text, by recency, and by how items link together. It figures out what kind of question you're asking and resolves references like "Project X" or "ENG-142" to real items. Simple questions get a quick pass; complex ones get more retrieval and deeper reasoning. You get answers even when the right info is scattered across Linear, Notion, Slack, etc., and phrased differently from your question.
+
 ---
 
 ## How it works
@@ -26,43 +28,13 @@ You see this progress as **streaming thoughts** — short status updates like "B
 
 ---
 
-## How it works under the hood
+## Behind the scenes
 
-For the technically curious, here's the detailed flow from question to answer.
+Ravell figures out what kind of question you're asking (list, summary, comparison, or lookup) and how complex it is. That shapes how it searches: simple questions get a quick pass; harder ones get more sources and deeper reasoning.
 
-### 1. Intent classification
+It searches your connected tools in several ways at once — by meaning, by exact text, by recency, and by how items link together. Results are merged so no single method dominates, then filtered and re-ranked so the best evidence surfaces first.
 
-An LLM classifies the query intent (e.g. `list_issues`, `sentiment_analysis`, `trend_analysis`, `general_search`) and extracts structured signals: timeframe, sources mentioned, priorities, teams. It also assigns a complexity tier (`brief`, `standard`, `deep`, `strategic`) that influences how much reasoning and evidence the pipeline uses.
-
-### 2. Retrieval planning
-
-A planner breaks the query into sub-questions and selects which sources to search (Linear, Notion, Intercom, Slack). It produces a retrieval plan with lanes (e.g. semantic, keyword) and stop criteria (max passes, when to halt).
-
-### 3. Strategy routing
-
-The query type classifier determines the retrieval strategy: `specific_topic` (semantic lookup), `aggregate_ranking` (top-N lists), `comprehensive` (broad search), `trend`, `statistical`, or `comparative`. For statistical queries (e.g. "How many bugs?"), structured aggregation can short-circuit to a direct answer without full retrieval.
-
-### 4. Search stack
-
-Retrieval runs through a hybrid pipeline:
-
-- **Hybrid retriever** — Runs semantic (pgvector) and keyword search in parallel.
-- **RRF fusion** — Combines results from multiple lanes using Reciprocal Rank Fusion.
-- **Graph expander** — Expands via conversation links (related documents).
-- **Prefilter** — Filters by scope, freshness, and relevance.
-- **Reranker** — Re-ranks the top candidates with a cross-encoder for final relevance.
-
-### 5. Clustering and distillation
-
-Evidence chips (normalized snippets from sources) are clustered by theme. An evidence distillation step may reduce the set and produce a brief of key claims for synthesis.
-
-### 6. Synthesis and verification
-
-A streaming synthesizer generates the answer, grounding each claim in the retrieved evidence. An inline verifier checks that claims match the evidence and marks confidence. A reflection pass may refine the answer for clarity and completeness.
-
-### 7. Streaming and broadcast
-
-Progress is streamed via ActionCable: thought chunks (e.g. "Searching lanes..."), answer tokens, and citations. The frontend subscribes and renders in real time.
+For complex questions, Ravell groups similar evidence by theme and distills it into the key points before writing. The answer is grounded in what it found; a verification step checks that claims match the evidence. You see progress as it happens — thoughts stream in, then the answer, then citations.
 
 ---
 

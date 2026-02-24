@@ -18,19 +18,49 @@
     "groups": [
       {
         "group": "Start",
-        "pages": ["index", "quickstart", "asks", "workspace-setup"]
+        "pages": [
+          "index",
+          "quickstart",
+          "workspace-setup"
+        ]
+      },
+      {
+        "group": "Core Features",
+        "pages": [
+          "system-overview",
+          "asks",
+          "slack-agent",
+          "automations"
+        ]
       },
       {
         "group": "Features",
-        "pages": ["inbox", "automations", "sources", "context", "profiles", "memory", "visibility-sharing", "shortcuts", "scoping-queries", "slack-agent"]
+        "pages": [
+          "inbox",
+          "sources",
+          "context",
+          "profiles",
+          "memory",
+          "visibility-sharing",
+          "shortcuts",
+          "scoping-queries"
+        ]
       },
       {
         "group": "Integrations",
-        "pages": ["integrations/linear", "integrations/notion", "integrations/intercom", "integrations/slack"]
+        "pages": [
+          "integrations/linear",
+          "integrations/notion",
+          "integrations/intercom",
+          "integrations/slack"
+        ]
       },
       {
         "group": "Admin",
-        "pages": ["billing", "workspace-management"]
+        "pages": [
+          "billing",
+          "workspace-management"
+        ]
       }
     ]
   },

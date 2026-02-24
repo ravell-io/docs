@@ -1,13 +1,15 @@
 ---
 title: "Slack Agent"
-description: "Ask questions, create Linear records, and manage automations from Slack"
+description: "Ask questions, create Linear records, and manage agents from Slack"
 ---
 
 ## What is the Slack Agent?
 
-The **Slack Agent** brings Ravell into Slack. Use the slash command (e.g. `/ravell`) in any channel or DM to ask questions, create or update Linear records, and manage automations — all in natural language. No forms, no buttons: just type what you want.
+The **Slack Agent** brings Ravell into Slack. Mention **@Ravell** in any channel or DM to ask questions, create or update Linear records, and manage agents — all in natural language. You can also use the `/ravell` slash command. No forms, no buttons: just type what you want.
 
 Ravell responds in-thread with answers and citations. Long answers include a **View full answer** button to open the full report in the app. While processing, you may see **Follow along in Ravell** to watch the answer stream in real time.
+
+**Why it matters:** Ravell acts as an assistant that can both answer and execute. For broad questions, it runs the full pipeline; for specific lookups ("Find ENG-142"), it does fast, targeted queries. It can create or update Linear issues, manage agents, and push to Notion instead of only describing what to do. In threads, it remembers prior turns and citations so it can build on earlier answers.
 
 ---
 
@@ -16,54 +18,21 @@ Ravell responds in-thread with answers and citations. Long answers include a **V
 | Aspect | Web Asks | Slack Agent |
 |--------|----------|-------------|
 | **Where** | app.ravell.io | Slack (channel or DM) |
-| **Input** | Main input, sidebar | Slash command + message |
+| **Input** | Main input, sidebar | @Ravell mention or /ravell + message |
 | **Response** | Full answer with Sources rail | In-thread answer; long answers truncated with link |
 | **Linear actions** | Via follow-up agent | Natural language ("Create a bug about X") |
-| **Automations** | In Automations view | Natural language ("Create an automation that...") |
+| **Agents** | In Agents view | Natural language ("Create an agent that...") |
 | **Context** | Full UI, Context view | Thread context, Memory |
 
-The Slack Agent uses the same search pipeline and sources as Web Asks. It also has dedicated sub-agents for Linear and Automations, so you can create issues, update projects, or manage automations without leaving Slack.
+The Slack Agent uses the same search pipeline and sources as Web Asks. It also has dedicated sub-agents for Linear and Agents, so you can create issues, update projects, or manage agents without leaving Slack.
 
 ---
 
-## How it works under the hood
+## Behind the scenes
 
-For the technically curious, here's the detailed flow from Slack message to response.
+When you message Ravell in Slack, it decides whether you're asking a follow-up (answerable from the thread) or something new. Follow-ups get a quick response from context; new questions or actions trigger the full pipeline — the same one Web Asks uses.
 
-### 1. Slash command or message
-
-When you type `/ravell` or reply in a thread, Slack sends the payload to Ravell. The **Slack Commands** controller handles slash commands; the **Slack Events** controller handles app mentions and thread replies. A `SlackThreadSession` tracks the conversation; each turn becomes a `SlackTurn`.
-
-### 2. Query critic
-
-Before processing, a **query critic** checks for off-topic or prompt-injection attempts. If the query fails, Ravell responds with a polite deflection (e.g. "I'm only useful for your actual product work...") instead of running the pipeline.
-
-### 3. Routing: follow-up vs agent
-
-A **router** decides how to handle the message:
-
-- **Stream follow-up** — For simple follow-ups answerable from conversation memory (e.g. "Which of those?"), the Follow-up agent answers from context or uses tools. No full pipeline.
-- **Slack agent** — For new questions or action requests, the Slack Agent runs. It has access to: `pipeline` (full search), `structured_retrieval` (lookups), `delegate_to_linear` (Linear CRUD), `delegate_to_automations` (automation CRUD), and `explain_capabilities` (help).
-
-### 4. Agent execution
-
-The Slack Agent is an LLM with tools. It chooses which tool to call based on the question:
-
-- **Search questions** → `pipeline` tool. This creates a `QuerySession` and runs the same pipeline as Web Asks (intent, plan, search, synthesize). The agent receives the full answer and formats it for Slack.
-- **Lookups** ("Find ENG-142") → `structured_retrieval`.
-- **Create/update Linear** → `delegate_to_linear` (delegates to the Linear sub-agent).
-- **Automation requests** → `delegate_to_automations` (delegates to the Automations sub-agent).
-- **Help** → `explain_capabilities`.
-
-The agent has a max of 3 tool calls per turn. If it fails, it falls back along a chain: `structured_retrieval` → `pipeline` → `explain_capabilities`.
-
-### 5. Response formatting
-
-For long answers, a **TLDR generator** produces a short summary. The **AnswerFormatter** builds Slack Block Kit: section (answer text), context blocks (citations), and a "View full answer" button linking to `app.ravell.io/app/c/{slug}`.
-
-### 6. Posting to Slack
-
-The response is posted in-thread. If the answer was long, the user sees the TLDR + button; the full answer lives in the linked chat. A progress message ("Still working...") may be posted ephemerally with a "Follow along in Ravell" button while the pipeline runs.
+Ravell picks the right tool for the job: full search for broad questions, quick lookups for specific items like "Find ENG-142", and delegation to Linear or Agents when you want to create or update something. Long answers get a short summary in Slack plus a "View full answer" link to the full report in the app.
 
 ---
 
@@ -71,20 +40,20 @@ The response is posted in-thread. If the answer was long, the user sees the TLDR
 
 1. Connect **Slack** as a source (see [Slack integration](/integrations/slack)).
 2. The Slack Agent is enabled when Slack is connected.
-3. Use the configured slash command (e.g. `/ravell`) in any channel or DM where the app is installed.
+3. Mention **@Ravell** or use the `/ravell` slash command in any channel or DM where the app is installed.
 
 ---
 
 ## Ask questions
 
-Type `/ravell` followed by your question. Ravell searches your connected sources (Linear, Notion, Intercom, Slack) and responds in-thread with an answer and citations.
+Mention **@Ravell** (or type `/ravell`) followed by your question. Ravell searches your connected sources (Linear, Notion, Intercom, Slack) and responds in-thread with an answer and citations.
 
 Examples:
 
-- `/ravell What are the top open issues in our current cycle?`
-- `/ravell Summarize customer feedback from Intercom this week.`
-- `/ravell Find ENG-142` — Look up a specific Linear issue.
-- `/ravell What did we discuss about the API last week?` — Search Slack (when indexed).
+- `@Ravell What are the top open issues in our current cycle?`
+- `@Ravell Summarize customer feedback from Intercom this week.`
+- `@Ravell Find ENG-142` — Look up a specific Linear issue.
+- `@Ravell What did we discuss about the API last week?` — Search Slack (when indexed).
 
 ---
 
@@ -94,38 +63,38 @@ You can create and update Linear records by typing requests in plain language. N
 
 ### Issues
 
-- `/ravell Create a bug about login timeouts`
-- `/ravell File a ticket for the auth problem we discussed`
-- `/ravell Update ENG-123 to done`
-- `/ravell Close that issue` — Uses thread context when you say "that" or "this".
+- `@Ravell Create a bug about login timeouts`
+- `@Ravell File a ticket for the auth problem we discussed`
+- `@Ravell Update ENG-123 to done`
+- `@Ravell Close that issue` — Uses thread context when you say "that" or "this".
 
 ### Projects, initiatives, documents
 
-- `/ravell Create a project for the checkout redesign`
-- `/ravell Update the Backend initiative status`
-- `/ravell Create a Linear document for the API spec`
+- `@Ravell Create a project for the checkout redesign`
+- `@Ravell Update the Backend initiative status`
+- `@Ravell Create a Linear document for the API spec`
 
 ### Customer requests
 
-- `/ravell Log this as a customer request on ENG-123` — Links feedback to an issue.
-- `/ravell Create a customer record for Acme Corp`
+- `@Ravell Log this as a customer request on ENG-123` — Links feedback to an issue.
+- `@Ravell Create a customer record for Acme Corp`
 
 Ravell checks for duplicates before creating issues and uses conversation context when you refer to "this" or "that". **Linear must be connected** for these actions to work.
 
 ---
 
-## Manage automations from Slack
+## Manage agents from Slack
 
-You can create, update, list, pause, resume, and delete automations directly from Slack.
+You can create, update, list, pause, resume, and delete agents directly from Slack.
 
 Examples:
 
-- `/ravell Create an automation that runs every Monday at 9am summarizing top issues`
-- `/ravell Create an automation that fires every morning gathering customer complaints`
-- `/ravell Send that report to #product instead` — Update delivery channel.
-- `/ravell What automations do I have?`
-- `/ravell Pause the weekly report`
-- `/ravell Resume the standup digest`
+- `@Ravell Create an agent that runs every Monday at 9am summarizing top issues`
+- `@Ravell Create an agent that fires every morning gathering customer complaints`
+- `@Ravell Send that report to #product instead` — Update delivery channel.
+- `@Ravell What agents do I have?`
+- `@Ravell Pause the weekly report`
+- `@Ravell Resume the standup digest`
 
 ---
 
@@ -135,7 +104,7 @@ Reply in the thread to ask follow-up questions. Ravell keeps conversation contex
 
 - "Which of those are high priority?"
 - "Create a bug for that"
-- "Update the automation to run on Fridays"
+- "Update the agent to run on Fridays"
 
 ---
 
@@ -150,10 +119,10 @@ Reply in the thread to ask follow-up questions. Ravell keeps conversation contex
 
 Ask what Ravell can do:
 
-- `/ravell What can you do?`
-- `/ravell Help`
+- `@Ravell What can you do?`
+- `@Ravell Help`
 
-Ravell will explain its capabilities: search, Linear actions, automations, and more.
+Ravell will explain its capabilities: search, Linear actions, agents, and more.
 
 ---
 
