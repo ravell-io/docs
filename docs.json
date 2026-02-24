@@ -15,31 +15,26 @@
   "favicon": "/favicon.svg",
   "logo": "/logo/light.svg",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Docs",
-        "groups": [
-          {
-            "group": "Start",
-            "pages": ["index", "quickstart", "asks", "workspace-setup"]
-          },
-          {
-            "group": "Features",
-            "pages": ["inbox", "automations", "sources", "context", "profiles", "memory", "visibility-sharing", "shortcuts", "scoping-queries", "slack-agent"]
-          },
-          {
-            "group": "Integrations",
-            "pages": ["integrations/linear", "integrations/notion", "integrations/intercom", "integrations/slack"]
-          },
-          {
-            "group": "API",
-            "pages": ["api-reference/introduction", "api-reference/chats", "api-reference/queries", "api-reference/evidences", "api-reference/integrations"]
-          },
-          {
-            "group": "Admin",
-            "pages": ["billing", "workspace-management"]
-          }
-        ]
+        "group": "Start",
+        "pages": ["index", "quickstart", "asks", "workspace-setup"]
+      },
+      {
+        "group": "Features",
+        "pages": ["inbox", "automations", "sources", "context", "profiles", "memory", "visibility-sharing", "shortcuts", "scoping-queries", "slack-agent"]
+      },
+      {
+        "group": "Integrations",
+        "pages": ["integrations/linear", "integrations/notion", "integrations/intercom", "integrations/slack"]
+      },
+      {
+        "group": "API",
+        "pages": ["api-reference/introduction", "api-reference/chats", "api-reference/queries", "api-reference/evidences", "api-reference/integrations"]
+      },
+      {
+        "group": "Admin",
+        "pages": ["billing", "workspace-management"]
       }
     ]
   },
