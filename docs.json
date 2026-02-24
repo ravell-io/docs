@@ -1,84 +1,45 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "willow",
+  "theme": "mint",
   "name": "Ravell",
   "mode": "light",
-  "colors": {
-    "primary": "#18181b",
-    "light": "#27272a",
-    "dark": "#09090b"
+  "modeToggle": {
+    "default": "light",
+    "isHidden": true
   },
-  "fonts": {
-    "family": "Inter"
+  "colors": {
+    "primary": "#18181b"
   },
   "favicon": "/favicon.svg",
+  "logo": "/logo/light.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Docs",
         "groups": [
           {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "asks",
-              "workspace-setup"
-            ]
+            "group": "Start",
+            "pages": ["index", "quickstart", "asks", "workspace-setup"]
           },
           {
-            "group": "Core features",
-            "pages": [
-              "inbox",
-              "automations",
-              "sources"
-            ]
+            "group": "Features",
+            "pages": ["inbox", "automations", "sources", "context", "profiles", "memory", "visibility-sharing", "shortcuts", "scoping-queries", "slack-agent"]
           },
           {
             "group": "Integrations",
-            "pages": [
-              "integrations/linear",
-              "integrations/notion",
-              "integrations/intercom",
-              "integrations/slack"
-            ]
+            "pages": ["integrations/linear", "integrations/notion", "integrations/intercom", "integrations/slack"]
           },
           {
-            "group": "Advanced",
-            "pages": [
-              "context",
-              "profiles",
-              "memory",
-              "visibility-sharing",
-              "shortcuts",
-              "scoping-queries",
-              "slack-agent"
-            ]
-          },
-          {
-            "group": "API reference",
-            "pages": [
-              "api-reference/introduction",
-              "api-reference/chats",
-              "api-reference/queries",
-              "api-reference/evidences",
-              "api-reference/integrations"
-            ]
+            "group": "API",
+            "pages": ["api-reference/introduction", "api-reference/chats", "api-reference/queries", "api-reference/evidences", "api-reference/integrations"]
           },
           {
             "group": "Admin",
-            "pages": [
-              "billing",
-              "workspace-management"
-            ]
+            "pages": ["billing", "workspace-management"]
           }
         ]
       }
     ]
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "primary": {
@@ -86,11 +47,5 @@
       "label": "Open Ravell",
       "href": "https://app.ravell.io"
     }
-  },
-  "contextual": {
-    "options": [
-      "copy"
-    ]
-  },
-  "footer": {}
+  }
 }

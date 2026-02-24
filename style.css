@@ -1,25 +1,10 @@
-/* Sidebar: white background, no border */
 #sidebar {
   background: #ffffff !important;
   border-right: none;
 }
 
-/* Logo: smaller */
 .nav-logo img,
 .nav-logo svg {
   max-height: 24px;
   width: auto;
-}
-
-/* Scrollbars: thin, subtle (matches app) */
-#sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-#sidebar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 9999px;
-}
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
 }
