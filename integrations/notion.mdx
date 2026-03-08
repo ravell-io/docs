@@ -1,11 +1,11 @@
 ---
 title: "Notion"
-description: "Connect Notion to search your workspace and push reports"
+description: "Connect Notion to search, create pages, and manage databases"
 ---
 
 ## Overview
 
-Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. You can also **push reports to Notion** from Asks and Inbox.
+Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. Ravell can also **create and update** pages, databases, and comments directly from the Slack Agent or follow-up prompts.
 
 ---
 
@@ -38,6 +38,50 @@ Connect **Notion** to Ravell to search across your Notion workspace. Ravell inde
 - **Databases**: Schema and entries.
 
 Ravell uses this data to answer questions and provide citations back to Notion pages.
+
+---
+
+## Actions you can take
+
+Ravell supports bidirectional actions with Notion — you can create and update pages, databases, and comments directly from the Slack Agent or via follow-up prompts.
+
+### Pages
+
+| Action | Example |
+|--------|---------|
+| **Create page** | "Create a Notion page for the API spec in the Engineering database" |
+| **Update page** | "Update the title of that Notion page" or "Archive the old roadmap page" |
+| **Append content** | "Add these notes to the meeting page" |
+
+### Databases
+
+| Action | Example |
+|--------|---------|
+| **Create database** | "Create a Notion database for tracking customer requests" |
+| **Update database** | "Add a Status property to the feedback database" |
+
+### Comments
+
+| Action | Example |
+|--------|---------|
+| **Add comment** | "Add a comment on that Notion page summarizing the discussion" |
+
+<Tip>
+  Ravell uses conversation context when you refer to "this" or "that" — just discuss a page in Slack and then say "Add a comment to that page".
+</Tip>
+
+---
+
+## From Slack
+
+All Notion actions work from the Slack Agent. Mention **@Ravell** with your request:
+
+- `@Ravell Create a Notion page for the checkout flow spec`
+- `@Ravell Add these meeting notes to the Engineering wiki`
+- `@Ravell Create a database for tracking feature requests`
+- `@Ravell Add a comment on that page with a summary`
+
+Ravell uses thread context, so you can discuss a topic and then say `@Ravell Push this to Notion`. See [Slack Agent](/slack-agent) for full details.
 
 ---
 
