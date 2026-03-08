@@ -5,57 +5,34 @@ description: "Ask questions in plain language and get evidence-backed answers wi
 
 ## What are Web Asks?
 
-**Web Asks** are the primary way to use Ravell in the app. You type a question in plain language, and Ravell searches your connected sources (Linear, Notion, Intercom, Slack), retrieves relevant evidence, and synthesizes an answer with citations. Each Ask is a conversation thread: you can follow up to go deeper without repeating context.
+**Web Asks** are the primary way to use Ravell in the app. Type a question in plain language, and Ravell searches your connected sources, retrieves relevant evidence, and synthesizes an answer with citations. Each Ask is a conversation thread: follow up to go deeper without repeating context.
 
 Answers are grounded in your data — every claim ties back to a source. You always see where the information came from and can verify it yourself.
 
-**Why it matters:** Ravell searches in several ways at once — by meaning, by exact text, by recency, and by how items link together. It figures out what kind of question you're asking and resolves references like "Project X" or "ENG-142" to real items. Simple questions get a quick pass; complex ones get more retrieval and deeper reasoning. You get answers even when the right info is scattered across Linear, Notion, Slack, etc., and phrased differently from your question.
-
 ---
 
-## How it works
+## What you can ask
 
-When you submit a question, Ravell runs a multi-stage pipeline:
+| Category | Example questions |
+|----------|-------------------|
+| **Issue tracking** | "What are the top open issues in our current cycle?" · "Find ENG-142" · "Show me stale issues" |
+| **Customer feedback** | "What did customers say about checkout last month?" · "Cluster feedback about pricing" |
+| **Team activity** | "What did the backend team ship last week?" · "What's blocking the most issues?" |
+| **Discussions** | "What did we discuss about the API last week?" · "Summarize #product this week" |
+| **Documentation** | "Find the product roadmap in Notion" · "Summarize our onboarding docs" |
+| **Cross-source** | "Connect customer feedback to our roadmap" · "What do we know about Acme Corp?" |
+| **CRM** | "What meetings did we have with Acme?" · "Show recent notes on the Series B deal" |
 
-1. **Intent** — Understands what you're asking (e.g. find issues, summarize feedback, compare trends).
-2. **Plan** — Breaks the query into sub-questions and selects which sources to search.
-3. **Search** — Retrieves relevant documents from Linear, Notion, Intercom, and Slack using semantic and hybrid search.
-4. **Cluster & rank** — Groups evidence by theme and ranks by relevance.
-5. **Synthesize** — Generates the answer, grounding each claim in the retrieved evidence.
-6. **Verify** — Checks that claims match the evidence and marks confidence where needed.
-
-You see this progress as **streaming thoughts** — short status updates like "Breaking the query into sub-questions...", "Searching Linear, Intercom...", "Synthesizing answer...". This transparency helps you understand what Ravell is doing and how long it might take.
-
----
-
-## Behind the scenes
-
-Ravell figures out what kind of question you're asking (list, summary, comparison, or lookup) and how complex it is. That shapes how it searches: simple questions get a quick pass; harder ones get more sources and deeper reasoning.
-
-It searches your connected tools in several ways at once — by meaning, by exact text, by recency, and by how items link together. Results are merged so no single method dominates, then filtered and re-ranked so the best evidence surfaces first.
-
-For complex questions, Ravell groups similar evidence by theme and distills it into the key points before writing. The answer is grounded in what it found; a verification step checks that claims match the evidence. You see progress as it happens — thoughts stream in, then the answer, then citations.
+For 50+ more examples, see the [Question library](/use-cases/question-library).
 
 ---
 
 ## Asking a question
 
-### Start a new Ask
-
 1. Click **New Ask** in the sidebar, or use the main input when no chat is selected.
 2. Type your question in plain language. Be as specific as you can — time ranges, topics, and source hints improve results.
 3. Optionally set **visibility** (private or shared) and **scope** (all sources or specific ones).
 4. Press Enter or click Send. The answer streams in with citations.
-
-### Example questions
-
-| Question | What Ravell does |
-|----------|-------------------|
-| "What are the top open issues in our current cycle?" | Searches Linear, ranks by relevance, synthesizes a list with links. |
-| "What did customers say about checkout last month?" | Searches Intercom (and optionally Linear/Notion), clusters themes, summarizes. |
-| "Summarize feedback from Intercom about pricing." | Filters to Intercom, extracts pricing-related content, synthesizes. |
-| "Find ENG-142" | Direct lookup in Linear. |
-| "What did we discuss about the API last week?" | Searches Slack (when indexed) for API-related threads. |
 
 ---
 
@@ -125,22 +102,34 @@ Use this to turn Ask results into shared docs, meeting prep, or recurring report
 
 ---
 
+## How it works
+
+<Accordion title="Behind the scenes">
+When you submit a question, Ravell runs a multi-stage pipeline:
+
+1. **Intent** — Classifies what you're asking (find issues, summarize feedback, compare trends) and resolves references like "Project X" or "ENG-142" to real items.
+2. **Plan** — Breaks the query into sub-questions and selects which sources to search.
+3. **Search** — Retrieves documents using semantic, lexical, structured, and graph-based search simultaneously.
+4. **Cluster & rank** — Groups evidence by theme and re-ranks so the best evidence surfaces first.
+5. **Synthesize** — Generates the answer, grounding each claim in the retrieved evidence.
+6. **Verify** — Checks that claims match the evidence and marks confidence where needed.
+
+You see this progress as **streaming thoughts** — short status updates that show what Ravell is doing. Simple questions get a quick pass; complex ones get deeper reasoning.
+</Accordion>
+
+---
+
 ## Tips for better answers
 
-<AccordionGroup>
-  <Accordion icon="lightbulb" title="Be specific">
-    "What did customers say about checkout in the last 30 days?" works better than "customer feedback." Time ranges and topics help Ravell retrieve the right evidence.
-  </Accordion>
-  <Accordion icon="lightbulb" title="Use follow-ups">
-    Start broad, then narrow. Ask "What are the top issues?" then "Which of those are in the current sprint?" to drill down.
-  </Accordion>
-  <Accordion icon="lightbulb" title="Connect more sources">
-    The more Linear, Notion, Intercom, and Slack data you connect, the richer and more accurate the answers.
-  </Accordion>
-  <Accordion icon="lightbulb" title="Scope when you know">
-    If you know the answer is in Linear, scope to Linear only. It's faster and often more focused.
-  </Accordion>
-</AccordionGroup>
+| Tip | Why it helps |
+|-----|-------------|
+| **Be specific** | "Checkout feedback in the last 30 days" beats "customer feedback" |
+| **Use follow-ups** | Reply in the thread to narrow, expand, or act on results |
+| **Scope when you know** | "From Linear only" is faster when you know the answer is there |
+| **Connect more sources** | More data = richer, more accurate answers |
+| **Include time ranges** | "Last week", "this cycle", "since January" improve relevance |
+
+For a full prompt engineering guide, see [Better questions](/better-questions).
 
 ---
 
@@ -156,10 +145,16 @@ Use this to turn Ask results into shared docs, meeting prep, or recurring report
 ## Next steps
 
 <CardGroup cols={2}>
+  <Card title="Better questions" icon="lightbulb" href="/better-questions">
+    Get more accurate, relevant answers with better prompts.
+  </Card>
+  <Card title="Question library" icon="book" href="/use-cases/question-library">
+    50+ example questions organized by source and role.
+  </Card>
   <Card title="Context" icon="sparkles" href="/context">
     Set up profiles and Memory for personalized answers.
   </Card>
-  <Card title="Shortcuts" icon="keyboard" href="/shortcuts">
-    Speed up with keyboard shortcuts.
+  <Card title="Slack Agent" icon="comments" href="/slack-agent">
+    Ask the same questions from Slack.
   </Card>
 </CardGroup>

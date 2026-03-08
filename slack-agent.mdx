@@ -132,6 +132,47 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 
 ---
 
+## Command reference
+
+<Accordion title="Complete command reference">
+
+### Questions
+- `@Ravell [any question]` — Ask a question across all connected sources
+- `@Ravell from Linear: [question]` — Scope to a specific source
+- `/ravell [question]` — Alternative to @mention
+
+### Linear actions
+- `@Ravell Create a bug about [topic]` — Create an issue
+- `@Ravell Update ENG-123 to [status]` — Update an issue status
+- `@Ravell Close that issue` — Uses thread context
+- `@Ravell Create a project for [topic]` — Create a project
+- `@Ravell Update [project] status` — Update a project
+- `@Ravell Create an initiative for [topic]` — Create an initiative
+- `@Ravell Create a Linear document for [topic]` — Create a document
+- `@Ravell Log this as a customer request on ENG-123` — Create a customer need
+- `@Ravell Create a customer record for [company]` — Create a customer
+- `@Ravell Add a comment on ENG-142` — Add a comment
+
+### Agent management
+- `@Ravell Create an agent that runs every [schedule] [question]` — Create an agent
+- `@Ravell What agents do I have?` — List agents
+- `@Ravell Pause the [agent name]` — Pause an agent
+- `@Ravell Resume the [agent name]` — Resume an agent
+- `@Ravell Send that report to #channel` — Update delivery
+
+### Follow-ups
+- Reply in any thread to follow up — Ravell keeps conversation context
+- "Which of those are high priority?" — Narrow results
+- "Create a bug for that" — Act on thread context
+- "Push this to Notion" — Export the answer
+
+### Help
+- `@Ravell Help` or `@Ravell What can you do?` — List capabilities
+
+</Accordion>
+
+---
+
 ## Permissions
 
 The Slack Agent respects your workspace permissions. You can only ask questions about data you have access to, and create or update Linear records in workspaces you are a member of.

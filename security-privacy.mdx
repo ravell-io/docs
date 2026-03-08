@@ -1,0 +1,86 @@
+---
+title: "Security & privacy"
+description: "How Ravell handles your data, privacy, and workspace isolation"
+---
+
+Ravell takes data security seriously. This page explains what data we access, how we store and process it, and how we keep your workspace isolated.
+
+---
+
+## What data Ravell accesses
+
+Ravell only accesses data from integrations you explicitly connect via OAuth. You control which teams, channels, and pages to sync.
+
+| Integration | What's accessed |
+|-------------|-----------------|
+| **Linear** | Issues, projects, cycles, initiatives, documents, customer needs |
+| **Notion** | Pages and databases you authorize |
+| **Intercom** | Conversations, messages, customer context |
+| **Slack** | Messages and threads from selected channels |
+| **Attio** | Notes, meeting transcripts, call recordings, deals, records, threads |
+
+Ravell does **not** access data from integrations you haven't connected. When you disconnect a source, Ravell stops syncing and removes that source's data from the index.
+
+---
+
+## How data is stored
+
+- **Database**: All workspace data is stored in PostgreSQL with encryption at rest.
+- **Embeddings**: Document content is converted to vector embeddings for semantic search. Embeddings are stored alongside the original content.
+- **No raw credential storage**: OAuth tokens are encrypted. Ravell never stores your integration passwords.
+
+---
+
+## How data is processed
+
+When you ask a question, Ravell:
+
+1. Searches your indexed documents using semantic, lexical, and structured search.
+2. Retrieves relevant evidence from your connected sources.
+3. Sends the evidence to an LLM (large language model) to synthesize an answer.
+4. Returns the answer with citations to the original sources.
+
+Your data is used only to answer your questions and generate reports. It is not used to train AI models.
+
+---
+
+## Workspace isolation
+
+Ravell uses a multi-tenant architecture with strict workspace isolation:
+
+- **Data isolation**: Each workspace's data is scoped and isolated. Users in one workspace cannot access another workspace's sources, Asks, Agents, or reports.
+- **Role-based access**: Workspace members have roles (Owner, Member) that control what they can do. See [Workspace setup](/workspace-setup).
+- **Private Asks**: Private Asks are visible only to the user who created them. Even workspace members cannot see another member's private Asks.
+- **Memory isolation**: Your personal Memory is scoped to your account. Workspace members do not see your memories.
+
+---
+
+## What happens when you disconnect a source
+
+When you disconnect an integration:
+
+1. Ravell stops syncing data from that source.
+2. Indexed data from that source is removed from the search index.
+3. Past Ask answers that cited that source still show the citations, but the underlying data is no longer available for new queries.
+
+---
+
+## Data retention
+
+- **Active data**: As long as a source is connected, Ravell keeps indexed data up to date through periodic syncs.
+- **Deleted workspaces**: When a workspace is deleted, all associated data (sources, Asks, Agents, reports, profiles, memories) is permanently removed.
+- **Account deletion**: Contact support to request full account and data deletion.
+
+---
+
+## Privacy controls
+
+- **Visibility settings**: Choose private or shared for each Ask and Agent. See [Visibility and sharing](/visibility-sharing).
+- **Source exclusions**: Exclude specific sources from being used in your profile context. See [Profiles](/profiles).
+- **Memory management**: View, edit, and delete individual memories. Clear all memory to start fresh. See [Memory](/memory).
+
+---
+
+## Questions?
+
+If you have questions about security or data handling, contact us at [support@ravell.io](mailto:support@ravell.io).

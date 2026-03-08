@@ -1,14 +1,14 @@
 ---
 title: "Slack"
-description: "Connect Slack channels for indexing and use the Slack Agent"
+description: "Connect Slack for channel indexing and the Slack Agent"
 ---
 
 ## Overview
 
-Connect **Slack** to Ravell for two main capabilities:
+Slack serves two roles in Ravell:
 
-1. **Indexing**: Ravell indexes selected channels so you can search Slack content in Asks (e.g. "What did we discuss about the API last week?").
-2. **Slack Agent**: Ask questions in Slack via slash commands and get answers with citations. Create or update Linear issues from Slack.
+1. **Slack as a source**: Ravell indexes selected channels so you can search Slack content in Asks (e.g. "What did we discuss about the API last week?").
+2. **Slack Agent**: Use Ravell directly in Slack via @Ravell or `/ravell` — ask questions, create Linear issues, and manage agents without leaving Slack.
 
 ---
 
@@ -22,27 +22,47 @@ Connect **Slack** to Ravell for two main capabilities:
 
 ---
 
-## What gets synced
+## Slack as a source (indexing)
+
+### What gets synced
 
 - **Messages**: From the channels you selected.
 - **Threads**: Thread replies are included for context.
 
 Ravell uses this data to answer questions about discussions, decisions, and context shared in Slack.
 
+### Which channels should I index?
+
+Index channels where important discussions happen:
+
+- **Product channels**: #product, #roadmap, #feature-requests
+- **Engineering channels**: #engineering, #backend, #frontend
+- **Customer-facing channels**: #customer-feedback, #support
+- **Decision-making channels**: #leadership, #strategy
+
+You don't need to index social or high-noise channels (#random, #watercooler). Start with 3-5 key channels and expand as needed.
+
 ---
 
-## Slack Agent
+## Slack Agent (interface)
 
-The **Slack Agent** lets you use Ravell directly from Slack via the slash command (e.g. `/ravell`). You can:
+The Slack Agent is a separate capability from indexing. It lets you interact with Ravell directly in Slack:
 
-- **Ask questions** — Search across Linear, Notion, Intercom, and Slack; get answers with citations.
-- **Create and update Linear records** — Issues, projects, initiatives, documents, customer requests — in natural language (e.g. "Create a bug about login timeouts").
-- **Manage agents** — Create, update, list, pause, resume, or delete agents from Slack.
+- **Ask questions**: `@Ravell What are the top open issues?` — searches all connected sources, not just Slack.
+- **Create Linear records**: `@Ravell Create a bug about login timeouts` — natural language actions.
+- **Manage agents**: `@Ravell Create an agent that runs every Monday summarizing top issues` — create, pause, resume, delete.
 
-See the [Slack Agent](/slack-agent) guide for full details and examples.
+The Slack Agent is available in any channel or DM where the Ravell app is installed. See [Slack Agent](/slack-agent) for full details and examples.
 
 ---
 
 ## Agent delivery
 
-When creating an **Agent**, you can enable **Deliver to Slack** to post reports to a channel when the agent runs. Reports appear in the channel with citations, same as in the Inbox. Requires the agent to be shared with the workspace. See [Agents](/automations) for details.
+You can deliver Agent reports to Slack channels automatically:
+
+1. Create or edit an agent.
+2. Set visibility to **Shared with workspace**.
+3. Enable **Deliver to Slack** and select the channel.
+4. When the agent runs, the report is posted to the selected channel with citations.
+
+See [Agents](/agents) for details.

@@ -1,0 +1,123 @@
+---
+title: "Better questions"
+description: "How to ask questions that get more accurate, relevant answers"
+---
+
+Ravell works best when you give it specifics. This guide covers patterns for writing effective questions and common mistakes to avoid.
+
+---
+
+## Be specific
+
+The more context you include, the better Ravell can retrieve the right evidence.
+
+| Instead of... | Try... |
+|---------------|--------|
+| "Customer feedback" | "What did customers say about checkout in the last 30 days?" |
+| "Open issues" | "What are the top 10 open issues in the Payments team's current cycle?" |
+| "What's going on?" | "Summarize what shipped last week across all teams" |
+| "Bug report" | "Find the bug about login timeouts that was filed this week" |
+
+### Key details to include
+
+- **Time ranges**: "last week", "in the last 30 days", "this cycle", "since January"
+- **Teams or projects**: "in the Payments team", "on Project X"
+- **Sources**: "from Intercom", "in Linear only"
+- **Topics**: "about checkout", "related to authentication"
+
+---
+
+## Use follow-ups to refine
+
+Start broad, then narrow down in follow-up messages. Ravell keeps the full conversation context.
+
+**Example flow:**
+
+1. "What are the top open issues in our current cycle?"
+2. "Which of those are assigned to the backend team?"
+3. "Show me the ones that are blocked"
+4. "Create a summary doc for these in Notion"
+
+### Follow-up patterns
+
+| Pattern | Example |
+|---------|---------|
+| **Narrow** | "Which of those are high priority?" |
+| **Expand** | "What else did customers say about that feature?" |
+| **Pivot** | "What about the mobile version instead?" |
+| **Act** | "Create a bug for that in Linear" |
+| **Export** | "Push this to Notion" |
+
+---
+
+## Scope when you know the source
+
+If you know the answer lives in one tool, scope your question to that source. This is faster and often more focused.
+
+- "From Linear only: what's the status of the checkout redesign?"
+- "Search Intercom for feedback about pricing changes"
+- "What did we discuss in Slack about the API migration?"
+
+Use the source selector in the input, or say "from [source] only" in your question. See [Scoping queries](/scoping-queries) for details.
+
+---
+
+## Use natural references
+
+Ravell resolves references like project names, issue IDs, and people:
+
+- "Find ENG-142" — direct Linear issue lookup
+- "What's the status of Project Phoenix?" — resolves the project name
+- "What did Sarah work on last week?" — searches by person
+- "What happened with that bug we discussed?" — uses conversation context
+
+---
+
+## Ask for specific output formats
+
+Tell Ravell how you want the answer structured:
+
+- "Give me a bullet-point summary"
+- "Create a table comparing..."
+- "List the top 5 with links"
+- "Write a one-paragraph executive summary"
+
+---
+
+## Common mistakes
+
+<AccordionGroup>
+  <Accordion title="Too vague">
+    **Problem**: "Feedback" or "issues" with no context.
+
+    **Fix**: Add time ranges, teams, topics, or sources. "What feedback did customers give about onboarding in the last 2 weeks from Intercom?"
+  </Accordion>
+  <Accordion title="Too many questions at once">
+    **Problem**: "What shipped last week, what's planned for next week, and what are the top customer complaints?"
+
+    **Fix**: Ask one question at a time and use follow-ups. Each question gets a focused, thorough answer.
+  </Accordion>
+  <Accordion title="Expecting real-time data">
+    **Problem**: Asking about something that happened minutes ago.
+
+    **Fix**: Ravell syncs periodically. If you need very recent data, trigger a manual sync from **Sources** first.
+  </Accordion>
+  <Accordion title="Not using follow-ups">
+    **Problem**: Starting a new Ask for every related question.
+
+    **Fix**: Reply in the same thread. Ravell remembers the full context and can build on previous answers.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Quick reference
+
+| Technique | Why it helps |
+|-----------|-------------|
+| Add time ranges | Narrows retrieval to relevant period |
+| Name teams/projects | Scopes search to the right context |
+| Scope to a source | Faster, more focused results |
+| Use follow-ups | Builds on existing context without repeating |
+| Ask for output format | Gets exactly the structure you need |
+| Include specific IDs | Direct lookup instead of search |

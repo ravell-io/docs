@@ -1,0 +1,118 @@
+---
+title: "Troubleshooting"
+description: "Common issues and how to fix them"
+---
+
+## Sync not completing
+
+**Symptom**: A source shows "Syncing" for a long time or gets stuck.
+
+**Cause**: Large workspaces with thousands of items can take time on initial sync. Network issues or expired OAuth tokens can also cause stalls.
+
+**Fix**:
+1. Check the sync status in **Sources** — look for error messages.
+2. If stuck, try clicking **Sync** or **Reindex** to trigger a manual refresh.
+3. If errors persist, disconnect and reconnect the integration to refresh the OAuth token.
+
+---
+
+## Empty or irrelevant answers
+
+**Symptom**: Ravell returns "I couldn't find relevant information" or gives an answer that doesn't match your question.
+
+**Cause**: The question may be too vague, the data may not be synced yet, or the answer might be in a source you haven't connected.
+
+**Fix**:
+1. Be more specific — add time ranges, team names, or source hints. See [Better questions](/better-questions).
+2. Check that the relevant source is connected and synced in **Sources**.
+3. Try scoping to a specific source: "from Linear only" or "from Intercom only."
+4. If the data was just added, trigger a manual sync and try again.
+
+---
+
+## Slack Agent not responding
+
+**Symptom**: You mention @Ravell or use `/ravell` but don't get a response.
+
+**Cause**: The Slack app may not be installed in that channel, or Slack may not be connected as a source.
+
+**Fix**:
+1. Confirm Slack is connected in **Sources** or **Settings → Integrations**.
+2. Make sure the Ravell app is added to the channel you're messaging in.
+3. Try a DM to @Ravell to confirm the bot is active.
+4. If the app is installed but not responding, disconnect and reconnect Slack.
+
+---
+
+## OAuth re-authorization needed
+
+**Symptom**: A source shows an error or stops syncing, and the fix is to re-authorize.
+
+**Cause**: OAuth tokens can expire or be revoked (e.g. if someone changed permissions in the integration's admin panel).
+
+**Fix**:
+1. Go to **Settings → Integrations**.
+2. Disconnect the affected integration.
+3. Reconnect it — this generates a fresh OAuth token.
+4. Reselect teams/channels if prompted.
+
+---
+
+## Agent runs failing
+
+**Symptom**: An agent shows "Failed" status in your Inbox.
+
+**Cause**: The question may reference data that no longer exists, a source may be disconnected, or there may be a temporary processing error.
+
+**Fix**:
+1. Check the error message on the failed run (click to expand).
+2. Verify all referenced sources are still connected and synced.
+3. Try clicking **Run now** to trigger a manual retry.
+4. If the question references specific items (like a cycle that ended), update the question to use relative time ranges (e.g. "current cycle" instead of a specific date).
+
+---
+
+## Profile not updating
+
+**Symptom**: Your profile shows stale information that doesn't reflect recent changes.
+
+**Cause**: Profiles are auto-generated and cached. Changes in your connected sources may not be reflected until the next refresh.
+
+**Fix**:
+1. Open **Context** in the sidebar.
+2. Click **Refresh** to regenerate your profile from current source data.
+3. You can also manually override specific sections if the auto-generated content isn't right.
+
+---
+
+## "No results found" errors
+
+**Symptom**: Ravell says it can't find any results for your question.
+
+**Cause**: The search terms don't match any indexed content, the time range is too narrow, or the relevant data hasn't been synced.
+
+**Fix**:
+1. Broaden your question — remove time constraints or source scoping.
+2. Try different wording — Ravell searches by meaning, so rephrasing can help.
+3. Check that the relevant source is connected and synced.
+4. Verify the data exists in the original tool (e.g. confirm the issue exists in Linear).
+
+---
+
+## Still stuck?
+
+If none of the above fixes your issue, you have two options:
+
+### Submit feedback from the app
+
+Click the feedback button in the app to report bugs or request features. Your submission is automatically tracked and includes context about your current page.
+
+- **Bug report**: Something isn't working as expected
+- **Feature request**: A capability you'd like to see added
+
+### Contact support
+
+Email us at [support@ravell.io](mailto:support@ravell.io) with:
+- What you tried
+- The question or action that failed
+- Any error messages you saw

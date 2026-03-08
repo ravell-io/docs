@@ -19,6 +19,19 @@ Connect **Notion** to Ravell to search across your Notion workspace. Ravell inde
 
 ---
 
+## What you can ask
+
+| Question | What Ravell does |
+|----------|------------------|
+| "What did we document about the checkout flow?" | Searches Notion pages for checkout-related content |
+| "Find the product roadmap page" | Direct lookup of a specific document |
+| "Summarize our onboarding documentation" | Synthesizes content from onboarding-related pages |
+| "What specs were written last month?" | Finds recently created or updated spec documents |
+| "What's in our competitive analysis database?" | Searches database entries for competitive content |
+| "Find all pages mentioning [feature name]" | Full-text and semantic search across your Notion workspace |
+
+---
+
 ## What gets synced
 
 - **Pages**: Title, content, properties.
@@ -30,13 +43,31 @@ Ravell uses this data to answer questions and provide citations back to Notion p
 
 ## Push to Notion
 
-From an Ask answer or Inbox report, you can **Push to Notion** to create a new page with the report content. This is useful for:
+Push any Ask answer or Agent report to Notion as a new page:
 
-- Sharing answers with your team in a Notion doc.
-- Building a knowledge base of recurring reports.
-- Archiving agent outputs.
+<Steps>
+  <Step title="Open the answer">
+    Open an Ask or Inbox report with the content you want to push.
+  </Step>
+  <Step title="Click Push to Notion">
+    Click **Push to Notion** on the answer card.
+  </Step>
+  <Step title="Choose destination">
+    Select the parent page or database where the new page should go.
+  </Step>
+  <Step title="Confirm">
+    Ravell creates the page with the report content and citations, formatted for Notion (headings, lists, links).
+  </Step>
+</Steps>
 
-1. Open an Ask or Inbox report.
-2. Click **Push to Notion**.
-3. Choose the parent page or database where the new page should go.
-4. Confirm. Ravell creates the page with the report content and citations.
+**Use cases for Push to Notion:**
+- Share answers with your team as Notion docs
+- Build a knowledge base of recurring agent reports
+- Archive sprint reviews and weekly roundups
+- Create meeting prep docs from Ravell answers
+
+---
+
+## Re-sync and reindex
+
+Ravell syncs Notion data periodically. Trigger a manual **Reindex** or **Sync** from **Sources** to refresh data after adding new pages or updating content.
