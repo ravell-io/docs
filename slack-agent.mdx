@@ -83,6 +83,26 @@ Ravell checks for duplicates before creating issues and uses conversation contex
 
 ---
 
+## Notion actions (natural language)
+
+You can create and manage Notion pages and databases by typing requests in plain language. No forms or buttons — just describe what you want.
+
+### Pages
+
+- `@Ravell Push that to Notion` — Export the previous answer to Notion.
+- `@Ravell Create a Notion page about our Q1 goals`
+- `@Ravell Add a section about pricing to the FAQ page` — Append content to an existing page.
+- `@Ravell Add a comment on the roadmap page`
+
+### Databases
+
+- `@Ravell Create a database for tracking feature requests`
+- `@Ravell Update the Projects database title`
+
+Ravell uses conversation context when you refer to "this" or "that". **Notion must be connected** for these actions to work.
+
+---
+
 ## Manage agents from Slack
 
 You can create, update, list, pause, resume, and delete agents directly from Slack.
@@ -152,6 +172,14 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 - `@Ravell Log this as a customer request on ENG-123` — Create a customer need
 - `@Ravell Create a customer record for [company]` — Create a customer
 - `@Ravell Add a comment on ENG-142` — Add a comment
+
+### Notion actions
+- `@Ravell Push that to Notion` — Export the previous answer
+- `@Ravell Create a Notion page about [topic]` — Create a page
+- `@Ravell Add a section about [topic] to [page]` — Append content
+- `@Ravell Add a comment on [page]` — Comment on a page
+- `@Ravell Create a database for [topic]` — Create a database
+- `@Ravell Update the [database] title` — Update a database
 
 ### Agent management
 - `@Ravell Create an agent that runs every [schedule] [question]` — Create an agent

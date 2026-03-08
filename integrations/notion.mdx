@@ -1,11 +1,11 @@
 ---
 title: "Notion"
-description: "Connect Notion to search your workspace and push reports"
+description: "Connect Notion to search your workspace, create pages, and push reports"
 ---
 
 ## Overview
 
-Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. You can also **push reports to Notion** from Asks and Inbox.
+Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. You can also **create, update, and manage Notion pages and databases** directly from Slack or follow-up prompts.
 
 ---
 
@@ -41,6 +41,38 @@ Ravell uses this data to answer questions and provide citations back to Notion p
 
 ---
 
+## Actions you can take
+
+Ravell supports bidirectional actions with Notion — you can create and update pages, append content, add comments, and manage databases directly from the Slack Agent or via follow-up prompts.
+
+### Pages
+
+| Action | Example |
+|--------|---------|
+| **Push report to Notion** | "Push that to Notion" or "Export this summary to the Reports database" |
+| **Create page** | "Create a Notion page about Q1 goals" |
+| **Update page** | "Update the roadmap page title to Q2 Roadmap" |
+| **Append content** | "Add a section about pricing to the FAQ page" |
+
+### Comments
+
+| Action | Example |
+|--------|---------|
+| **Add comment** | "Add a comment on the roadmap page with the latest decisions" |
+
+### Databases
+
+| Action | Example |
+|--------|---------|
+| **Create database** | "Create a database for tracking feature requests under the Product page" |
+| **Update database** | "Update the Projects database title" |
+
+<Tip>
+  When pushing reports, Ravell automatically converts markdown content to Notion blocks (headings, lists, links).
+</Tip>
+
+---
+
 ## Push to Notion
 
 Push any Ask answer or Agent report to Notion as a new page:
@@ -65,6 +97,19 @@ Push any Ask answer or Agent report to Notion as a new page:
 - Build a knowledge base of recurring agent reports
 - Archive sprint reviews and weekly roundups
 - Create meeting prep docs from Ravell answers
+
+---
+
+## From Slack
+
+All Notion actions work from the Slack Agent. Mention **@Ravell** with your request:
+
+- `@Ravell Push that to Notion`
+- `@Ravell Create a Notion page about our Q1 goals`
+- `@Ravell Add a comment on the roadmap page`
+- `@Ravell Export this summary to the Reports database`
+
+Ravell uses conversation context, so you can discuss a topic and then say `@Ravell Push that to Notion`. See [Slack Agent](/slack-agent) for full details.
 
 ---
 
