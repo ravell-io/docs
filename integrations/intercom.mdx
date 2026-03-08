@@ -1,11 +1,11 @@
 ---
 title: "Intercom"
-description: "Connect Intercom to search conversations and customer feedback"
+description: "Connect Intercom to search conversations and analyze customer feedback"
 ---
 
 ## Overview
 
-Connect **Intercom** to Ravell to search across your customer conversations. Ravell indexes conversations so you can ask questions like "What did customers say about checkout last month?" or "Summarize feedback from Intercom about pricing" and get answers with citations.
+Connect **Intercom** to Ravell to search across your customer conversations. Ravell indexes conversations so you can analyze feedback themes, track satisfaction, identify churn signals, and understand what customers are asking for.
 
 ---
 
@@ -19,6 +19,33 @@ Connect **Intercom** to Ravell to search across your customer conversations. Rav
 
 ---
 
+## What you can ask
+
+| Question | What Ravell does |
+|----------|------------------|
+| "What did customers say about checkout last month?" | Clusters customer feedback by theme |
+| "Summarize feedback about pricing" | Extracts and synthesizes pricing-related conversations |
+| "What are the top support issues this week?" | Identifies trending support topics |
+| "Which customers mentioned churn or cancellation?" | Finds conversations with churn signals |
+| "What feature requests came in from enterprise accounts?" | Filters feedback by account type and topic |
+| "How satisfied are customers with onboarding?" | Analyzes satisfaction signals from conversations |
+| "Show me escalated conversations from last week" | Finds high-priority or escalated conversations |
+| "What competitors did customers mention?" | Searches for competitive mentions in customer conversations |
+
+---
+
+## Customer feedback analysis patterns
+
+Intercom is one of Ravell's most powerful sources for understanding customer sentiment. Try these workflows:
+
+**Theme clustering**: "Cluster customer feedback from the last 30 days into themes with counts" — groups similar feedback and shows volume.
+
+**Trend tracking**: "How has customer sentiment about [feature] changed over the last 3 months?" — identifies shifts in feedback over time.
+
+**Cross-source analysis**: "What feature requests from Intercom are already in our Linear roadmap?" — connects customer demand to planned work.
+
+---
+
 ## What gets synced
 
 - **Conversations**: Messages, timestamps, participants, tags.
@@ -28,14 +55,6 @@ Ravell uses this data to answer questions about customer feedback, support issue
 
 ---
 
-## Use cases
-
-- "What did customers say about [feature] last month?"
-- "Summarize feedback from Intercom about pricing."
-- "What are the top support issues this week?"
-
----
-
 ## Re-sync and reindex
 
-Ravell syncs periodically. You can trigger a manual **Reindex** or **Sync** from **Sources** to refresh data after bulk imports or major changes.
+Ravell syncs periodically. Trigger a manual **Reindex** or **Sync** from **Sources** to refresh data after bulk imports or major changes.

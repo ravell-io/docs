@@ -1,0 +1,225 @@
+---
+title: "Agent templates"
+description: "Pre-built agent templates for common product intelligence workflows"
+---
+
+Templates give you a head start when creating agents. Each template pre-fills a question, schedule, and description — customize before saving.
+
+Open **Agents** → **Create agent** to browse the gallery.
+
+---
+
+## Execution templates
+
+Templates for tracking work progress, alignment, and priorities.
+
+<AccordionGroup>
+  <Accordion title="Weekly product roundup">
+    **Question**: "Summarize the top issues and feature requests from Linear this week."
+
+    **Value**: Stay on top of your backlog without manual triage.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Add specific teams or projects to focus the roundup. Include "and customer feedback from Intercom" for cross-source context.
+  </Accordion>
+
+  <Accordion title="Daily standup prep">
+    **Question**: "What customer feedback came in yesterday?"
+
+    **Value**: Start every standup with fresh customer context.
+
+    **Default schedule**: Every weekday at 8:00am
+
+    **Customize**: Change to "What happened in [team name] since yesterday?" for team-specific standups. Add "Focus on completed work, new issues, and blockers" for a more structured report.
+  </Accordion>
+
+  <Accordion title="Product priorities gap">
+    **Question**: "What should we be working on today that we aren't?"
+
+    **Value**: Align work with what matters most.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Scope to specific teams or add "based on customer feedback and roadmap" for evidence-backed prioritization.
+  </Accordion>
+
+  <Accordion title="Project misalignment signals">
+    **Question**: "Identify projects we're actively working on and surface evidence we may be building the wrong thing (customer feedback, support tickets, or internal doubts)."
+
+    **Value**: Surface evidence you're building the wrong thing.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Focus on specific projects by name for targeted alignment checks.
+  </Accordion>
+
+  <Accordion title="Roadmap vs. reality">
+    **Question**: "Compare our stated roadmap (Linear initiatives/projects) to recent customer feedback. Where are we out of sync?"
+
+    **Value**: Keep strategy grounded in customer feedback.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Best run bi-weekly. Add "Focus on enterprise customer feedback" to weight by segment.
+  </Accordion>
+
+  <Accordion title="Stale work detection">
+    **Question**: "Which Linear projects or issues have had no activity for 2+ weeks but are still marked in progress?"
+
+    **Value**: Clear bottlenecks and dead work.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Adjust the staleness threshold ("1 week", "3 weeks") to match your team's cadence.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Customer templates
+
+Templates for monitoring customer health, satisfaction, and growth signals.
+
+<AccordionGroup>
+  <Accordion title="Churn signals">
+    **Question**: "Which accounts showed churn risk indicators in the last 7 days?"
+
+    **Value**: Catch at-risk accounts before they leave.
+
+    **Default schedule**: Every Friday at 5:00pm
+
+    **Customize**: Deliver to your CS team's Slack channel for immediate visibility. Add "Include context from Attio notes" if Attio is connected.
+  </Accordion>
+
+  <Accordion title="Support trends">
+    **Question**: "Summarize Intercom ticket trends and common themes this week."
+
+    **Value**: Spot recurring issues before they scale.
+
+    **Default schedule**: Every Monday at 10:00am
+
+    **Customize**: Add "Compare to last week" for trend tracking. Focus on specific product areas if needed.
+  </Accordion>
+
+  <Accordion title="Most unsatisfied customers">
+    **Question**: "Which customers showed the strongest dissatisfaction with the product in the last 30 days, and what are the main reasons?"
+
+    **Value**: Know who's struggling and why.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Filter by customer segment or product area for targeted insight.
+  </Accordion>
+
+  <Accordion title="Most satisfied customers">
+    **Question**: "Which customers showed the strongest satisfaction with the product, and what do they value most?"
+
+    **Value**: Know who loves you and what they value.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Use this to identify case study candidates and reference customers.
+  </Accordion>
+
+  <Accordion title="Expansion signals">
+    **Question**: "Which customers mention needing more seats, new use cases, or additional products? Surface expansion opportunities."
+
+    **Value**: Turn happy customers into growth opportunities.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Deliver to your sales or CS channel for follow-up action.
+  </Accordion>
+
+  <Accordion title="Champion identification">
+    **Question**: "Which customers or contacts consistently advocate for us or give positive feedback? What do they value?"
+
+    **Value**: Find advocates for case studies and referrals.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Run monthly for a broader view of advocacy patterns.
+  </Accordion>
+
+  <Accordion title="Escalation patterns">
+    **Question**: "Which Intercom tickets escalated or took multiple rounds? What patterns do they share?"
+
+    **Value**: Learn from tickets that needed extra attention.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Add "and suggest process improvements" for actionable insights.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Research templates
+
+Templates for discovery, competitive intelligence, and documentation.
+
+<AccordionGroup>
+  <Accordion title="Customer discovery gaps">
+    **Question**: "What questions should we ask our customers that we aren't today?"
+
+    **Value**: Ask better questions, build better products.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Scope to specific customer segments or product areas.
+  </Accordion>
+
+  <Accordion title="Feature request clustering">
+    **Question**: "Cluster similar feature requests across Linear, Intercom, and Slack. What are the top 3 themes we're not addressing?"
+
+    **Value**: See themes across Linear, Intercom, and Slack.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Add "Compare to our current roadmap" to highlight gaps.
+  </Accordion>
+
+  <Accordion title="Competitive mentions">
+    **Question**: "Where do customers mention competitors or alternatives? What do they compare us to?"
+
+    **Value**: Know who customers compare you to.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Name specific competitors for targeted monitoring.
+  </Accordion>
+
+  <Accordion title="Documentation gaps">
+    **Question**: "What questions do customers ask that our docs or Notion pages don't clearly answer?"
+
+    **Value**: Close the gap between questions and answers.
+
+    **Default schedule**: Every Monday at 9:00am
+
+    **Customize**: Focus on specific product areas or recently launched features.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Using templates
+
+<Steps>
+  <Step title="Browse">
+    Open **Agents** → **Create agent** to see all available templates.
+  </Step>
+  <Step title="Select">
+    Click a template to pre-fill the question and schedule.
+  </Step>
+  <Step title="Customize">
+    Edit the question to match your team's needs. Adjust the schedule, timezone, and visibility.
+  </Step>
+  <Step title="Save and run">
+    Save the agent. Click **Run now** to see the first report immediately, or wait for the next scheduled time.
+  </Step>
+</Steps>
+
+<Tip>
+  You don't have to start from a template. Click **Create agent** and write any question from scratch. Templates are just shortcuts for common patterns.
+</Tip>

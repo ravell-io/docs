@@ -1,23 +1,59 @@
 ---
-title: "Sources"
-description: "Connect Linear, Notion, Intercom, and Slack to power your answers"
+title: "Managing sources"
+description: "Connect, manage, and get the most from your integrations"
 ---
 
 ## What are Sources?
 
-**Sources** are the tools you connect to Ravell via OAuth: Linear, Notion, Intercom, and Slack. Ravell syncs data from these sources, indexes it for search, and uses it to answer your questions with citations.
+**Sources** are the tools you connect to Ravell via OAuth: Linear, Notion, Intercom, Slack, and Attio. Ravell syncs data from these sources, indexes it for search, and uses it to answer your questions with citations.
 
-**Why it matters:** Ravell searches across all connected sources in several ways at once. Results are merged and re-ranked so the best evidence surfaces first. Related items (e.g. issues linked to a project) are pulled in automatically. You get answers even when the right info is scattered and phrased differently from your question. The more sources you connect, the richer and more accurate your answers.
+**Why it matters:** The more sources you connect, the richer and more accurate your answers. Ravell searches across all connected sources simultaneously, merges results, and follows links between documents across tools. You get answers even when the right info is scattered across different tools.
 
 ---
 
 ## Connect a source
 
 1. Open **Sources** in the sidebar (or **Settings → Integrations**).
-2. Click **Connect** next to Linear, Notion, Intercom, or Slack.
+2. Click **Connect** next to Linear, Notion, Intercom, Slack, or Attio.
 3. Complete the OAuth flow in the popup. Authorize Ravell to read the data you need.
 4. For **Linear**: Select which teams to sync. For **Slack**: Select which channels to index.
 5. Ravell starts syncing. Initial sync can take a few minutes depending on data volume.
+
+### Which sources should I connect first?
+
+Start with the tool your team uses most. Here's a quick guide:
+
+| If you want... | Connect first |
+|----------------|---------------|
+| Issue and project tracking | **Linear** |
+| Customer feedback and support | **Intercom** |
+| Team discussions and decisions | **Slack** |
+| Documentation and specs | **Notion** |
+| CRM and sales context | **Attio** |
+
+Each source adds value on its own, but the real power comes from cross-source questions. Connect 2-3 sources to start seeing connections.
+
+---
+
+## Integration guides
+
+<CardGroup cols={3}>
+  <Card title="Linear" icon="chart-gantt" href="/integrations/linear">
+    Issues, projects, cycles, initiatives, and bidirectional actions.
+  </Card>
+  <Card title="Notion" icon="file-lines" href="/integrations/notion">
+    Pages, databases, and push-to-Notion.
+  </Card>
+  <Card title="Intercom" icon="headset" href="/integrations/intercom">
+    Conversations and customer feedback analysis.
+  </Card>
+  <Card title="Slack" icon="hashtag" href="/integrations/slack">
+    Channel indexing and the Slack Agent.
+  </Card>
+  <Card title="Attio" icon="address-book" href="/integrations/attio">
+    CRM data, meeting notes, and deal context.
+  </Card>
+</CardGroup>
 
 ---
 

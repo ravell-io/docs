@@ -7,6 +7,9 @@
     "default": "light",
     "isHidden": true
   },
+  "appearance": {
+    "strict": true
+  },
   "colors": {
     "primary": "#18181b",
     "light": "#155dfc",
@@ -14,53 +17,91 @@
   },
   "favicon": "/favicon.svg",
   "logo": "/logo/light.svg",
+  "tabs": [
+    { "tab": "Use Cases", "href": "/use-cases/product-managers" },
+    { "tab": "Admin & Reference", "href": "/workspace-setup" }
+  ],
   "navigation": {
     "groups": [
       {
-        "group": "Start",
-        "pages": [
-          "index",
-          "quickstart",
-          "workspace-setup"
-        ]
+        "group": "Getting Started",
+        "pages": ["index", "quickstart", "first-week"]
       },
       {
-        "group": "Core Features",
-        "pages": [
-          "system-overview",
-          "asks",
-          "slack-agent",
-          "automations"
-        ]
+        "group": "Asking Questions",
+        "pages": ["asks", "better-questions", "scoping-queries"]
       },
       {
-        "group": "Features",
-        "pages": [
-          "inbox",
-          "sources",
-          "context",
-          "profiles",
-          "memory",
-          "visibility-sharing",
-          "shortcuts",
-          "scoping-queries"
-        ]
+        "group": "Slack Agent",
+        "pages": ["slack-agent"]
+      },
+      {
+        "group": "Agents & Inbox",
+        "pages": ["agents", "agent-templates", "inbox"]
       },
       {
         "group": "Integrations",
         "pages": [
+          "sources",
           "integrations/linear",
           "integrations/notion",
           "integrations/intercom",
-          "integrations/slack"
+          "integrations/slack",
+          "integrations/attio"
         ]
       },
       {
-        "group": "Admin",
+        "group": "Personalization",
+        "pages": ["context", "profiles", "memory"]
+      },
+      {
+        "group": "How Ravell Works",
+        "pages": ["system-overview", "knowledge-graph", "security-privacy"]
+      },
+      {
+        "group": "By Role",
+        "tab": "Use Cases",
         "pages": [
-          "billing",
-          "workspace-management"
+          "use-cases/product-managers",
+          "use-cases/engineering-leads",
+          "use-cases/customer-success",
+          "use-cases/founders"
         ]
+      },
+      {
+        "group": "Scenarios",
+        "tab": "Use Cases",
+        "pages": [
+          "use-cases/standup-prep",
+          "use-cases/feedback-analysis",
+          "use-cases/sprint-review",
+          "use-cases/product-roundup"
+        ]
+      },
+      {
+        "group": "Question Library",
+        "tab": "Use Cases",
+        "pages": ["use-cases/question-library"]
+      },
+      {
+        "group": "Administration",
+        "tab": "Admin & Reference",
+        "pages": [
+          "workspace-setup",
+          "workspace-management",
+          "billing",
+          "visibility-sharing"
+        ]
+      },
+      {
+        "group": "Reference",
+        "tab": "Admin & Reference",
+        "pages": ["shortcuts", "glossary"]
+      },
+      {
+        "group": "Help",
+        "tab": "Admin & Reference",
+        "pages": ["help/faq", "help/troubleshooting"]
       }
     ]
   },
@@ -70,9 +111,6 @@
       "label": "Open Ravell",
       "href": "https://app.ravell.io"
     }
-  },
-  "appearance": {
-    "strict": true
   },
   "fonts": {
     "family": "Inter",

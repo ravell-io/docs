@@ -1,62 +1,65 @@
 ---
 title: "Quickstart"
-description: "Get up and running with Ravell in minutes"
+description: "Get up and running with Ravell in 5 minutes"
 ---
 
-## Get started in three steps
+Sign in, connect a source, ask your first question, and set up your first agent.
 
-Sign in, connect a source, and ask your first question.
+---
 
-### Step 1: Sign in and create a workspace
+## Get started in four steps
 
-<AccordionGroup>
-  <Accordion icon="user" title="Sign in">
+<Steps>
+  <Step title="Sign in and create a workspace">
     Go to [app.ravell.io](https://app.ravell.io) and sign in with your email or Google. If you're joining an existing team, accept the workspace invitation from your email.
-  </Accordion>
-  <Accordion icon="building" title="Create or join a workspace">
-    A **workspace** is your team's shared space. If you're the first from your team:
-    1. Create a new workspace and give it a name.
-    2. Invite teammates from **Settings → Members**.
-    
-    If you received an invitation, accept it to join an existing workspace.
-  </Accordion>
-</AccordionGroup>
 
-### Step 2: Connect your first source
-
-<AccordionGroup>
-  <Accordion icon="plug" title="Connect Linear, Notion, Intercom, or Slack">
+    A **workspace** is your team's shared space. If you're the first from your team, create a new workspace and give it a name. If you received an invitation, accept it to join an existing workspace.
+  </Step>
+  <Step title="Connect your first source">
     1. Open **Sources** in the sidebar (or **Settings → Integrations**).
-    2. Click **Connect** next to Linear, Notion, Intercom, or Slack.
+    2. Click **Connect** next to Linear, Notion, Intercom, Slack, or Attio.
     3. Complete the OAuth flow in the popup.
     4. For Linear: select which teams to sync. For Slack: select which channels to index.
-    
-    Ravell will start syncing your data. The more sources you connect, the better your answers.
-  </Accordion>
-  <Accordion icon="clock" title="Wait for sync">
-    Initial sync can take a few minutes depending on how much data you have. You can start asking questions once sync completes — check **Sources** for status.
-  </Accordion>
-</AccordionGroup>
 
-### Step 3: Ask your first question
+    Ravell starts syncing your data. The more sources you connect, the better your answers.
 
-<Accordion icon="message-question" title="Ask in plain language">
-  1. Click **New Ask** in the sidebar or use the main input.
-  2. Type a question, e.g. "What did customers say about checkout last month?" or "What are the top open issues in our current cycle?"
-  3. Press Enter. The answer streams in with citations you can click to see the source.
-  4. Ask follow-up questions in the same thread for deeper context.
-</Accordion>
+    <Tip>
+      Start with the tool your team uses most. You can add more sources anytime.
+    </Tip>
+  </Step>
+  <Step title="Ask your first question">
+    1. Click **New Ask** in the sidebar or use the main input.
+    2. Type a question in plain language, e.g. "What did customers say about checkout last month?" or "What are the top open issues in our current cycle?"
+    3. Press Enter. The answer streams in with citations you can click to see the source.
+    4. Ask follow-up questions in the same thread for deeper context.
+  </Step>
+  <Step title="Set up your first agent">
+    1. Open **Agents** in the sidebar and click **Create agent**.
+    2. Pick a template — **Weekly product roundup** or **Daily standup prep** are great starting points.
+    3. Customize the question and schedule (e.g. every Monday at 9am).
+    4. Save. Click **Run now** to see the report immediately in your **Inbox**.
+
+    <Tip>
+      Enable **Deliver to Slack** to have reports posted to a channel automatically.
+    </Tip>
+  </Step>
+</Steps>
 
 ---
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Asks" icon="message-question" href="/asks">
-    Learn how to ask effectively, use citations, and push to Notion.
+  <Card title="Your first week" icon="calendar-week" href="/first-week">
+    A 5-day guided tutorial to get the most out of Ravell.
+  </Card>
+  <Card title="Better questions" icon="lightbulb" href="/better-questions">
+    Tips for getting more accurate, relevant answers.
+  </Card>
+  <Card title="Question library" icon="book" href="/use-cases/question-library">
+    50+ example questions to try.
+  </Card>
+  <Card title="Slack Agent" icon="comments" href="/slack-agent">
+    Use Ravell directly from Slack.
   </Card>
 </CardGroup>
-
-<Tip>
-  **Pro tip:** Scope your question to specific sources (e.g. "from Linear only") for faster, more focused answers. Use the source selector in the input when available.
-</Tip>
