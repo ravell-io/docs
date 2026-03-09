@@ -98,6 +98,27 @@ Examples:
 
 ---
 
+## Notion actions (natural language)
+
+You can create and update Notion pages, append content, add comments, and create databases by typing requests in plain language.
+
+### Pages
+
+- `@Ravell Create a Notion page for the API spec`
+- `@Ravell Push this to Notion` — Creates a page with the thread content.
+- `@Ravell Update the checkout page title`
+- `@Ravell Archive the old onboarding page`
+- `@Ravell Add a summary section to the product roadmap page`
+
+### Comments and databases
+
+- `@Ravell Add a comment on the Design System page`
+- `@Ravell Create a database for feature requests`
+
+Ravell uses thread context when you refer to "this" or "that". After discussing a topic in Slack, say `@Ravell Save that to Notion` to create a page. **Notion must be connected** for these actions to work.
+
+---
+
 ## In-thread follow-ups
 
 Reply in the thread to ask follow-up questions. Ravell keeps conversation context, so you can say things like:
@@ -159,6 +180,14 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 - `@Ravell Pause the [agent name]` — Pause an agent
 - `@Ravell Resume the [agent name]` — Resume an agent
 - `@Ravell Send that report to #channel` — Update delivery
+
+### Notion actions
+- `@Ravell Create a Notion page for [topic]` — Create a page
+- `@Ravell Push this to Notion` — Push thread content to a page
+- `@Ravell Update the [page] title` — Update a page
+- `@Ravell Archive the [page]` — Archive a page
+- `@Ravell Add a comment on [page]` — Add a comment
+- `@Ravell Create a database for [topic]` — Create a database
 
 ### Follow-ups
 - Reply in any thread to follow up — Ravell keeps conversation context

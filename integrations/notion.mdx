@@ -1,11 +1,11 @@
 ---
 title: "Notion"
-description: "Connect Notion to search your workspace and push reports"
+description: "Connect Notion to search, create, and update pages and databases"
 ---
 
 ## Overview
 
-Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. You can also **push reports to Notion** from Asks and Inbox.
+Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. Ravell also supports **bidirectional actions** — you can create and update pages, append content, add comments, and create databases directly from the Slack Agent or via follow-up prompts.
 
 ---
 
@@ -38,6 +38,51 @@ Connect **Notion** to Ravell to search across your Notion workspace. Ravell inde
 - **Databases**: Schema and entries.
 
 Ravell uses this data to answer questions and provide citations back to Notion pages.
+
+---
+
+## Actions you can take
+
+Ravell supports bidirectional actions with Notion — you can create and update records directly from the Slack Agent or via follow-up prompts.
+
+### Pages
+
+| Action | Example |
+|--------|---------|
+| **Create page** | "Create a Notion page for the API spec in the Engineering database" |
+| **Update page** | "Update the checkout page title to v2 Checkout Flow" |
+| **Archive page** | "Archive the old onboarding page" |
+| **Append content** | "Add a summary section to the product roadmap page" |
+
+### Comments
+
+| Action | Example |
+|--------|---------|
+| **Add comment** | "Add a comment on the Design System page with today's decisions" |
+
+### Databases
+
+| Action | Example |
+|--------|---------|
+| **Create database** | "Create a database for tracking feature requests under the Product page" |
+| **Update database** | "Add a Priority column to the Feature Requests database" |
+
+<Tip>
+  Ravell uses conversation context when you refer to "this" or "that". For example, after discussing a topic in Slack, say "Push this to Notion" to create a page with the conversation content.
+</Tip>
+
+---
+
+## From Slack
+
+All Notion actions work from the Slack Agent. Mention **@Ravell** with your request:
+
+- `@Ravell Create a page for the API spec in Notion`
+- `@Ravell Push this to Notion` — Uses thread context to create a page.
+- `@Ravell Add a comment on the Design System page`
+- `@Ravell Create a database for sprint retrospectives`
+
+Ravell uses thread context, so you can discuss a topic in Slack and then say `@Ravell Save that to Notion`. See [Slack Agent](/slack-agent) for full details.
 
 ---
 
