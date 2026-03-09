@@ -1,6 +1,6 @@
 ---
 title: "Scoping queries"
-description: "Limit questions to specific sources or time ranges"
+description: "Limit questions to specific sources, time ranges, teams, or priorities"
 ---
 
 ## Why scope queries?
@@ -10,38 +10,59 @@ By default, Ravell searches across all connected sources (Linear, Notion, Interc
 - **Faster answers**: Fewer sources mean less data to search.
 - **Focused results**: When you know the answer is in one tool (e.g. Linear only).
 - **Time bounds**: Limit to recent data (e.g. "last 7 days") for more relevant results.
+- **Team focus**: Filter to a specific Linear team's issues.
+- **Priority filtering**: Surface only high-priority or urgent items.
 
 ---
 
-## Scope to specific sources
+## Using the source selector
 
-When asking a question, you can limit the search to one or more sources:
+Click the adjustments icon next to the Ask input to open the source selector:
 
-- **Linear only**: "What are the top open issues?" → searches only Linear.
-- **Intercom only**: "What did customers say about pricing?" → searches only Intercom.
-- **Slack + Linear**: Combine sources when the answer might span both.
+1. **Connected sources** appear at the top — check the ones you want to search.
+2. **Not connected** sources are shown but disabled.
+3. Select one or more sources, or leave all unchecked to search everything.
+4. Your selection persists until you clear it.
 
-Use the source selector (if available) in the Ask input or in the question composer to choose which sources to include.
+When sources are selected, the query only searches those integrations.
 
 ---
 
-## Scope to time ranges
+## Using filters
 
-Some questions support time filters:
+Click **Filters** to open the filter panel. Available filters:
+
+| Filter | Description |
+|--------|-------------|
+| **Time period** | Limit results to a date range (last 7 days, last 30 days, this cycle, etc.) |
+| **Priority** | Filter Linear issues by priority (urgent, high, medium, low) |
+| **Teams** | Filter to specific Linear teams (shows teams from connected integrations) |
+
+<Tip>
+  Filters are especially useful for questions like "What are the urgent issues this week?" — set both a time period and priority filter for precise results.
+</Tip>
+
+---
+
+## Scoping in natural language
+
+You can also scope queries by writing time or source constraints directly in your question:
 
 - "What did we ship **last week**?"
 - "Summarize Intercom feedback from **last month**."
 - "What are the top issues **in our current cycle**?"
+- "Show me **urgent** Linear issues."
 
 Ravell interprets relative time ranges and scopes the search accordingly. For cycle-based questions, Linear cycle dates are used when Linear is connected.
 
 ---
 
-## Scoping in Agents
+## Scoping in agents
 
 When creating an Agent, you can set a default scope:
 
 - **Sources**: Limit the agent to specific sources (e.g. Linear only).
 - **Time**: The question text can include time bounds (e.g. "this week", "current cycle").
+- **Filters**: Set team or priority filters in the question text for consistent results.
 
 This keeps agent reports focused and consistent.
