@@ -3,11 +3,11 @@ title: "Quickstart"
 description: "Get up and running with Ravell in 5 minutes"
 ---
 
-Sign in, connect a source, ask your first question, and set up your first agent.
+Sign in, connect your sources, and ask your first question — all guided by a simple onboarding flow.
 
 ---
 
-## Get started in four steps
+## Get started
 
 <Steps>
   <Step title="Sign in and create a workspace">
@@ -15,23 +15,36 @@ Sign in, connect a source, ask your first question, and set up your first agent.
 
     A **workspace** is your team's shared space. If you're the first from your team, create a new workspace and give it a name. If you received an invitation, accept it to join an existing workspace.
   </Step>
-  <Step title="Connect your first source">
-    1. Open **Sources** in the sidebar (or **Settings → Integrations**).
-    2. Click **Connect** next to Linear, Notion, Intercom, Slack, or Attio.
-    3. Complete the OAuth flow in the popup.
-    4. For Linear: select which teams to sync. For Slack: select which channels to index.
+  <Step title="Connect your internal tools">
+    The onboarding flow prompts you to connect internal tools first. These give Ravell context on how your team works:
 
-    Ravell starts syncing your data. The more sources you connect, the better your answers.
+    - **Slack** — Conversations, decisions, and async updates
+    - **Linear** — Issues, sprints, and project status
+    - **Notion** — Docs, specs, and shared knowledge
+
+    Click **Connect** for each tool and complete the OAuth flow in the popup. You must connect at least one internal source to continue.
 
     <Tip>
-      Start with the tool your team uses most. You can add more sources anytime.
+      The more context your agent has on how your team works, the better it understands your priorities.
     </Tip>
   </Step>
+  <Step title="Connect customer data sources">
+    Next, connect tools where your customer data lives:
+
+    - **Intercom** — Support tickets and customer conversations
+    - **Attio** — CRM contacts and deal information
+    - **Slack** — Customer-facing channels
+    - **Linear** — Customer-reported bugs and feature requests
+    - **Notion** — Customer feedback docs
+
+    For Slack, Linear, and Notion you can select specific channels, teams, or pages to scope what Ravell indexes. This step is optional — you can skip it and add sources later in **Settings → Integrations**.
+  </Step>
   <Step title="Ask your first question">
-    1. Click **New Ask** in the sidebar or use the main input.
-    2. Type a question in plain language, e.g. "What did customers say about checkout last month?" or "What are the top open issues in our current cycle?"
-    3. Press Enter. The answer streams in with citations you can click to see the source.
-    4. Ask follow-up questions in the same thread for deeper context.
+    After completing onboarding, you land in the app. Click **New Ask** or use the main input:
+
+    1. Type a question in plain language, e.g. "What did customers say about checkout last month?" or "What are the top open issues in our current cycle?"
+    2. Press Enter. The answer streams in with citations you can click to see the source.
+    3. Ask follow-up questions in the same thread for deeper context.
   </Step>
   <Step title="Set up your first agent">
     1. Open **Agents** in the sidebar and click **Create agent**.
@@ -44,6 +57,17 @@ Sign in, connect a source, ask your first question, and set up your first agent.
     </Tip>
   </Step>
 </Steps>
+
+---
+
+## Using Ravell from Slack
+
+Once Slack is connected, you can interact with Ravell directly in Slack:
+
+- Type `/ravell` in any channel to add the Ravell agent — it picks up channel context automatically
+- Mention `@Ravell` to ask questions or trigger actions without leaving Slack
+
+See [Slack Agent](/slack-agent) for the full guide.
 
 ---
 
