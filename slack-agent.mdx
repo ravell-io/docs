@@ -5,11 +5,11 @@ description: "Ask questions, create Linear records, and manage agents from Slack
 
 ## What is the Slack Agent?
 
-The **Slack Agent** brings Ravell into Slack. Mention **@Ravell** in any channel or DM to ask questions, create or update Linear records, and manage agents — all in natural language. You can also use the `/ravell` slash command. No forms, no buttons: just type what you want.
+The **Slack Agent** brings Ravell into Slack. Mention **@Ravell** in any channel or DM to ask questions, create or update Linear records, push to Notion, and manage agents — all in natural language. You can also use the `/ravell` slash command. No forms, no buttons: just type what you want.
 
 Ravell responds in-thread with answers and citations. Long answers include a **View full answer** button to open the full report in the app. While processing, you may see **Follow along in Ravell** to watch the answer stream in real time.
 
-**Why it matters:** Ravell acts as an assistant that can both answer and execute. For broad questions, it runs the full pipeline; for specific lookups ("Find ENG-142"), it does fast, targeted queries. It can create or update Linear issues, manage agents, and push to Notion instead of only describing what to do. In threads, it remembers prior turns and citations so it can build on earlier answers.
+**Why it matters:** Ravell acts as an assistant that can both answer and execute. For broad questions, it runs the full pipeline; for specific lookups ("Find ENG-142"), it does fast, targeted queries. It can create or update Linear issues, manage agents, create pages and databases in Notion, and export reports — instead of only describing what to do. In threads, it remembers prior turns and citations so it can build on earlier answers.
 
 ---
 
@@ -21,10 +21,11 @@ Ravell responds in-thread with answers and citations. Long answers include a **V
 | **Input** | Main input, sidebar | @Ravell mention or /ravell + message |
 | **Response** | Full answer with Sources rail | In-thread answer; long answers truncated with link |
 | **Linear actions** | Via follow-up agent | Natural language ("Create a bug about X") |
+| **Notion actions** | Push to Notion button | Natural language ("Push that to Notion", "Create a page") |
 | **Agents** | In Agents view | Natural language ("Create an agent that...") |
 | **Context** | Full UI, Context view | Thread context, Memory |
 
-The Slack Agent uses the same search pipeline and sources as Web Asks. It also has dedicated sub-agents for Linear and Agents, so you can create issues, update projects, or manage agents without leaving Slack.
+The Slack Agent uses the same search pipeline and sources as Web Asks. It also has dedicated sub-agents for Linear, Notion, and Agents, so you can create issues, push reports to Notion, or manage agents without leaving Slack.
 
 ---
 
@@ -80,6 +81,37 @@ You can create and update Linear records by typing requests in plain language. N
 - `@Ravell Create a customer record for Acme Corp`
 
 Ravell checks for duplicates before creating issues and uses conversation context when you refer to "this" or "that". When you create an issue, you are automatically subscribed to it in Linear. **Linear must be connected** for these actions to work.
+
+---
+
+## Notion actions (natural language)
+
+You can create pages, update content, push reports, and manage databases in Notion directly from Slack. Notion must be connected for these actions to work.
+
+### Push to Notion
+
+Push any answer or report from a Slack conversation to Notion:
+
+- `@Ravell Push that to Notion` — Export the previous answer to a new Notion page.
+- `@Ravell Save this report to the Product Updates database` — Push to a specific database.
+- `@Ravell Export the summary to Notion` — Uses thread context.
+
+### Create and update pages
+
+- `@Ravell Create a Notion page for the API spec`
+- `@Ravell Add a section to the roadmap page about the new feature`
+- `@Ravell Update the onboarding doc with the new steps`
+
+### Databases
+
+- `@Ravell Create a database for tracking feature requests`
+- `@Ravell Add an entry to the Releases database for v2.1`
+- `@Ravell Update the status in the Projects database`
+
+### Comments
+
+- `@Ravell Add a comment on that Notion page` — Uses thread context to identify the page.
+- `@Ravell Comment on the Q4 planning doc with "Approved by PM"`
 
 ---
 
@@ -152,6 +184,15 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 - `@Ravell Log this as a customer request on ENG-123` — Create a customer need
 - `@Ravell Create a customer record for [company]` — Create a customer
 - `@Ravell Add a comment on ENG-142` — Add a comment
+
+### Notion actions
+- `@Ravell Push that to Notion` — Export the previous answer to Notion
+- `@Ravell Save this to the [database name] database` — Push to a specific database
+- `@Ravell Create a Notion page for [topic]` — Create a new page
+- `@Ravell Add a section to [page name] about [content]` — Append content
+- `@Ravell Update the [page name] with [content]` — Update a page
+- `@Ravell Create a database for [topic]` — Create a new database
+- `@Ravell Add a comment on [page name]` — Add a comment
 
 ### Agent management
 - `@Ravell Create an agent that runs every [schedule] [question]` — Create an agent
