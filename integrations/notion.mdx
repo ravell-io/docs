@@ -68,6 +68,35 @@ Push any Ask answer or Agent report to Notion as a new page:
 
 ---
 
+## Default database
+
+Set a default Notion database to skip the "which database?" prompt when creating pages from Slack or pushing content.
+
+### Personal default (per user)
+
+Set your personal default from Slack:
+
+```
+@Ravell Set my default Notion database to Product Feedback
+```
+
+This stores your preference and applies to all your future Notion exports. Other workspace members keep their own defaults.
+
+### Workspace default
+
+Workspace admins can set a workspace-wide default in **Settings → Integrations → Notion → Default export destination**. This applies when a user hasn't set a personal default.
+
+### Priority order
+
+When creating a Notion page, Ravell uses:
+
+1. **Explicit database** — If you specify a database name in your request
+2. **Your personal default** — Your per-user setting (if set)
+3. **Workspace default** — The workspace-wide setting (if set)
+4. **Ask for selection** — If none of the above, Ravell asks which database to use
+
+---
+
 ## Re-sync and reindex
 
 Ravell syncs Notion data periodically. Trigger a manual **Reindex** or **Sync** from **Sources** to refresh data after adding new pages or updating content.

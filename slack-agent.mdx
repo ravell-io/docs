@@ -108,6 +108,25 @@ Reply in the thread to ask follow-up questions. Ravell keeps conversation contex
 
 ---
 
+## Clarifying questions and pending actions
+
+When Ravell needs more information to complete an action, it asks a clarifying question. Your next reply is automatically routed to complete that action.
+
+**Example flow:**
+
+1. You: `@Ravell Push this to Notion`
+2. Ravell: "Which Notion database should I use? Available: Product Feedback, Meeting Notes, Specs."
+3. You: `Product Feedback`
+4. Ravell creates the page in Product Feedback.
+
+This works for any action that requires additional input — Notion exports, Linear issues with missing fields, agent configuration. Your answer is automatically connected to the pending request, so you don't need to repeat your original instruction.
+
+<Tip>
+Set a [default Notion database](/integrations/notion#default-database) to skip the database selection step entirely.
+</Tip>
+
+---
+
 ## View full answer and follow along
 
 - **View full answer**: When an answer is long, Ravell posts a summary with a **View full answer** button. Click it to open the full answer with citations in the Ravell app.
@@ -160,11 +179,15 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 - `@Ravell Resume the [agent name]` — Resume an agent
 - `@Ravell Send that report to #channel` — Update delivery
 
+### Notion actions
+- `@Ravell Push this to Notion` — Export the answer to Notion
+- `@Ravell Set my default Notion database to [name]` — Set your personal default database
+
 ### Follow-ups
 - Reply in any thread to follow up — Ravell keeps conversation context
 - "Which of those are high priority?" — Narrow results
 - "Create a bug for that" — Act on thread context
-- "Push this to Notion" — Export the answer
+- Answer clarifying questions directly — Ravell routes your reply to the pending action
 
 ### Help
 - `@Ravell Help` or `@Ravell What can you do?` — List capabilities
