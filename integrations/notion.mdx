@@ -1,11 +1,11 @@
 ---
 title: "Notion"
-description: "Connect Notion to search your workspace and push reports"
+description: "Connect Notion to search your workspace, create pages, and manage databases"
 ---
 
 ## Overview
 
-Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. You can also **push reports to Notion** from Asks and Inbox.
+Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. Beyond search, Ravell can **create and update** pages, databases, and comments — all from natural language.
 
 ---
 
@@ -32,6 +32,61 @@ Connect **Notion** to Ravell to search across your Notion workspace. Ravell inde
 
 ---
 
+## Actions you can take
+
+Ravell supports bidirectional actions with Notion — you can create and update pages, databases, and comments directly from the Slack Agent or via follow-up prompts.
+
+### Pages
+
+| Action | Example |
+|--------|---------|
+| **Create page** | "Create a Notion page for the API spec" |
+| **Create page in database** | "Create a page in the Product Specs database about the new checkout flow" |
+| **Update page** | "Update the API spec page title" |
+| **Archive page** | "Archive the old roadmap page" |
+| **Append content** | "Add these meeting notes to the standup page" |
+
+### Databases
+
+| Action | Example |
+|--------|---------|
+| **Create database** | "Create a Notion database for tracking feature requests" |
+| **Update database** | "Rename the Tasks database to Sprint Tasks" |
+| **Set default database** | "Set my default Notion database to Product Specs" |
+
+### Comments
+
+| Action | Example |
+|--------|---------|
+| **Add comment** | "Add a comment on the roadmap page about the deadline change" |
+
+### Push to Notion
+
+| Action | Example |
+|--------|---------|
+| **Push report** | "Push this to Notion" or "Save that answer to Notion" |
+| **Export to database** | "Export this report to my Product Specs database" |
+
+<Tip>
+  When you set a default database, future exports automatically go there unless you specify another destination.
+</Tip>
+
+---
+
+## From Slack
+
+All Notion actions work from the Slack Agent. Mention **@Ravell** with your request:
+
+- `@Ravell Create a Notion page for the API spec`
+- `@Ravell Push that to Notion`
+- `@Ravell Add a comment on the roadmap page`
+- `@Ravell Set my default Notion database to Product Specs`
+- `@Ravell Create a database for tracking bugs`
+
+Ravell uses thread context, so you can discuss something in Slack and then say `@Ravell Push this to Notion`. See [Slack Agent](/slack-agent) for full details.
+
+---
+
 ## What gets synced
 
 - **Pages**: Title, content, properties.
@@ -41,7 +96,7 @@ Ravell uses this data to answer questions and provide citations back to Notion p
 
 ---
 
-## Push to Notion
+## Push to Notion (from the app)
 
 Push any Ask answer or Agent report to Notion as a new page:
 
