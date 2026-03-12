@@ -83,6 +83,38 @@ Ravell checks for duplicates before creating issues and uses conversation contex
 
 ---
 
+## Notion actions
+
+You can push reports to Notion and manage your Notion preferences from Slack:
+
+- `@Ravell Push that to Notion` — Export the previous answer to Notion.
+- `@Ravell Export this summary to the Reports database` — Push to a specific database.
+- `@Ravell Create a Notion page about our Q1 goals` — Create a new page.
+- `@Ravell Set my default Notion database to Reports` — Set your personal default for future exports.
+
+After setting a default, future exports go there automatically unless you specify another database. **Notion must be connected** for these actions to work.
+
+---
+
+## Slack messaging
+
+Post messages to channels and add reactions from Ravell:
+
+### Post to a channel
+
+- `@Ravell Post in #general: Weekly update is ready` — Send a message to a channel.
+- `@Ravell Tell #engineering about the API changes` — Post content to a specific channel.
+- `@Ravell Reply here with a summary` — Reply in the current thread.
+
+Ravell supports @mentions in messages using the same format as Slack.
+
+### Add reactions
+
+- `@Ravell React with thumbsup` — Add a reaction to the current message.
+- `@Ravell Add a rocket reaction` — Works with any emoji name.
+
+---
+
 ## Manage agents from Slack
 
 You can create, update, list, pause, resume, and delete agents directly from Slack.
@@ -159,6 +191,18 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 - `@Ravell Pause the [agent name]` — Pause an agent
 - `@Ravell Resume the [agent name]` — Resume an agent
 - `@Ravell Send that report to #channel` — Update delivery
+
+### Notion actions
+- `@Ravell Push that to Notion` — Export the previous answer
+- `@Ravell Export this to the Reports database` — Push to a specific database
+- `@Ravell Create a Notion page about [topic]` — Create a new page
+- `@Ravell Set my default Notion database to [name]` — Set your personal default
+
+### Slack messaging
+- `@Ravell Post in #channel: [message]` — Send a message to a channel
+- `@Ravell Tell #channel about [topic]` — Post content to a channel
+- `@Ravell Reply here with [content]` — Reply in the current thread
+- `@Ravell React with [emoji]` — Add an emoji reaction
 
 ### Follow-ups
 - Reply in any thread to follow up — Ravell keeps conversation context
