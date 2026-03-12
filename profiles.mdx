@@ -57,8 +57,47 @@ This helps Ravell understand context when answering questions that span the whol
 ## Refresh and exclusions
 
 - **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- **Source exclusions**: Exclude specific sources (e.g. Linear) or specific URLs from being used in your profile context if needed (e.g. for privacy or relevance).
+
+---
+
+## Section overrides
+
+When the auto-generated profile content isn't quite right, you can override specific sections with your own content:
+
+### Manual overrides
+
+Edit a section directly in the Context view. Your edits take precedence over auto-generated content.
+
+### File uploads
+
+Upload a document (PDF or Word) to override a profile section:
+
+1. Open **Context** from the sidebar.
+2. Click the section you want to override (e.g., **Company context**).
+3. Click **Upload file** and select a PDF or Word document (max 5MB).
+4. Ravell extracts the content and uses it for that section.
+
+This is useful for:
+- Company one-pagers or pitch decks
+- Product briefs or PRDs
+- ICP documents
+
+### URL imports
+
+Import content from a URL:
+
+1. Open **Context** from the sidebar.
+2. Click the section you want to override.
+3. Click **Import from URL** and paste the link.
+4. Ravell fetches and extracts the content.
+
+### Override modes
+
+When adding an override, choose the mode:
+
+- **Enrichment** — Adds to the auto-generated content. Use this when you want to supplement, not replace.
+- **Source of truth** — Replaces the auto-generated content entirely. Use this when the uploaded document is the authoritative source.
 
 ---
 
