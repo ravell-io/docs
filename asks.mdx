@@ -43,9 +43,38 @@ Reply in the same thread to ask follow-up questions. Ravell keeps the full conve
 - "Which of those are high priority?"
 - "Show me the Linear links for the top 3."
 - "What did we decide about the checkout flow?"
-- "Create a bug for that" — Ravell uses the most recent topic when you say "that" or "this".
 
 You don't need to repeat the original question. Follow-ups can refine, narrow, or extend the answer.
+
+---
+
+## Taking action from Asks
+
+Beyond answering questions, you can take action directly from an Ask conversation. When Linear or Notion is connected, Ravell can create, update, and push content without leaving the thread.
+
+### Linear actions
+
+When Linear is connected, you can:
+
+- **Create issues** — "Create a bug for that" or "Log this as an issue"
+- **Update issues** — "Mark ENG-142 as done" or "Add this to the issue description"
+- **Create projects, documents, or customer needs** — "Create a Linear doc summarizing this"
+
+Ravell uses the conversation context to fill in defaults — you don't need to specify title, description, or team unless you want to override them. Just describe what you want and Ravell handles the details.
+
+### Notion actions
+
+When Notion is connected, you can:
+
+- **Push reports** — "Push this to Notion" or "Save this answer to our docs"
+- **Create pages** — "Create a Notion page with this summary"
+- **Append content** — "Add this to our product decisions page"
+
+Use this to turn Ask answers into shared documentation, meeting notes, or recurring reports.
+
+### How it works
+
+When you request an action, Ravell delegates to specialized sub-agents that handle the integration-specific work. You see a confirmation of what was created or updated, including links to the new items. If something goes wrong, Ravell tells you what failed so you can retry or adjust.
 
 ---
 
@@ -105,7 +134,15 @@ Use this to turn Ask results into shared docs, meeting prep, or recurring report
 ## How it works
 
 <Accordion title="Behind the scenes">
-When you submit a question, Ravell runs a multi-stage pipeline:
+When you submit a question or follow-up, Ravell's conversation agent determines the best approach:
+
+- **Data questions** — Runs the full search and synthesis pipeline across your connected sources
+- **Follow-up clarifications** — Answers from existing context without re-searching
+- **Lookups** — Finds specific records by identifier or keyword
+- **Actions** — Delegates to Linear or Notion sub-agents to create or update content
+- **Help questions** — Explains Ravell's capabilities and how to use features
+
+For data questions, the pipeline works as follows:
 
 1. **Intent** — Classifies what you're asking (find issues, summarize feedback, compare trends) and resolves references like "Project X" or "ENG-142" to real items.
 2. **Plan** — Breaks the query into sub-questions and selects which sources to search.
@@ -128,6 +165,7 @@ You see this progress as **streaming thoughts** — short status updates that sh
 | **Scope when you know** | "From Linear only" is faster when you know the answer is there |
 | **Connect more sources** | More data = richer, more accurate answers |
 | **Include time ranges** | "Last week", "this cycle", "since January" improve relevance |
+| **Use "this" and "that"** | Ravell tracks conversation context — "create a bug for that" works |
 
 For a full prompt engineering guide, see [Better questions](/better-questions).
 
