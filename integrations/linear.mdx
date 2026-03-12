@@ -45,6 +45,7 @@ Ravell supports bidirectional actions with Linear — you can create and update 
 | Action | Example |
 |--------|---------|
 | **Create issue** | "Create a bug about login timeouts in the Backend team" |
+| **Create issue with images** | When images are shared in the Slack thread, Ravell automatically embeds them in the issue description |
 | **Update issue** | "Update ENG-123 to done" or "Change the priority of ENG-456 to urgent" |
 
 ### Projects
@@ -80,6 +81,15 @@ Ravell supports bidirectional actions with Linear — you can create and update 
 <Tip>
   Ravell checks for duplicates before creating issues and uses conversation context when you refer to "this" or "that".
 </Tip>
+
+### Image support
+
+When you create a Linear issue from a Slack thread that contains images (screenshots, error logs, recordings), Ravell automatically:
+
+1. **Analyzes the images** — Uses OCR and vision models to extract relevant details
+2. **Embeds them in the issue** — Adds images and their descriptions to the issue body under an "Evidence" section
+
+This means bug reports and feature requests created from Slack include visual context without any extra steps. Ravell supports up to 3 images per issue.
 
 ---
 
