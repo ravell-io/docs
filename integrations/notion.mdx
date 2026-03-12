@@ -41,6 +41,41 @@ Ravell uses this data to answer questions and provide citations back to Notion p
 
 ---
 
+## Actions you can take
+
+Ravell supports bidirectional actions with Notion — you can create and update pages, add content, and manage databases from the Slack Agent or via follow-up prompts.
+
+### Pages
+
+| Action | Example |
+|--------|---------|
+| **Create page** | "Create a Notion page for the API spec" |
+| **Update page** | "Update the API spec page title" |
+| **Append content** | "Add this summary to the API spec page" |
+| **Add comment** | "Add a comment on that Notion page" |
+| **Archive page** | "Archive the outdated spec page" |
+
+### Databases
+
+| Action | Example |
+|--------|---------|
+| **Create database** | "Create a Notion database for tracking feature requests" |
+| **Update database** | "Add a priority property to the feature database" |
+| **Set default database** | "Set my default Notion database to Product Docs" |
+
+<Tip>
+  Setting a default database makes pushing reports faster — Ravell uses your default when you don't specify a destination.
+</Tip>
+
+### Search
+
+| Action | Example |
+|--------|---------|
+| **Search pages** | "Search Notion for checkout documentation" |
+| **Search databases** | "Find databases about roadmaps" |
+
+---
+
 ## Push to Notion
 
 Push any Ask answer or Agent report to Notion as a new page:
@@ -53,7 +88,7 @@ Push any Ask answer or Agent report to Notion as a new page:
     Click **Push to Notion** on the answer card.
   </Step>
   <Step title="Choose destination">
-    Select the parent page or database where the new page should go.
+    Select the parent page or database where the new page should go. If you have a default database set, it's pre-selected.
   </Step>
   <Step title="Confirm">
     Ravell creates the page with the report content and citations, formatted for Notion (headings, lists, links).

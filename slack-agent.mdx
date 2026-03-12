@@ -166,10 +166,29 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 - "Create a bug for that" — Act on thread context
 - "Push this to Notion" — Export the answer
 
+### Slack actions
+- `@Ravell Send a message to #channel about X` — Post a message to a channel
+- `@Ravell Add :thumbsup: to that message` — React to a message with an emoji
+- `@Ravell Reply in that thread` — Continue a conversation in another thread
+
 ### Help
 - `@Ravell Help` or `@Ravell What can you do?` — List capabilities
 
 </Accordion>
+
+---
+
+## Slack actions
+
+Beyond asking questions and managing Linear, you can send messages and react in Slack:
+
+| Action | Example |
+|--------|---------|
+| **Send message** | "Send a message to #product about the release" |
+| **React with emoji** | "Add :rocket: to that message" |
+| **Thread reply** | "Reply in that thread with a summary" |
+
+Ravell uses thread context to resolve "that" and "this". When sending messages, you can use @mentions — Ravell resolves them to the correct user.
 
 ---
 
