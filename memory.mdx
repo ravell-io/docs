@@ -23,11 +23,31 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Memory organizes facts into categories:
+
+| Category | Examples |
+|----------|----------|
+| **Profile & role** | Your job title, team, responsibilities |
+| **Projects** | Projects you work on, project names and aliases |
+| **Preferences** | How you like answers formatted, level of detail |
+| **Product** | Your product area, features you own |
+| **Internal workflow** | Team processes, sprint cadence, tools used |
+| **Company & business** | Company context, customers, market |
+| **Roadmap** | Upcoming initiatives, planned work |
 
 Memory is used to improve relevance and avoid repeating information you've already provided.
+
+---
+
+## How memories are created
+
+Memories come from different sources:
+
+- **Auto-extracted**: Ravell infers facts from your questions and conversations
+- **User-created**: Facts you explicitly add via Settings → Memory
+- **User-edited**: Auto-extracted facts you've modified or corrected
+
+Ravell tracks confidence for each memory. Facts you explicitly add or confirm are treated with higher confidence than inferred ones.
 
 ---
 
@@ -79,3 +99,15 @@ This helps Ravell resolve references in your questions more accurately.
 - **Explicit additions**: When you add something in Settings → Memory, it's stored.
 - **Conversation context**: Ravell may infer facts from your questions and answers. You can delete anything you don't want stored.
 - **Privacy**: Memory is scoped to your account. Workspace members do not see your personal memory.
+
+---
+
+## Enable or disable Memory
+
+You can turn Memory on or off:
+
+1. Go to **Settings → Memory**.
+2. Toggle **Memory enabled** on or off.
+3. When disabled, Ravell won't extract or use stored memories for personalization.
+
+Existing memories are preserved when you disable Memory — they just aren't used until you re-enable it.

@@ -77,8 +77,22 @@ Ravell supports bidirectional actions with Linear — you can create and update 
 | **Add comment** | "Add a comment on ENG-142 summarizing the discussion" |
 | **Add attachment** | "Add this link as an attachment to ENG-142" |
 
+### Search
+
+| Action | Example |
+|--------|---------|
+| **Search issues** | "Search Linear for payment issues" |
+| **Filter by state** | "Search Linear for completed bugs" |
+| **Filter by team** | "Search Linear for open issues in the Backend team" |
+
+You can combine filters: "Search Linear for unstarted issues in the Frontend team about checkout".
+
 <Tip>
   Ravell checks for duplicates before creating issues and uses conversation context when you refer to "this" or "that".
+</Tip>
+
+<Tip>
+  State aliases work naturally — "close", "done", "finish", and "complete" all map to completed status. Same for "in progress", "started", and "working on".
 </Tip>
 
 ---
