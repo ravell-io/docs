@@ -23,20 +23,41 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Memory stores facts about you organized into categories. Each memory is tagged with one of these categories:
 
-Memory is used to improve relevance and avoid repeating information you've already provided.
+| Category | What it captures |
+|----------|------------------|
+| **Company/Business** | Facts about your company, market, or business context |
+| **Profile/Role** | Your role, title, and team responsibilities |
+| **Product** | Details about products you work on |
+| **Preferences** | How you like answers formatted, level of detail |
+| **Projects** | Specific projects or initiatives you're involved in |
+| **Internal Workflow** | How your team operates, processes, cadences |
+| **Roadmap** | Future plans, upcoming features, strategic direction |
+
+Categories help Ravell retrieve the most relevant memories for each question. When you ask about product priorities, Ravell pulls Product and Roadmap memories; when you ask about team workflows, it pulls Internal Workflow memories.
+
+---
+
+## How memories are created
+
+Memories come from two sources:
+
+- **Auto-extracted**: Ravell automatically extracts facts from your conversations. When you mention your role, team, or preferences, Ravell stores this for future context.
+- **User-created**: Memories you add manually via **Settings → Memory**.
+
+You can edit both types. Edited memories show as "user-edited" in the system but behave the same way.
 
 ---
 
 ## View and edit Memory
 
 1. Go to **Settings → Memory**.
-2. You'll see what Ravell has stored about you.
-3. You can **edit** or **delete** individual items.
-4. Use **Add** to explicitly tell Ravell something to remember.
+2. You'll see what Ravell has stored about you, organized by category.
+3. Each memory shows its content and category badge.
+4. Click the **pencil icon** to edit a memory's content.
+5. Click the **trash icon** to delete a memory.
+6. Use **Add Memory** to manually add a new fact.
 
 ---
 
@@ -71,6 +92,17 @@ If your team uses specific terms, acronyms, or project names, add them as memori
 - "CSM stands for Customer Success Manager"
 
 This helps Ravell resolve references in your questions more accurately.
+
+---
+
+## Enable or disable Memory
+
+Memory is enabled by default. To disable it:
+
+1. Go to **Settings → Memory**.
+2. Toggle **Enable Memory** off.
+
+When disabled, Ravell stops extracting new memories from conversations and won't use existing memories to personalize answers. Your stored memories are preserved — you can re-enable Memory at any time to use them again.
 
 ---
 
