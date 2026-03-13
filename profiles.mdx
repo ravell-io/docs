@@ -58,7 +58,63 @@ This helps Ravell understand context when answering questions that span the whol
 
 - **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
 - **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- **Section overrides**: Provide external context via URLs or file uploads to enhance or replace AI-generated sections.
+
+---
+
+## Section overrides (external context)
+
+Section overrides let you add external context to your profiles — information that isn't in your connected sources but helps Ravell understand you better. You can provide a URL or upload a file to enrich a specific profile section.
+
+### What you can use
+
+| Source type | Supported formats |
+|-------------|-------------------|
+| **URL** | Any public webpage, or Notion pages shared with your workspace integration |
+| **File upload** | PDF, Word documents (.docx), plain text files (up to 5MB) |
+
+### Override modes
+
+- **Enrichment** (default): Adds context to the AI-generated section. Your external content is combined with data from connected sources.
+- **Source of truth**: Your external content becomes the authoritative source for that section. AI-generated content is replaced. Use this when you want precise control over a section.
+
+### Individual profile sections
+
+For your personal profile, you can override:
+
+- **Who you are**: Your role, background, and focus areas
+- **Preferences**: How you like answers formatted, level of detail
+
+### Workspace profile sections
+
+For the workspace profile, you can override:
+
+- **Company context**: What the company does, market position
+- **Product context**: Main products or services
+- **Goals**: What the team is trying to achieve
+- **ICP (Ideal customer profile)**: Who you serve
+- **Operating context**: How the team works, constraints
+
+### How to add an override
+
+1. Open **Context** from the sidebar.
+2. Select the profile section you want to enhance.
+3. Click **Add context** or the **+** button on the section.
+4. Choose **URL** or **File upload**.
+5. Enter the URL or select your file.
+6. Choose the mode: **Enrichment** or **Source of truth**.
+7. Save. Ravell extracts the content and synthesizes it into the section.
+
+<Tip>
+For Notion URLs, make sure the page is shared with your Notion integration — Ravell will use the API for richer content extraction.
+</Tip>
+
+### Managing overrides
+
+- View all overrides in the section's settings
+- Delete an override to remove the external context
+- Multiple enrichment overrides can be added to the same section
+- Only one source of truth override is allowed per section
 
 ---
 
