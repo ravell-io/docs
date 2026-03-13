@@ -58,7 +58,45 @@ This helps Ravell understand context when answering questions that span the whol
 
 - **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
 - **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right (see below).
+
+---
+
+## Section overrides
+
+When AI-generated profile sections aren't quite right, you can override them with your own content. Each profile section has an **Add** button that lets you provide a URL or upload a file to improve that section.
+
+### How to add an override
+
+1. Open **Context** and navigate to the section you want to override.
+2. Click the **Add** button next to the section heading.
+3. Choose your input method:
+   - **URL**: Paste a link to a webpage, document, or resource.
+   - **Upload file**: Upload a PDF or Word document (.docx), up to 5MB.
+4. Select a mode:
+   - **Enrichment**: Content is added to the AI prompt; the section is re-generated using both the original sources and your override.
+   - **Source of Truth**: The uploaded content replaces the section entirely, ignoring other sources.
+5. Click **Add**. Ravell will regenerate the section with your override applied.
+
+### Override modes
+
+| Mode | Behavior |
+|------|----------|
+| **Enrichment** | Your override is combined with existing sources. The AI considers both when generating the section. Use this to add missing context. |
+| **Source of Truth** | Your override replaces the entire section. The AI uses only your content. Use this when you want exact control over what appears. |
+
+### Managing overrides
+
+- View existing overrides by clicking **Add** on any section.
+- Remove an override by clicking the trash icon next to it.
+- Each section can have multiple overrides in enrichment mode.
+
+### When to use overrides
+
+- **Company context is wrong**: Upload a company fact sheet or link to your website.
+- **Your role description is incomplete**: Provide a link to your LinkedIn or internal bio.
+- **Goals are outdated**: Upload a recent OKR document or strategy deck.
+- **ICP needs refinement**: Provide a document describing your ideal customer.
 
 ---
 
