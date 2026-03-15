@@ -14,8 +14,43 @@ Connect **Notion** to Ravell to search across your Notion workspace. Ravell inde
 1. Go to **Sources** or **Settings → Integrations**.
 2. Click **Connect** next to Notion.
 3. Sign in to Notion and authorize Ravell.
-4. Select which pages or databases to sync (or sync the whole workspace).
+4. Browse the hierarchy tree and select which pages or databases to index.
 5. Ravell starts syncing. Initial sync may take a few minutes for large workspaces.
+
+---
+
+## Page and database selection
+
+When you connect Notion, Ravell displays your workspace as a **hierarchy tree** that mirrors your actual Notion structure — pages nested inside pages, databases with their child pages, and so on.
+
+### Browsing the tree
+
+- Expand or collapse any node using the arrow icon to navigate your workspace hierarchy.
+- **Pages** and **databases** both appear in the tree. Databases are shown in bold as group headers with their child pages nested underneath.
+- Each item displays its Notion emoji icon (if set) alongside its title.
+
+### Selecting items to index
+
+- Click any row or its checkbox to select it. Selecting a parent page or database **automatically selects all its children**, so you can index an entire branch at once.
+- Deselecting a parent deselects all its children too.
+- If some children under a parent are selected but not all, the parent shows a partial selection indicator.
+- Press **Escape** to clear all selections.
+
+### Indexing and removing
+
+After selecting items, a bar appears at the bottom of the panel:
+
+- Click **Index** to start indexing the selected pages. Databases themselves are not indexed — only their child pages are.
+- Click **Remove** to remove already-indexed pages from the index.
+- A progress indicator shows indexing status for each page, and a timestamp appears once indexing is complete.
+
+### Filtering
+
+Use the search field at the top to filter pages by name. When a filter is active, the tree auto-expands to show all matching results in context with their parent hierarchy.
+
+### Updating selections
+
+Update your page and database selection anytime in **Settings → Integrations → Notion**. You can add or remove pages from the index as your Notion workspace evolves.
 
 ---
 
