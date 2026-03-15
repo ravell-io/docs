@@ -74,8 +74,40 @@ This helps Ravell resolve references in your questions more accurately.
 
 ---
 
+## Disable memory
+
+You can turn memory off entirely for your account:
+
+1. Go to **Settings → Memory**.
+2. Toggle **Memory enabled** off.
+3. When disabled, Ravell stops extracting new memories from conversations and does not use existing memories for personalization.
+
+Disabling memory is different from clearing it. When you disable memory, your existing memories are preserved but not used. Re-enable memory at any time to resume extraction and personalization.
+
+---
+
+## How memory works behind the scenes
+
+Ravell organizes memories into categories to improve relevance:
+
+| Category | What it covers |
+|----------|---------------|
+| **Role & profile** | Your job title, team, responsibilities |
+| **Projects** | Projects you work on or care about |
+| **Preferences** | How you like answers formatted, level of detail |
+| **Product** | Product knowledge you've shared |
+| **Internal workflow** | How your team works, processes |
+| **Company & business** | Company-level facts and context |
+| **Roadmap** | Plans, timelines, upcoming work |
+
+Each memory also tracks a **confidence** level (how sure Ravell is about the fact) and **importance** (how relevant it is to your work). Memories extracted from conversations start as unverified and gain confidence when corroborated by multiple sources. If a new fact contradicts an existing memory, Ravell marks the old one as contradicted and stops using it.
+
+Memories are linked back to the conversation they came from, so you can always trace where a fact was learned.
+
+---
+
 ## Control what gets stored
 
-- **Explicit additions**: When you add something in Settings → Memory, it's stored.
+- **Explicit additions**: When you add something in Settings → Memory, it's stored with high confidence.
 - **Conversation context**: Ravell may infer facts from your questions and answers. You can delete anything you don't want stored.
 - **Privacy**: Memory is scoped to your account. Workspace members do not see your personal memory.

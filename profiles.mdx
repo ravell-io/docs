@@ -57,8 +57,27 @@ This helps Ravell understand context when answering questions that span the whol
 ## Refresh and exclusions
 
 - **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- **Source exclusions**: Exclude specific sources or URLs from being used in your profile context if needed (e.g. for privacy or relevance). You can exclude by integration type or by specific document URL.
+
+### Section overrides
+
+You can override AI-generated profile sections with your own content. There are two ways to provide overrides:
+
+- **URL**: Provide a URL and Ravell extracts the content to use for a profile section. Useful for linking to an existing "about me" page, company wiki, or product overview.
+- **File upload**: Upload a file (PDF, DOCX, or plain text) and Ravell extracts the content for a profile section.
+
+Each override can operate in one of two modes:
+
+| Mode | What it does |
+|------|-------------|
+| **Enrichment** | The uploaded content supplements the AI-generated section. Ravell combines both sources for a richer profile. |
+| **Source of truth** | The uploaded content replaces the AI-generated section entirely. Use this when the auto-generated content is wrong or you want full control. |
+
+**Overridable sections:**
+
+For **individual profiles**: "Who you are" and "Preferences".
+
+For **workspace profiles**: "Company context", "Product context", "ICP", "Goals", and "Operating context".
 
 ---
 

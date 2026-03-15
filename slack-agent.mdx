@@ -98,6 +98,29 @@ Examples:
 
 ---
 
+## Notion actions (natural language)
+
+When **Notion** is connected, you can create and manage Notion content directly from Slack — the same capabilities available in Web Asks.
+
+- `@Ravell Create a Notion page summarizing this discussion` — Create pages in databases or under existing pages
+- `@Ravell Add this to the product roadmap page` — Append content blocks to existing pages
+- `@Ravell Create a database called "Sprint Issues" with Status and Priority columns` — Create databases with custom schemas
+- `@Ravell Comment on the onboarding page about the new flow` — Add comments to pages
+- `@Ravell Set the Product Reports database as my default` — Set a default database for future exports
+
+Ravell uses thread context, so "this" refers to the current conversation or answer.
+
+---
+
+## Slack actions
+
+Ravell can also take actions directly in Slack:
+
+- **Post messages**: Ask Ravell to send a message to a channel or reply in a thread. For example: `@Ravell Send a summary of this to #product`.
+- **Add reactions**: Ask Ravell to react to a message with an emoji. For example: `@Ravell React to that with :white_check_mark:`.
+
+---
+
 ## In-thread follow-ups
 
 Reply in the thread to ask follow-up questions. Ravell keeps conversation context, so you can say things like:
@@ -159,6 +182,17 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 - `@Ravell Pause the [agent name]` — Pause an agent
 - `@Ravell Resume the [agent name]` — Resume an agent
 - `@Ravell Send that report to #channel` — Update delivery
+
+### Notion actions
+- `@Ravell Create a Notion page about [topic]` — Create a page
+- `@Ravell Add this to [page name]` — Append content to a page
+- `@Ravell Create a database called [name] with [columns]` — Create a database
+- `@Ravell Comment on [page name] about [topic]` — Add a comment
+- `@Ravell Set [database] as my default` — Set a default Notion database
+
+### Slack actions
+- `@Ravell Send a summary to #channel` — Post a message to a channel
+- `@Ravell React to that with :emoji:` — Add a reaction to a message
 
 ### Follow-ups
 - Reply in any thread to follow up — Ravell keeps conversation context
