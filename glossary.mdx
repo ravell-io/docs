@@ -9,15 +9,24 @@ description: "Definitions of key Ravell terms"
 |------|------------|
 | **Ask** | A conversation thread where you ask questions and get evidence-backed answers with citations. Each Ask can have multiple follow-up messages. |
 | **Agent** | A scheduled query that runs on a recurring basis (e.g. every Monday at 9am). Agents produce reports that appear in your Inbox. |
-| **Citation** | A clickable reference in an answer that links to the original source data (Linear issue, Notion page, Intercom conversation, or Slack message). |
+| **Citation** | A clickable reference in an answer that links to the original source data (Linear issue, Notion page, Intercom conversation, Slack message, or Attio record). |
 | **Context** | The central view combining your individual profile, workspace profile, and Memory. Used to personalize answers. |
+| **Entity** | A person, company, project, or team that Ravell identifies across your sources. Entities are resolved across platforms so "Project X" in Linear and "Project X" in Slack are recognized as the same thing. |
+| **Follow-up** | A subsequent question within an existing Ask. Ravell uses the conversation history to give more relevant answers without you repeating context. |
+| **Graph expansion** | During retrieval, Ravell follows links between documents to discover related evidence beyond your direct search terms. For example, asking about an issue can surface Notion pages that reference it. |
 | **Inbox** | Where proactive reports from your agents land. Each agent run produces a report you can read, follow up on, or push to Notion. |
+| **Knowledge Graph** | The connected layer of indexed documents and their relationships. Stores entities, document links, and embeddings that power Ravell's cross-source retrieval. |
 | **Memory** | Facts Ravell learns about you over time from conversations and manual entries. Used to personalize answers across sessions. |
+| **Pipeline** | The multi-stage process Ravell uses to turn a question into an answer: understand, plan, search, fuse and rank, synthesize, and verify. |
 | **Profile (Individual)** | Your personal context: role, focus areas, current work, preferences. Auto-generated from your connected sources and editable manually. |
 | **Profile (Workspace)** | Your team's context: company mission, goals, product context, ICP. Shared across all workspace members. |
+| **Report** | The output of an Agent run. Reports appear in your Inbox and can be delivered to Slack or pushed to Notion. |
+| **Run** | A single execution of an Agent. Each run queries your sources at the scheduled time and produces a report. |
 | **Scoping** | Limiting a question to specific sources (e.g. "Linear only") or time ranges (e.g. "last 30 days") for faster, more focused answers. |
 | **Slack Agent** | The interface for using Ravell in Slack via @Ravell mentions or the `/ravell` command. Supports questions, Linear actions, and agent management. |
 | **Source** | A connected integration (Linear, Notion, Intercom, Slack, Attio) that Ravell syncs and indexes for search. |
+| **Streaming thoughts** | Real-time status updates shown while Ravell processes your question, such as "Searching Linear..." or "Synthesizing answer...". |
+| **Sync** | The process of importing and updating data from your connected sources. Ravell syncs periodically and supports manual re-sync. |
 | **Template** | A pre-built agent configuration with a question and schedule for common use cases like weekly roundups or standup prep. |
 | **Visibility** | Whether an Ask or Agent is **private** (only you) or **shared** (visible to your workspace). |
 | **Workspace** | Your team's shared space in Ravell. All sources, Asks, Agents, and reports live in a workspace. |
