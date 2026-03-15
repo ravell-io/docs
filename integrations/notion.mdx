@@ -41,6 +41,27 @@ Ravell uses this data to answer questions and provide citations back to Notion p
 
 ---
 
+## Notion actions
+
+When Notion is connected, you can create and manage Notion content directly from Ravell — both in the web app and from the [Slack Agent](/slack-agent).
+
+| Action | Example |
+|--------|---------|
+| **Create a page** | "Create a Notion page about our Q1 goals" |
+| **Update a page** | "Update the roadmap page title" |
+| **Append content** | "Add the meeting notes to the standup page" |
+| **Add a comment** | "Comment on the roadmap page with today's update" |
+| **Create a database** | "Create a Notion database for tracking feature requests" |
+| **Set default database** | "Set my default Notion database to Reports" |
+
+From Slack, use `@Ravell` followed by the action in natural language. Ravell delegates to a Notion sub-agent that handles the operation and returns a link to the created or updated content.
+
+<Tip>
+Set a default Notion database so Ravell knows where to push reports without asking each time. Say "Set my default Notion database to [name]" in Slack or select it in the app.
+</Tip>
+
+---
+
 ## Push to Notion
 
 Push any Ask answer or Agent report to Notion as a new page:
