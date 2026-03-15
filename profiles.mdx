@@ -54,11 +54,25 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Confidence scoring
+
+Each profile section and item includes a confidence score that indicates how reliable the data is. Scores appear as **High**, **Medium**, or **Low** indicators.
+
+- **High confidence**: Sourced from well-established data in your connected tools.
+- **Medium confidence**: Based on partial data or inferred from related sources.
+- **Low confidence**: Limited data available. Consider adding context manually.
+
+Items below 60% confidence are grouped in a collapsible **Lower confidence** section so they don't clutter the main view. Sections may also show quality flags when data needs attention (e.g., stale or based on low-quality web context).
+
+---
+
+## Refresh, exclusions, and overrides
 
 - **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- **Source exclusions**: Exclude specific web URLs from being used in your profile context. This is useful when a source returns irrelevant or incorrect information.
+- **Section overrides**: You can upload files or provide URLs to override specific profile sections. Two modes are available:
+  - **Enrichment**: Supplements existing data with your uploaded content.
+  - **Source of truth**: Replaces the section entirely with your uploaded content.
 
 ---
 
