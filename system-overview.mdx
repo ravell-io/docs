@@ -28,6 +28,7 @@ flowchart TB
         N[Notion]
         I[Intercom]
         S[Slack]
+        AT[Attio]
     end
 
     subgraph Context["Adaptive Context"]
@@ -50,6 +51,7 @@ flowchart TB
     N --> KG
     I --> KG
     S --> KG
+    AT --> KG
     KG --> SE
     UP --> SE
     WP --> SE
@@ -92,13 +94,13 @@ flowchart LR
 
 ## Your Tools
 
-**Linear, Notion, Intercom, Slack** — these are your connected sources. Ravell syncs and indexes their content (issues, pages, conversations, messages) into a unified **Knowledge Graph**. The more you connect, the richer the answers.
+**Linear, Notion, Intercom, Slack, Attio** — these are your connected sources. Ravell syncs and indexes their content (issues, pages, conversations, messages, CRM records) into a unified **Knowledge Graph**. The more you connect, the richer the answers.
 
 Data is stored as indexed documents with embeddings for semantic search. When a document is indexed, Ravell extracts entities (people, projects, issues) from metadata and content, then builds links to related documents. Retrieval uses these links to discover evidence you didn't directly search for.
 
 ### How documents are linked
 
-Ravell creates links between documents in four ways:
+Ravell creates links between documents in five ways:
 
 | Link type | How it works | Example |
 |-----------|--------------|---------|
@@ -106,6 +108,7 @@ Ravell creates links between documents in four ways:
 | **Shared entity (semantic linking)** | Two documents mention the same person, project, or other entity — linked by meaning, not just text | An Intercom conversation and a Linear issue both mention "Project X" — they get linked |
 | **Same thread** | A document is a reply or child of another | An Intercom message links to its parent conversation |
 | **Shared author** | The same person authored both documents | Two Linear issues by the same assignee, created around the same time, get linked |
+| **URL reference** | A document contains a URL that matches another indexed document | A Slack message with a Notion link connects to that Notion page |
 
 These links power **graph expansion** during retrieval: when Ravell finds a relevant document, it follows these links to pull in related evidence. A question about "ENG-142" can surface not just the issue itself but the Notion pages that reference it, the Intercom threads that mention it, and other issues by the same author — even if those documents didn't match your search terms directly.
 
