@@ -1,0 +1,87 @@
+---
+title: "API keys"
+description: "Create and manage API keys for programmatic access to your workspace data"
+---
+
+## What are API keys?
+
+API keys let you access your workspace's knowledge base programmatically. You can use them to search indexed documents, look up entities, find related items, run natural-language queries, and generate digests — all without signing into the web app.
+
+Each API key is scoped to a single workspace and can be restricted to specific capabilities.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings → API Keys** in your workspace.
+  </Step>
+  <Step title="Click Create API key">
+    Enter a descriptive name (e.g. "CI pipeline" or "Internal dashboard").
+  </Step>
+  <Step title="Select scopes">
+    Choose which capabilities this key should have. See [Scopes](#scopes) below.
+  </Step>
+  <Step title="Set expiration (optional)">
+    Pick an expiration date if you want the key to auto-expire. Leave blank for no expiration.
+  </Step>
+  <Step title="Copy the key">
+    The full key is shown **once** after creation. Copy it and store it securely — you cannot retrieve it later.
+  </Step>
+</Steps>
+
+<Warning>
+  The raw API key is only displayed at creation time. If you lose it, revoke the key and create a new one.
+</Warning>
+
+---
+
+## Scopes
+
+Each API key can be granted one or more scopes that control which [Knowledge API](/knowledge-api) endpoints it can access.
+
+| Scope | Description | Endpoint |
+|-------|-------------|----------|
+| `search` | Semantic search across indexed documents | `GET /api/knowledge/search` |
+| `entities` | Look up people, companies, and other entities | `GET /api/knowledge/entities` |
+| `related` | Find documents related to a given document or entity | `GET /api/knowledge/related` |
+| `query` | Run natural-language questions and get synthesized answers | `POST /api/knowledge/query` |
+| `digest` | Generate time-based digests (today, this week) | `POST /api/knowledge/digest` |
+
+<Tip>
+  Grant only the scopes your integration needs. For example, a dashboard that displays search results only needs the `search` scope.
+</Tip>
+
+---
+
+## Using an API key
+
+Include your API key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_key_here" \
+  "https://api.ravell.io/api/knowledge/search?query=churn+signals"
+```
+
+See the [Knowledge API](/knowledge-api) page for full endpoint documentation.
+
+---
+
+## Revoke an API key
+
+To revoke a key, go to **Settings → API Keys**, find the key, and click **Revoke**. Revoked keys stop working immediately and cannot be reactivated.
+
+---
+
+## Key format
+
+API keys use the prefix `ravelk_` followed by a random token. You can identify which key was used by its prefix (the first 12 characters), which is visible in the key list.
+
+---
+
+## Limits
+
+- API keys inherit the rate limits of the [Knowledge API](/knowledge-api).
+- Keys are scoped to a single workspace. To access multiple workspaces, create a key in each.
+- Only workspace **owners** and **admins** can create and revoke API keys.
