@@ -7,11 +7,14 @@ description: "Definitions of key Ravell terms"
 
 | Term | Definition |
 |------|------------|
+| **API Key** | A token (prefixed `ravelk_`) used to authenticate requests to the [Knowledge API](/knowledge-api). Each key is scoped to one workspace and can be restricted to specific endpoints. |
 | **Ask** | A conversation thread where you ask questions and get evidence-backed answers with citations. Each Ask can have multiple follow-up messages. |
 | **Agent** | A scheduled query that runs on a recurring basis (e.g. every Monday at 9am). Agents produce reports that appear in your Inbox. |
 | **Citation** | A clickable reference in an answer that links to the original source data (Linear issue, Notion page, Intercom conversation, or Slack message). |
 | **Context** | The central view combining your individual profile, workspace profile, and Memory. Used to personalize answers. |
+| **Digest** | A time-based summary generated via the [Knowledge API](/knowledge-api). Covers a specific period (today, this week, last 7 days) and optional focus area (bugs, feature requests, sentiment). |
 | **Inbox** | Where proactive reports from your agents land. Each agent run produces a report you can read, follow up on, or push to Notion. |
+| **Knowledge API** | A REST API for programmatic access to your workspace's indexed documents, entities, and synthesis engine. Authenticated with [API keys](/knowledge-api). |
 | **Memory** | Facts Ravell learns about you over time from conversations and manual entries. Used to personalize answers across sessions. |
 | **Profile (Individual)** | Your personal context: role, focus areas, current work, preferences. Auto-generated from your connected sources and editable manually. |
 | **Profile (Workspace)** | Your team's context: company mission, goals, product context, ICP. Shared across all workspace members. |

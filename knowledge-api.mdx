@@ -1,0 +1,334 @@
+---
+title: "Knowledge API"
+description: "Access your workspace knowledge programmatically with API keys and REST endpoints"
+---
+
+The Knowledge API lets you query your Ravell workspace programmatically. Use it to search indexed documents, look up entities, find related items, ask natural-language questions, and generate digests — all from your own code, scripts, or MCP-compatible tools.
+
+<Note>You need an active workspace with at least one connected source before the API returns useful results.</Note>
+
+---
+
+## API keys
+
+API keys authenticate requests to the Knowledge API. Each key is scoped to a single workspace and can be restricted to specific endpoints.
+
+### Create an API key
+
+<Steps>
+  <Step title="Open API key settings">
+    Go to **Settings → API Keys** in your workspace.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API Key**. Give it a descriptive name (e.g. "CI pipeline", "MCP server") and select the scopes you need.
+  </Step>
+  <Step title="Copy the token">
+    The full token (starting with `ravelk_`) is shown once. Copy and store it securely — you cannot retrieve it later.
+  </Step>
+</Steps>
+
+### Available scopes
+
+Each scope grants access to one API endpoint. Assign only the scopes your integration needs.
+
+| Scope | Endpoint | Description |
+|-------|----------|-------------|
+| `search` | `GET /api/knowledge/search` | Semantic and structured search across indexed documents |
+| `entities` | `GET /api/knowledge/entities` | Look up people, companies, and other entities |
+| `related` | `GET /api/knowledge/related` | Find documents linked to a given document or entity |
+| `query` | `POST /api/knowledge/query` | Ask a natural-language question and get a synthesized answer |
+| `digest` | `POST /api/knowledge/digest` | Generate a time-based summary of workspace activity |
+
+### Manage keys
+
+- **View keys**: **Settings → API Keys** lists all active keys with their name, prefix, scopes, and last-used timestamp.
+- **Revoke a key**: Click the delete action next to any key. Revoked keys stop working immediately and cannot be restored.
+- **Expiration**: You can set an optional expiration date when creating a key. Expired keys are automatically deactivated.
+
+---
+
+## Authentication
+
+Include your API key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_token_here" \
+  "https://app.ravell.io/api/knowledge/search?query=onboarding+issues"
+```
+
+All endpoints return JSON. Successful responses have this shape:
+
+```json
+{
+  "data": { ... },
+  "meta": {
+    "tier": "tier1",
+    "result_count": 12,
+    "query_time_ms": 142.3,
+    "request_id": "abc-123"
+  }
+}
+```
+
+Error responses include an `error` field:
+
+```json
+{
+  "error": "query parameter is required",
+  "meta": { "request_id": "abc-123" }
+}
+```
+
+---
+
+## Rate limits
+
+Endpoints are grouped into two tiers with separate rate limits:
+
+| Tier | Endpoints | Description |
+|------|-----------|-------------|
+| **Tier 1** | `search`, `entities`, `related` | Read-only lookups — higher burst rate |
+| **Tier 2** | `query`, `digest` | LLM-powered synthesis — lower burst rate |
+
+When you exceed the limit, the API returns `429 Too Many Requests` with a `Retry-After` header indicating when you can retry.
+
+---
+
+## Endpoints
+
+### Search
+
+Find indexed documents by semantic similarity, optionally filtered by source type, team, or date range.
+
+```
+GET /api/knowledge/search
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | Search query text |
+| `source_types` | string[] | No | Filter by source type (e.g. `linear`, `slack`, `notion`, `intercom`, `attio`) |
+| `team_ids` | string[] | No | Filter by team identifiers |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+| `limit` | integer | No | Maximum number of results (default: 20) |
+
+**Example**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://app.ravell.io/api/knowledge/search?query=authentication+bug&source_types[]=linear&date_from=2026-03-01"
+```
+
+**Response**
+
+```json
+{
+  "data": [
+    {
+      "id": "doc-uuid",
+      "source_type": "linear",
+      "source_id": "ENG-142",
+      "title": "Auth token refresh fails on mobile",
+      "text": "Users report that...",
+      "score": 0.92,
+      "url": "https://linear.app/team/issue/ENG-142",
+      "created_at": "2026-03-05T14:30:00Z"
+    }
+  ],
+  "meta": { "tier": "tier1", "result_count": 1, "query_time_ms": 87.2, "request_id": "..." }
+}
+```
+
+---
+
+### Entities
+
+Look up people, companies, projects, and other entities in your workspace by name or ID.
+
+```
+GET /api/knowledge/entities
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | One of `query` or `entity_id` | Fuzzy name search |
+| `entity_id` | integer | One of `query` or `entity_id` | Direct entity lookup |
+| `limit` | integer | No | Maximum results (default: 20) |
+
+**Example**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://app.ravell.io/api/knowledge/entities?query=Acme"
+```
+
+**Response**
+
+```json
+{
+  "data": [
+    {
+      "id": 42,
+      "name": "Acme Corp",
+      "type": "company",
+      "aliases": ["Acme", "Acme Inc"],
+      "relationships": [
+        {
+          "target_id": 99,
+          "target_name": "Jane Smith",
+          "relationship_type": "contact",
+          "confidence": 0.95
+        }
+      ],
+      "metadata": {}
+    }
+  ],
+  "meta": { "tier": "tier1", "result_count": 1, "request_id": "..." }
+}
+```
+
+---
+
+### Related
+
+Find documents linked to a given document or entity. Use this to explore the knowledge graph around a specific item.
+
+```
+GET /api/knowledge/related
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string (UUID) | One of `document_id` or `entity_id` | Find documents linked to this document |
+| `entity_id` | integer | One of `document_id` or `entity_id` | Find documents that mention this entity |
+
+**Example**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://app.ravell.io/api/knowledge/related?document_id=550e8400-e29b-41d4-a716-446655440000"
+```
+
+**Response**
+
+Returns document links (when using `document_id`) or entity mentions (when using `entity_id`), each with a title, source type, URL, and confidence score.
+
+---
+
+### Query
+
+Ask a natural-language question and receive a synthesized answer with citations. This runs the full Ravell pipeline — the same one that powers web Asks.
+
+```
+POST /api/knowledge/query
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | Yes | Your question in natural language |
+| `source_types` | string[] | No | Filter by source type |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+
+**Example**
+
+```bash
+curl -X POST -H "Authorization: Bearer ravelk_..." \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What are the top customer complaints this week?"}' \
+  "https://app.ravell.io/api/knowledge/query"
+```
+
+**Response**
+
+```json
+{
+  "data": {
+    "answer": "The top customer complaints this week center around...",
+    "citations": [
+      {
+        "source_type": "intercom",
+        "title": "Conversation with Acme Corp",
+        "url": "https://app.intercom.com/...",
+        "text": "..."
+      }
+    ],
+    "follow_up_suggestions": []
+  },
+  "meta": { "tier": "synthesis", "result_count": 5, "query_time_ms": 3241.7, "request_id": "..." }
+}
+```
+
+<Warning>Query requests run the full synthesis pipeline and may take several seconds to complete. Use `search` for faster, retrieval-only results.</Warning>
+
+---
+
+### Digest
+
+Generate a time-based summary of workspace activity. Digests are pre-built questions that cover a specific period and optional focus area.
+
+```
+POST /api/knowledge/digest
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | Yes | Time period: `today`, `this_week`, or `last_7_days` |
+| `focus` | string | No | Focus area: `bugs`, `feature_requests`, `sentiment`, or `all` (default: `all`) |
+
+**Example**
+
+```bash
+curl -X POST -H "Authorization: Bearer ravelk_..." \
+  -H "Content-Type: application/json" \
+  -d '{"period": "this_week", "focus": "bugs"}' \
+  "https://app.ravell.io/api/knowledge/digest"
+```
+
+**Response**
+
+```json
+{
+  "data": {
+    "summary": "This week saw 12 bug reports, primarily around...",
+    "citations": [ ... ],
+    "period": "this_week",
+    "focus": "bugs"
+  },
+  "meta": { "tier": "synthesis", "result_count": 12, "query_time_ms": 4102.5, "request_id": "..." }
+}
+```
+
+---
+
+## MCP integration
+
+Ravell supports the Model Context Protocol (MCP), allowing AI assistants and development tools to access your workspace knowledge directly.
+
+To generate an API key for MCP use, your MCP client can call the dedicated auth endpoint (requires an active user session). The returned key has access to all scopes.
+
+<Tip>Refer to your MCP client's documentation for how to configure a new tool server. Point it at `https://app.ravell.io/api/knowledge` and provide the API key as a Bearer token.</Tip>
+
+---
+
+## Error reference
+
+| Status | Meaning |
+|--------|---------|
+| `400` | Invalid or missing parameters |
+| `401` | Missing or invalid API key |
+| `403` | API key does not have the required scope |
+| `404` | Resource not found |
+| `429` | Rate limit exceeded (check `Retry-After` header) |
+| `500` | Internal error — retry or contact support |
