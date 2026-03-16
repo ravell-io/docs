@@ -56,9 +56,33 @@ This helps Ravell understand context when answering questions that span the whol
 
 ## Refresh and exclusions
 
-- **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers. After triggering a refresh, you'll see a "Regenerating context..." indicator while the profile updates.
+- **Source exclusions**: Remove specific web sources from being used in your profile. Click the remove button on any web source block to blacklist that URL from future profile generation.
+
+---
+
+## Section overrides
+
+When auto-generated content isn't quite right, you can manually supplement or replace individual profile sections. Section overrides are available on most profile sections (except dynamically-sourced sections like Current work and Team projects).
+
+### How to add an override
+
+1. Click the **override icon** on a profile section.
+2. Choose your input type:
+   - **URL** — paste a link to a web page with relevant content.
+   - **File upload** — upload a PDF or .docx file (max 5 MB).
+3. Choose a mode:
+   - **Enrichment** — Ravell incorporates the content alongside other sources and regenerates the section.
+   - **Source of truth** — the uploaded content replaces the section entirely.
+4. Click **Save**. The profile section regenerates automatically.
+
+### Manage overrides
+
+Existing overrides are listed in the override popover, showing the filename or URL and the mode (Enrichment or Source of truth). You can delete an override at any time — the section reverts to AI-generated content on the next refresh.
+
+<Tip>
+  Use **Source of truth** mode when you have an authoritative document (e.g. a company wiki page or strategy doc) that should define a section completely. Use **Enrichment** when you want to add supplementary context without replacing what Ravell already knows.
+</Tip>
 
 ---
 
@@ -74,6 +98,18 @@ When you ask a question, Ravell considers your individual profile, workspace pro
 - **Focus areas**: List 2-3 areas you work on most
 - **Current work**: Update when you change projects so answers reflect your current context
 - **Preferences**: Tell Ravell how you like answers — bullet points, executive summaries, technical detail
+
+---
+
+## Confidence scores
+
+Each profile section displays a **confidence score** indicating how certain Ravell is about the information:
+
+- **High** (green) — strong signal from multiple sources.
+- **Medium** (amber) — reasonable confidence, but based on limited data.
+- **Low** (red) — weak signal; consider adding a section override or memory to improve accuracy.
+
+List sections like Current work and Team projects show confidence per item, with lower-confidence items collapsed into a separate section.
 
 ---
 

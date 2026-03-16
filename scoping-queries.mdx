@@ -15,25 +15,55 @@ By default, Ravell searches across all connected sources (Linear, Notion, Interc
 
 ## Scope to specific sources
 
-When asking a question, you can limit the search to one or more sources:
+You can limit which sources Ravell searches using either the UI or inline syntax:
 
-- **Linear only**: "What are the top open issues?" → searches only Linear.
-- **Intercom only**: "What did customers say about pricing?" → searches only Intercom.
-- **Slack + Linear**: Combine sources when the answer might span both.
+### Source selector
 
-Use the source selector (if available) in the Ask input or in the question composer to choose which sources to include.
+Click the **source icon** next to the query input to open the source picker. It shows your connected sources (Linear, Notion, Intercom, Slack, Attio) as toggles — switch off the sources you don't want to search. When no sources are selected, all connected sources are queried.
+
+### @mention syntax
+
+Type `@` followed by a source name directly in your question:
+
+- `@Linear What are the top open issues?` → searches only Linear.
+- `@Intercom What did customers say about pricing?` → searches only Intercom.
+- `@Slack @Linear What did the team discuss about the API?` → searches both Slack and Linear.
+
+Source mentions are case-insensitive. Supported names: `@Linear`, `@Notion`, `@Intercom`, `@Slack`, `@Attio`.
 
 ---
 
 ## Scope to time ranges
 
-Some questions support time filters:
+You can scope by time using natural language in your question or the filter panel.
+
+### Natural language
 
 - "What did we ship **last week**?"
 - "Summarize Intercom feedback from **last month**."
 - "What are the top issues **in our current cycle**?"
 
 Ravell interprets relative time ranges and scopes the search accordingly. For cycle-based questions, Linear cycle dates are used when Linear is connected.
+
+### Filter panel
+
+Click the **filter icon** next to the query input and select a time period:
+
+- **This Week** — current calendar week.
+- **This Month** — current calendar month.
+- **This Quarter** — current calendar quarter.
+- **All Time** — no time restriction.
+
+---
+
+## Filter by priority and team
+
+The filter panel also supports:
+
+- **Priority** — filter results to Urgent, High, Medium, or Low priority items. Select one or more priority levels.
+- **Linear teams** — when Linear is connected, filter results to specific teams.
+
+Active filters appear as colored chips below the query input. Click the X on a chip to remove it, or **Clear all** to reset all filters.
 
 ---
 

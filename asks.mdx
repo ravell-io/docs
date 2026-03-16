@@ -58,9 +58,28 @@ Every answer includes **citations** — clickable references to the source data.
 
 Citations let you verify answers and dig into the evidence yourself. If something seems off, check the source.
 
+### Section-level sources
+
+For longer answers, each section displays a **sources chip** showing the number of citations used in that section. Click the chip to open the **Sources drawer**, which groups citations by source document and type (Linear, Intercom, Slack, Notion). This makes it easy to see which evidence backs each part of the answer.
+
 ### Context used panel
 
 The **Sources** rail (next to the answer) may show a "Context used" panel. This displays which profiles (individual and workspace) and Memory were used for the answer, their freshness, and any quality flags. Use **View context used** to jump to the Context view and see or edit your profiles.
+
+---
+
+## Thinking process
+
+While generating an answer, Ravell shows a **thinking block** that reveals its reasoning process. You can expand it to see what Ravell is doing at each stage:
+
+- **Understanding query** — parsing your question and resolving references.
+- **Planning retrieval** — deciding which sources and strategies to use.
+- **Searching sources** — retrieving relevant documents.
+- **Organizing evidence** — clustering and ranking results.
+- **Writing answer** — synthesizing the response.
+- **Verifying claims** — checking that claims match the evidence.
+
+The thinking block auto-expands while streaming and collapses when complete. Click it to expand or collapse it at any time. You can also click **Stop** to cancel generation mid-stream.
 
 ---
 
@@ -68,13 +87,28 @@ The **Sources** rail (next to the answer) may show a "Context used" panel. This 
 
 By default, Ravell searches across all connected sources. You can narrow the search:
 
-- **All sources** (default) — Linear, Notion, Intercom, Slack.
-- **Specific source** — Use the source selector to limit (e.g. "Linear only" or "Notion only").
+- **All sources** (default) — Linear, Notion, Intercom, Slack, Attio.
+- **Specific source** — Use the source selector in the query input to toggle individual sources on or off.
+- **@mention syntax** — Type `@Linear`, `@Slack`, `@Notion`, `@Intercom`, or `@Attio` in your question to target specific sources inline.
+
+When no sources are selected in the picker, all connected sources are queried.
 
 Scoping is useful when:
 - You know the answer is in one tool.
 - You want faster results (fewer sources = less to search).
 - You're testing or comparing answers across tools.
+
+---
+
+## Filters
+
+Beyond source scoping, you can apply structured filters to narrow your results:
+
+- **Time period** — filter to This Week, This Month, This Quarter, or All Time.
+- **Priority** — filter by Urgent, High, Medium, or Low priority levels.
+- **Linear teams** — filter to specific Linear teams (available when Linear is connected).
+
+Click the **filter icon** next to the query input to open the filter panel. Active filters appear as colored chips below the input — click the X on any chip to remove it, or use **Clear all** to reset.
 
 ---
 
@@ -89,14 +123,39 @@ You can change visibility later from the report menu (**Make private** / **Share
 
 ---
 
+## Report actions
+
+Each Ask has a menu (click **...** or right-click) with these actions:
+
+| Action | What it does |
+|--------|-------------|
+| **Copy link** | Copies a shareable URL to your clipboard |
+| **Push to Notion** | Exports the answer to a Notion database |
+| **Share with workspace** / **Make private** | Toggles visibility |
+| **Rename** | Edits the Ask title |
+| **Hold to delete** | Hold the button to confirm deletion |
+
+Answer cards also have a toolbar with **Copy** (copies answer text), **Regenerate** (re-runs the query), **Share**, and **Push to Notion**.
+
+---
+
 ## Push to Notion
 
-When Notion is connected, you can **push** an answer to a Notion page:
+When Notion is connected, you can **push** an answer to a Notion database:
 
-1. Open an Ask with an answer.
-2. Click **Push to Notion** on the answer card.
-3. Choose the Notion page or database to add the report.
-4. The answer (with citations) is added as content in Notion.
+<Steps>
+  <Step title="Open the Push to Notion dialog">
+    Click **Push to Notion** on the answer card or from the report menu.
+  </Step>
+  <Step title="Choose a destination">
+    Search for and select a Notion database. You can set a default destination so you don't have to pick one each time.
+  </Step>
+  <Step title="Export">
+    Click **Export**. The answer (with citations) is created as a new page in the selected database.
+  </Step>
+</Steps>
+
+If the export fails due to permissions, share the Notion database with the Ravell integration and grant **Can edit** access.
 
 Use this to turn Ask results into shared docs, meeting prep, or recurring reports. The content is formatted for Notion (headings, lists, links).
 
@@ -114,7 +173,7 @@ When you submit a question, Ravell runs a multi-stage pipeline:
 5. **Synthesize** — Generates the answer, grounding each claim in the retrieved evidence.
 6. **Verify** — Checks that claims match the evidence and marks confidence where needed.
 
-You see this progress as **streaming thoughts** — short status updates that show what Ravell is doing. Simple questions get a quick pass; complex ones get deeper reasoning.
+You see this progress as a **thinking block** that shows what Ravell is doing at each stage. Simple questions get a quick pass; complex ones get deeper reasoning. Ravell can also render **Mermaid diagrams** in answers when visualizations help explain relationships or flows — try asking "draw a diagram of..." or "visualize the architecture of...".
 </Accordion>
 
 ---

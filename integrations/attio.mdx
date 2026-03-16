@@ -24,11 +24,26 @@ When Attio is connected alongside Intercom, Ravell can connect customer support 
 
 ## Connect Attio
 
-1. Go to **Sources** or **Settings → Integrations**.
-2. Click **Connect** next to Attio.
-3. Sign in to Attio and authorize Ravell.
-4. Select which objects and data to sync.
-5. Ravell starts syncing. Initial sync may take a few minutes.
+<Steps>
+  <Step title="Authorize">
+    Go to **Sources** or **Settings → Integrations**. Click **Connect** next to Attio. Sign in to Attio and authorize Ravell.
+  </Step>
+  <Step title="Configure data types">
+    After connecting, go to **Settings → Integrations → Attio** to configure what gets synced:
+    - **Notes and call transcripts** sync automatically.
+    - **CRM record context** is opt-in. Toggle on the record types you want indexed:
+      - **People** — contact records and attributes.
+      - **Companies** — company records and attributes.
+      - **Deals** — deal records with stages and values.
+  </Step>
+  <Step title="Sync">
+    Click **Sync now** to start the initial sync. This may take a few minutes depending on the volume of data.
+  </Step>
+</Steps>
+
+<Tip>
+  You can change which CRM record types are indexed at any time in **Settings → Integrations → Attio**. Notes and call transcripts always sync when Attio is connected.
+</Tip>
 
 ---
 
