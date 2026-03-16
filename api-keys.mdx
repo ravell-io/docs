@@ -1,0 +1,98 @@
+---
+title: "API keys"
+description: "Create API keys to connect Ravell to external tools and MCP-compatible AI clients"
+---
+
+## Overview
+
+API keys let you connect Ravell to external tools, scripts, and AI clients. You can create keys with specific scopes, use them with MCP-compatible clients like Claude Desktop, and revoke them at any time.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API settings">
+    Go to **Settings → API**.
+  </Step>
+  <Step title="Create a key">
+    Click **Create API key**. Enter a name (e.g. "Claude Desktop") and select the scopes you need.
+  </Step>
+  <Step title="Copy the key">
+    The key is shown once after creation. Copy it immediately and store it somewhere safe — you cannot view it again.
+  </Step>
+</Steps>
+
+<Warning>
+  API keys are shown only once at creation time. If you lose a key, revoke it and create a new one.
+</Warning>
+
+---
+
+## Scopes
+
+Each API key can be granted one or more scopes that control what it can access:
+
+| Scope | What it allows |
+|-------|---------------|
+| **search** | Search across your connected sources |
+| **entities** | Access entities (issues, contacts, deals, etc.) |
+| **related** | Find related items across sources |
+| **query** | Run full queries (same as a Web Ask) |
+| **digest** | Access agent reports and digests |
+
+All scopes are selected by default when creating a key. Remove scopes you don't need to follow the principle of least privilege.
+
+---
+
+## MCP integration
+
+Ravell provides an MCP (Model Context Protocol) server that connects to Claude Desktop and other MCP-compatible AI clients. This lets you query your Ravell workspace directly from your AI assistant.
+
+### Connect to Claude Desktop
+
+In **Settings → API**, you'll find a ready-to-copy configuration block. Add it to your Claude Desktop MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "ravell": {
+      "command": "npx",
+      "args": ["-y", "@ravell/mcp"],
+      "env": {
+        "RAVELL_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+Replace `your-api-key-here` with the API key you created.
+
+<Tip>
+  The MCP configuration works with any MCP-compatible client, not just Claude Desktop.
+</Tip>
+
+---
+
+## Manage keys
+
+Your active API keys are listed in **Settings → API**, showing:
+
+- Key name and a masked token prefix
+- Assigned scopes
+- Creation date
+- Last used date (or "Never used" if the key hasn't been used yet)
+
+### Revoke a key
+
+Click the delete icon next to a key and confirm. Revoked keys stop working immediately — any integrations using the key will lose access.
+
+---
+
+## Best practices
+
+- **Name keys descriptively** so you know what each one is used for (e.g. "Claude Desktop", "CI pipeline").
+- **Use minimal scopes** — only grant the access each integration needs.
+- **Rotate keys periodically** — revoke old keys and create new ones.
+- **Never share keys** in public repositories, chat messages, or documentation.
