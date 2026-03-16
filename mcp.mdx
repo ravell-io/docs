@@ -1,0 +1,99 @@
+---
+title: "MCP server"
+description: "Connect Ravell to Claude Desktop, Claude Code, and other MCP-compatible AI clients"
+---
+
+## Overview
+
+Ravell provides an [MCP (Model Context Protocol)](https://modelcontextprotocol.io) server that lets AI assistants like Claude search your workspace, access entities, and run queries through Ravell — all from within your AI tool.
+
+The MCP server is available as `@ravell/mcp` on npm.
+
+---
+
+## Setup with Claude Desktop
+
+<Steps>
+  <Step title="Create an API key">
+    Go to **Settings → API** in Ravell and create an API key with the scopes you need. See [API keys](/api-keys) for details.
+  </Step>
+  <Step title="Add the MCP server config">
+    Add the following to your Claude Desktop configuration file (or `.mcp.json` in your project root):
+
+    ```json
+    {
+      "mcpServers": {
+        "ravell": {
+          "command": "npx",
+          "args": ["-y", "@ravell/mcp"],
+          "env": {
+            "RAVELL_API_KEY": "<your-api-key>"
+          }
+        }
+      }
+    }
+    ```
+
+    Replace `<your-api-key>` with the key you created in the previous step.
+  </Step>
+  <Step title="Restart Claude Desktop">
+    Restart Claude Desktop to pick up the new configuration. Ravell appears as an available MCP tool.
+  </Step>
+</Steps>
+
+<Tip>
+  The MCP Quick Start card in **Settings → API** provides this configuration snippet with a copy button.
+</Tip>
+
+---
+
+## Setup with Claude Code
+
+Claude Code supports an automatic authentication flow that creates an API key for you without manual configuration.
+
+<Steps>
+  <Step title="Start the auth flow">
+    Run the Ravell MCP login command from your terminal. This opens a browser window.
+  </Step>
+  <Step title="Authenticate in the browser">
+    Sign in to Ravell if you aren't already. The page automatically creates an MCP credential and redirects the token back to the CLI.
+  </Step>
+  <Step title="Confirm connection">
+    You see a "Connected!" confirmation in your browser. You can close the tab — the CLI has your credentials.
+  </Step>
+</Steps>
+
+---
+
+## What you can do with the MCP server
+
+Once connected, your AI assistant can use Ravell tools to:
+
+| Capability | Description |
+|-----------|-------------|
+| **Search sources** | Search across Linear, Notion, Intercom, Slack, and Attio |
+| **Access entities** | Look up people, projects, teams, and other entities |
+| **Find related content** | Discover connections between items across sources |
+| **Run queries** | Ask full questions and get evidence-backed answers |
+| **Generate digests** | Create summaries and roundups from your workspace data |
+
+The available capabilities depend on the [scopes](/api-keys#create-an-api-key) granted to your API key.
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="MCP server not appearing in Claude Desktop">
+    Verify your configuration file is valid JSON and saved in the correct location. Restart Claude Desktop after making changes.
+  </Accordion>
+  <Accordion title="Authentication errors">
+    Check that your API key is valid and hasn't been revoked. Go to **Settings → API** to verify. If lost, create a new key.
+  </Accordion>
+  <Accordion title="Missing capabilities">
+    The MCP server only exposes capabilities matching your API key's scopes. If a tool is missing, check that your key includes the required scope.
+  </Accordion>
+  <Accordion title="Browser auth flow fails">
+    Make sure you're signed in to Ravell in your default browser. The flow requires an active session to create the MCP credential.
+  </Accordion>
+</AccordionGroup>
