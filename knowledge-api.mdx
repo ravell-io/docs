@@ -1,0 +1,225 @@
+---
+title: "Knowledge API"
+description: "Programmatic access to search, entities, queries, and digests"
+---
+
+## Overview
+
+The Knowledge API gives you programmatic access to your workspace's indexed data. Use it to build dashboards, power internal tools, or integrate Ravell into your workflows.
+
+All endpoints require an [API key](/api-keys) with the appropriate scope.
+
+---
+
+## Authentication
+
+Pass your API key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_key_here" \
+  "https://api.ravell.io/api/knowledge/search?query=your+query"
+```
+
+---
+
+## Endpoints
+
+### Search
+
+Search your indexed documents using semantic search.
+
+| | |
+|---|---|
+| **Method** | `GET /api/knowledge/search` |
+| **Scope** | `search` |
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | The search query (max 1,000 characters) |
+| `source_types` | string | No | Filter by source type (e.g. `linear`, `slack`) |
+| `team_ids` | string | No | Filter by team IDs |
+| `date_from` | string | No | Start date in `YYYY-MM-DD` format |
+| `date_to` | string | No | End date in `YYYY-MM-DD` format |
+| `limit` | integer | No | Maximum number of results |
+
+**Example**
+
+```bash
+curl -H "Authorization: Bearer ravelk_abc123..." \
+  "https://api.ravell.io/api/knowledge/search?query=onboarding+issues&source_types=linear&date_from=2025-01-01"
+```
+
+---
+
+### Entities
+
+Look up people, companies, and other entities in your knowledge graph.
+
+| | |
+|---|---|
+| **Method** | `GET /api/knowledge/entities` |
+| **Scope** | `entities` |
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | One of `query` or `entity_id` required | Search query for entity names |
+| `entity_id` | string | One of `query` or `entity_id` required | Look up a specific entity by ID |
+| `limit` | integer | No | Maximum number of results (default 10) |
+
+---
+
+### Related
+
+Find documents and entities related to a given document or entity.
+
+| | |
+|---|---|
+| **Method** | `GET /api/knowledge/related` |
+| **Scope** | `related` |
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string | One of `document_id` or `entity_id` required | Find items related to this document |
+| `entity_id` | string | One of `document_id` or `entity_id` required | Find items related to this entity |
+
+---
+
+### Query
+
+Ask a natural-language question and get a synthesized answer with citations.
+
+| | |
+|---|---|
+| **Method** | `POST /api/knowledge/query` |
+| **Scope** | `query` |
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | Yes | Your question (max 2,000 characters) |
+| `source_types` | string | No | Filter by source type |
+| `date_from` | string | No | Start date in `YYYY-MM-DD` format |
+| `date_to` | string | No | End date in `YYYY-MM-DD` format |
+
+**Response**
+
+```json
+{
+  "data": {
+    "answer": "Based on your data...",
+    "citations": [...],
+    "follow_up_suggestions": []
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 5,
+    "query_time_ms": 2340.1,
+    "request_id": "abc-123"
+  }
+}
+```
+
+---
+
+### Digest
+
+Generate a time-based summary of activity across your sources.
+
+| | |
+|---|---|
+| **Method** | `POST /api/knowledge/digest` |
+| **Scope** | `digest` |
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | Yes | Time period: `today`, `this_week`, or `last_7_days` |
+| `focus` | string | No | Focus area: `bugs`, `feature_requests`, `sentiment`, or `all` (default: `all`) |
+
+**Response**
+
+```json
+{
+  "data": {
+    "summary": "This week's highlights...",
+    "citations": [...],
+    "period": "this_week",
+    "focus": "all"
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 12,
+    "query_time_ms": 3200.5,
+    "request_id": "def-456"
+  }
+}
+```
+
+---
+
+## Rate limits
+
+The API uses a leaky-bucket rate limiting strategy with two tiers:
+
+| Tier | Endpoints | Burst limit | Sustained rate |
+|------|-----------|-------------|----------------|
+| **Tier 1** (retrieval) | `search`, `entities`, `related` | 100 requests/min | 50 requests/min |
+| **Tier 2** (synthesis) | `query`, `digest` | 20 requests/min | 10 requests/min |
+
+When you exceed the limit, the API returns a `429 Too Many Requests` response with a `Retry-After` header indicating when you can retry.
+
+---
+
+## Response format
+
+All responses follow a consistent structure:
+
+```json
+{
+  "data": { ... },
+  "meta": {
+    "tier": "tier1",
+    "result_count": 10,
+    "query_time_ms": 125.3,
+    "request_id": "unique-id"
+  }
+}
+```
+
+Error responses include an `error` field:
+
+```json
+{
+  "error": "query parameter is required",
+  "meta": {
+    "request_id": "unique-id"
+  }
+}
+```
+
+---
+
+## Date filtering
+
+Use `date_from` and `date_to` parameters (in `YYYY-MM-DD` format) to narrow results to a specific time range. Both parameters are optional and can be used independently.
+
+---
+
+## Error codes
+
+| Status | Meaning |
+|--------|---------|
+| `400` | Bad request — missing required parameters or invalid format |
+| `401` | Unauthorized — missing or invalid API key |
+| `403` | Forbidden — API key does not have the required scope |
+| `404` | Resource not found |
+| `429` | Rate limit exceeded |
+| `500` | Internal server error |
