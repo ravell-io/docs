@@ -1,0 +1,87 @@
+---
+title: "API keys"
+description: "Create and manage API keys for programmatic access and MCP integrations"
+---
+
+## Overview
+
+API keys let you connect external tools to your Ravell workspace programmatically. Use them to authenticate the [Ravell MCP server](/mcp), build custom integrations, or access the Ravell API directly.
+
+API keys are managed in **Settings → API**.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API settings">
+    Go to **Settings → API** in the app.
+  </Step>
+  <Step title="Click New Key">
+    Click **New Key** to open the creation dialog.
+  </Step>
+  <Step title="Name your key">
+    Enter a descriptive name (e.g. "Claude Desktop", "CI Pipeline"). This helps you identify the key later.
+  </Step>
+  <Step title="Select scopes">
+    Choose which scopes the key can access. All scopes are selected by default:
+
+    | Scope | What it allows |
+    |-------|---------------|
+    | `search` | Search across your connected sources |
+    | `entities` | Access entities (people, projects, teams) |
+    | `related` | Find related content across sources |
+    | `query` | Run full Asks against your workspace |
+    | `digest` | Generate digests and summaries |
+  </Step>
+  <Step title="Copy and store your key">
+    After creation, your API key is displayed **once**. Copy it immediately and store it somewhere safe — you cannot retrieve it later.
+  </Step>
+</Steps>
+
+<Warning>
+  API keys are shown only once at creation time. If you lose a key, revoke it and create a new one.
+</Warning>
+
+---
+
+## Revoke an API key
+
+1. Go to **Settings → API**.
+2. Find the key you want to revoke.
+3. Click the trash icon and confirm.
+
+Revocation is immediate. Any integration using that key stops working right away.
+
+---
+
+## Key details
+
+Each API key displays the following information:
+
+| Field | Description |
+|-------|-------------|
+| **Name** | The label you gave the key |
+| **Token prefix** | First characters of the key for identification |
+| **Scopes** | Permissions granted to the key |
+| **Created** | When the key was created |
+| **Last used** | When the key was last used for authentication |
+
+---
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Use descriptive names">
+    Name keys after their purpose or the tool they connect to. This makes it easy to identify and revoke specific keys without disrupting other integrations.
+  </Accordion>
+  <Accordion title="Use minimal scopes">
+    Only grant the scopes your integration needs. For example, if you only use the MCP server for search, select only the `search` scope.
+  </Accordion>
+  <Accordion title="Rotate keys periodically">
+    Create a new key, update your integration, then revoke the old one. This limits exposure if a key is compromised.
+  </Accordion>
+  <Accordion title="Never commit keys to version control">
+    Use environment variables or a secrets manager to store API keys. Avoid hardcoding them in configuration files that are checked into Git.
+  </Accordion>
+</AccordionGroup>
