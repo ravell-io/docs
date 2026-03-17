@@ -1,11 +1,11 @@
 ---
 title: "Notion"
-description: "Connect Notion to search your workspace and push reports"
+description: "Connect Notion to search your workspace, push reports, and take actions"
 ---
 
 ## Overview
 
-Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. You can also **push reports to Notion** from Asks and Inbox.
+Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. You can also **push reports to Notion**, create and update pages, and manage databases — from the web app or Slack.
 
 ---
 
@@ -65,6 +65,49 @@ Push any Ask answer or Agent report to Notion as a new page:
 - Build a knowledge base of recurring agent reports
 - Archive sprint reviews and weekly roundups
 - Create meeting prep docs from Ravell answers
+
+---
+
+## Notion actions
+
+Beyond Push to Notion, you can take a range of actions in Notion using natural language — from both the web app and Slack.
+
+### What you can do
+
+| Action | Example prompt |
+|--------|---------------|
+| **Create a page** | "Create a Notion page summarizing this week's feedback" |
+| **Update a page** | "Update the sprint review page with this week's results" |
+| **Append content** | "Add a section to the product roadmap about the auth feature" |
+| **Add a comment** | "Add a comment on the checkout spec page" |
+| **Create a database** | "Create a Notion database called Weekly Reports" |
+| **Update a database** | "Update the Weekly Reports database schema" |
+| **Set default database** | "Set my default Notion database to Product Reports" |
+
+### How it works
+
+When you ask Ravell to take a Notion action (in a follow-up or from Slack), Ravell delegates to a dedicated Notion sub-agent that:
+
+1. Searches your connected Notion workspace to find the right page or database.
+2. Performs the action (create, update, or append).
+3. Formats content with proper headings, lists, and links.
+4. Reports back with a link to the created or updated page.
+
+<Tip>
+Set a **default Notion database** so "Push this to Notion" always goes to the right place. Ask Ravell: "Set my default Notion database to [database name]".
+</Tip>
+
+### From the web app
+
+In any Ask thread, ask Ravell to push content or create Notion pages as a follow-up:
+
+- "Push this to Notion"
+- "Create a Notion page with these findings"
+- "Update the roadmap page with this analysis"
+
+### From Slack
+
+Mention **@Ravell** with your Notion request. See the full list in the [Slack Agent command reference](/slack-agent#command-reference).
 
 ---
 
