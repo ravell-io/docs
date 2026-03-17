@@ -96,7 +96,7 @@
       {
         "group": "Reference",
         "tab": "Admin & Reference",
-        "pages": ["shortcuts", "glossary"]
+        "pages": ["knowledge-api", "shortcuts", "glossary"]
       },
       {
         "group": "Help",
