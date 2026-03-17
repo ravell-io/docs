@@ -38,14 +38,43 @@ For 50+ more examples, see the [Question library](/use-cases/question-library).
 
 ## Follow-ups
 
-Reply in the same thread to ask follow-up questions. Ravell keeps the full conversation context, so you can say things like:
+Reply in the same thread to ask follow-up questions. Ravell keeps the full conversation context, so you can:
 
-- "Which of those are high priority?"
-- "Show me the Linear links for the top 3."
-- "What did we decide about the checkout flow?"
-- "Create a bug for that" — Ravell uses the most recent topic when you say "that" or "this".
+- **Narrow**: "Which of those are high priority?"
+- **Expand**: "Show me the Linear links for the top 3."
+- **Pivot**: "What did we decide about the checkout flow?"
+- **Act**: "Create a bug for that" — Ravell uses the most recent topic when you say "that" or "this".
 
 You don't need to repeat the original question. Follow-ups can refine, narrow, or extend the answer.
+
+Ravell automatically decides how to handle each follow-up: quick questions answerable from the existing conversation are handled instantly from context, while new questions or action requests trigger a fresh search or the appropriate tool.
+
+---
+
+## Actions
+
+You can take actions directly from a conversation thread. When Linear or Notion is connected, Ravell can create and update records based on your follow-up messages.
+
+### Linear actions
+
+Ask Ravell to create or update Linear records from your conversation:
+
+- "Create a bug for that" — Creates a Linear issue from the current topic.
+- "File a ticket about the auth timeout" — Creates an issue with your description.
+- "Update ENG-123 to done" — Updates an existing issue.
+- "Create a project for the checkout redesign" — Creates a Linear project.
+
+Ravell checks for duplicate issues before creating new ones and uses the conversation context to fill in details. **Linear must be connected** for these actions to work.
+
+### Notion actions
+
+Ask Ravell to push content to Notion:
+
+- "Push this to Notion" — Exports the answer to your default Notion database.
+- "Create a Notion page summarizing these findings" — Creates a new Notion page.
+- "Update the sprint review page with this" — Appends content to an existing page.
+
+You can also use the **Push to Notion** button on any answer card. **Notion must be connected** for these actions to work.
 
 ---
 
