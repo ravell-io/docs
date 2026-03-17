@@ -107,14 +107,16 @@ Use this to turn Ask results into shared docs, meeting prep, or recurring report
 <Accordion title="Behind the scenes">
 When you submit a question, Ravell runs a multi-stage pipeline:
 
-1. **Intent** — Classifies what you're asking (find issues, summarize feedback, compare trends) and resolves references like "Project X" or "ENG-142" to real items.
-2. **Plan** — Breaks the query into sub-questions and selects which sources to search.
-3. **Search** — Retrieves documents using semantic, lexical, structured, and graph-based search simultaneously.
-4. **Cluster & rank** — Groups evidence by theme and re-ranks so the best evidence surfaces first.
-5. **Synthesize** — Generates the answer, grounding each claim in the retrieved evidence.
-6. **Verify** — Checks that claims match the evidence and marks confidence where needed.
+1. **Capability check** — A lightweight classifier detects help and onboarding questions like "What can you do?" or "How do I get started?" and answers them instantly without running a full search. This keeps simple questions fast.
+2. **Intent** — Classifies what you're asking (find issues, summarize feedback, compare trends), resolves references like "Project X" or "ENG-142" to real items, and scores the question across five dimensions (reasoning depth, decision stakes, temporal scope, output structure, and web research value).
+3. **Complexity** — Based on the dimension scores, the pipeline assigns a **complexity tier** — brief, standard, deep, or strategic. The tier controls how many sources are searched, how much evidence is gathered, and how detailed the answer is.
+4. **Plan** — Breaks the query into sub-questions and selects which sources to search. For deep and strategic questions, the pipeline uses **iterative retrieval** — multiple search passes with reflection between each pass to identify gaps and expand coverage. Simpler questions get a single focused pass.
+5. **Search** — Retrieves documents using semantic, lexical, structured, entity-graph, and theme-graph search lanes simultaneously. Results from all lanes are fused and re-ranked so the best evidence surfaces first.
+6. **Cluster & distill** — Groups evidence by theme and distills key claims. For large evidence sets, a distillation step compresses findings into a structured brief before synthesis.
+7. **Synthesize** — Generates the answer, grounding each claim in the retrieved evidence and tailoring the response to the complexity tier.
+8. **Verify** — Checks that citations in the answer are actually supported by the evidence and marks confidence where needed.
 
-You see this progress as **streaming thoughts** — short status updates that show what Ravell is doing. Simple questions get a quick pass; complex ones get deeper reasoning.
+You see this progress as **streaming thoughts** — short status updates that show what Ravell is doing at each stage. Simple questions get a quick single pass; complex ones trigger deep research with multiple retrieval rounds.
 </Accordion>
 
 ---

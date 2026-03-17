@@ -28,6 +28,7 @@ flowchart TB
         N[Notion]
         I[Intercom]
         S[Slack]
+        At[Attio]
     end
 
     subgraph Context["Adaptive Context"]
@@ -50,6 +51,7 @@ flowchart TB
     N --> KG
     I --> KG
     S --> KG
+    At --> KG
     KG --> SE
     UP --> SE
     WP --> SE
@@ -64,23 +66,30 @@ flowchart TB
 
 When you ask a question, Ravell runs a structured pipeline that turns your words into evidence-backed answers. Here's how it works:
 
-1. **Understand** — Ravell classifies what you're asking (e.g. find issues, summarize feedback, compare trends) and resolves references like "Project X" or "ENG-142" to real items in your workspace.
-2. **Plan** — It breaks the query into sub-questions and selects which sources to search. A simple lookup gets a quick pass; a complex question gets more retrieval passes.
-3. **Search** — Ravell searches in several ways at once:
+1. **Capability check** — A lightweight classifier detects help or onboarding questions ("What can you do?", "How do I get started?") and answers them instantly without running a full search.
+2. **Understand** — Ravell classifies what you're asking (e.g. find issues, summarize feedback, compare trends), resolves references like "Project X" or "ENG-142" to real items, and scores the question's complexity across five dimensions.
+3. **Assess complexity** — Based on the dimension scores, the pipeline assigns a **complexity tier** — brief, standard, deep, or strategic. The tier determines how many sources are searched, how many retrieval passes run, and how detailed the answer is. A quick lookup stays brief; a strategic question like "Where should we invest next quarter?" gets the deepest treatment.
+4. **Plan** — It breaks the query into sub-questions and selects which sources to search. For deep and strategic questions, the pipeline switches to **iterative retrieval** — multiple search passes with reflection between each pass to identify gaps and expand coverage.
+5. **Search** — Ravell searches in several ways at once:
    - **By meaning** — semantic search finds relevant content even when it's phrased differently
    - **By exact text** — lexical search catches specific terms and phrases
    - **By structure** — filters by team, status, date, source
-   - **By links** — follows document connections to find related evidence (e.g. an issue that references a Notion page)
-4. **Fuse & rank** — Results from all lanes are merged so no single method dominates, then re-ranked so the best evidence surfaces first.
-5. **Synthesize** — For complex questions, evidence is clustered by theme and distilled into key points before the answer is written. Every claim is tied to a source.
-6. **Verify** — A final check ensures claims match the evidence and marks confidence where needed.
+   - **By entity** — finds documents authored by or mentioning specific people, projects, and customers
+   - **By theme** — surfaces documents linked to the same Linear projects, initiatives, or Notion databases
+   - **By links** — follows document connections to find related evidence
+6. **Fuse & rank** — Results from all lanes are merged so no single method dominates, then re-ranked so the best evidence surfaces first.
+7. **Synthesize** — For complex questions, evidence is clustered by theme and distilled into key points before the answer is written. Every claim is tied to a source.
+8. **Verify** — A final check ensures citations in the answer are actually supported by the evidence.
 
 You see this progress as **streaming thoughts** — short status updates like "Breaking the query into sub-questions...", "Searching Linear, Intercom...", "Synthesizing answer...". This transparency helps you understand what Ravell is doing and how long it might take.
 
 ```mermaid
 flowchart LR
-    Q[Question] --> U[Understand]
-    U --> P[Plan]
+    Q[Question] --> CC{Capability\ncheck}
+    CC -->|Help question| HA[Help answer]
+    CC -->|Data question| U[Understand]
+    U --> CX[Assess\ncomplexity]
+    CX --> P[Plan]
     P --> S[Search]
     S --> F[Fuse & Rank]
     F --> Y[Synthesize]
@@ -92,13 +101,13 @@ flowchart LR
 
 ## Your Tools
 
-**Linear, Notion, Intercom, Slack** — these are your connected sources. Ravell syncs and indexes their content (issues, pages, conversations, messages) into a unified **Knowledge Graph**. The more you connect, the richer the answers.
+**Linear, Notion, Intercom, Slack, Attio** — these are your connected sources. Ravell syncs and indexes their content (issues, pages, conversations, messages, CRM records) into a unified **Knowledge Graph**. The more you connect, the richer the answers.
 
 Data is stored as indexed documents with embeddings for semantic search. When a document is indexed, Ravell extracts entities (people, projects, issues) from metadata and content, then builds links to related documents. Retrieval uses these links to discover evidence you didn't directly search for.
 
 ### How documents are linked
 
-Ravell creates links between documents in four ways:
+Ravell creates links between documents in five ways:
 
 | Link type | How it works | Example |
 |-----------|--------------|---------|
@@ -106,6 +115,7 @@ Ravell creates links between documents in four ways:
 | **Shared entity (semantic linking)** | Two documents mention the same person, project, or other entity — linked by meaning, not just text | An Intercom conversation and a Linear issue both mention "Project X" — they get linked |
 | **Same thread** | A document is a reply or child of another | An Intercom message links to its parent conversation |
 | **Shared author** | The same person authored both documents | Two Linear issues by the same assignee, created around the same time, get linked |
+| **URL reference** | A document contains a URL that matches another indexed document | A Slack message linking to a Notion page creates a connection between the two |
 
 These links power **graph expansion** during retrieval: when Ravell finds a relevant document, it follows these links to pull in related evidence. A question about "ENG-142" can surface not just the issue itself but the Notion pages that reference it, the Intercom threads that mention it, and other issues by the same author — even if those documents didn't match your search terms directly.
 
@@ -129,14 +139,16 @@ Profiles are synthesized from Linear projects, Slack activity, and memories. The
 
 ### Knowledge Graph
 
-The Knowledge Graph stores your indexed documents and the links between them. It supports:
+The Knowledge Graph stores your indexed documents and the links between them. It supports six search lanes:
 
 - **Semantic search** — find by meaning, not just keywords
 - **Lexical search** — exact text and phrase matching
 - **Structured search** — filters by team, status, date, source
-- **Graph expansion** — follow document links to discover related evidence
+- **Entity graph** — finds documents authored by or mentioning specific people, projects, and customers
+- **Theme graph** — surfaces documents linked to the same Linear projects, initiatives, or Notion databases
+- **Graph expansion** — follows document links to discover related evidence
 
-When you ask a question, Ravell classifies intent, plans retrieval, and searches across these lanes. Results are fused, filtered, and re-ranked so the best evidence surfaces first.
+When you ask a question, Ravell classifies intent, plans retrieval, and searches across these lanes concurrently. Results are fused using reciprocal rank fusion, filtered, and re-ranked so the best evidence surfaces first.
 
 ### Synthesis Engine
 
