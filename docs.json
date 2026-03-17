@@ -89,6 +89,7 @@
         "pages": [
           "workspace-setup",
           "workspace-management",
+          "api-keys",
           "billing",
           "visibility-sharing"
         ]

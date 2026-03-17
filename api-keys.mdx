@@ -1,0 +1,107 @@
+---
+title: "API keys"
+description: "Generate and manage API keys for programmatic access and MCP integrations"
+---
+
+## What are API keys?
+
+API keys let you connect external tools to Ravell programmatically. You can use them to integrate Ravell with AI clients like Claude Desktop via the [Model Context Protocol (MCP)](https://modelcontextprotocol.io), or to build custom integrations that query your workspace data.
+
+**Why it matters:** API keys give you access to Ravell's search and knowledge capabilities outside of the web app and Slack. You can pipe Ravell's cross-source intelligence into your existing AI workflows.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API key settings">
+    Go to **Settings → API Keys** and click **New Key**.
+  </Step>
+  <Step title="Name your key">
+    Enter a descriptive name (e.g. "Claude Desktop" or "CI pipeline"). This helps you identify the key later.
+  </Step>
+  <Step title="Select scopes">
+    Choose which permissions the key should have. All scopes are selected by default:
+
+    | Scope | What it allows |
+    |-------|---------------|
+    | `search` | Search across your connected sources |
+    | `entities` | Access entities in your knowledge graph |
+    | `related` | Find related items across sources |
+    | `query` | Run natural-language queries |
+    | `digest` | Generate digests and summaries |
+
+  </Step>
+  <Step title="Copy the token">
+    After clicking **Create Key**, your token is displayed once. Copy it immediately and store it somewhere safe.
+
+    <Warning>The full token is only shown once. If you lose it, you need to revoke the key and create a new one.</Warning>
+  </Step>
+</Steps>
+
+---
+
+## Manage existing keys
+
+**Settings → API Keys** shows all active keys with:
+
+- **Name** and masked token prefix (e.g. `rav_abc...`)
+- **Scopes** assigned to the key
+- **Created date** and **last used** timestamp
+
+### Revoke a key
+
+Click the delete icon next to any key and confirm. Revocation is immediate — any integration using that key stops working right away.
+
+<Note>Revoked keys cannot be restored. You need to create a new key and update your integrations.</Note>
+
+---
+
+## Connect to Claude Desktop via MCP
+
+Ravell supports the [Model Context Protocol (MCP)](https://modelcontextprotocol.io), which lets AI clients like Claude Desktop access your workspace data directly.
+
+### Quick setup
+
+1. [Create an API key](#create-an-api-key) with the scopes you need.
+2. Add the following to your MCP configuration file (`.mcp.json` or Claude Desktop config):
+
+```json
+{
+  "mcpServers": {
+    "ravell": {
+      "command": "npx",
+      "args": ["-y", "@ravell/mcp"],
+      "env": {
+        "RAVELL_API_KEY": "<your-api-key>"
+      }
+    }
+  }
+}
+```
+
+3. Replace `<your-api-key>` with your actual token.
+4. Restart Claude Desktop to pick up the new configuration.
+
+### Browser-based login
+
+If you use the Ravell MCP CLI tool (`npx @ravell/mcp`), it can authenticate automatically through your browser. The CLI opens a login page, creates a key on your behalf, and passes it back — no manual token copying required.
+
+---
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Use descriptive names">
+    Name keys after the integration they power (e.g. "Claude Desktop - personal laptop"). This makes it easy to identify and revoke the right key if needed.
+  </Accordion>
+  <Accordion title="Use least-privilege scopes">
+    Only select the scopes your integration actually needs. If you only need search, deselect the other scopes.
+  </Accordion>
+  <Accordion title="Rotate keys periodically">
+    Revoke and recreate keys on a regular basis, especially for shared or team integrations.
+  </Accordion>
+  <Accordion title="Never share keys in plain text">
+    Use environment variables or a secrets manager to store API keys. Avoid pasting them into shared documents or chat messages.
+  </Accordion>
+</AccordionGroup>
