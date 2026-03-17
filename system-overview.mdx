@@ -28,6 +28,7 @@ flowchart TB
         N[Notion]
         I[Intercom]
         S[Slack]
+        At[Attio]
     end
 
     subgraph Context["Adaptive Context"]
@@ -50,6 +51,7 @@ flowchart TB
     N --> KG
     I --> KG
     S --> KG
+    At --> KG
     KG --> SE
     UP --> SE
     WP --> SE
@@ -92,7 +94,7 @@ flowchart LR
 
 ## Your Tools
 
-**Linear, Notion, Intercom, Slack** — these are your connected sources. Ravell syncs and indexes their content (issues, pages, conversations, messages) into a unified **Knowledge Graph**. The more you connect, the richer the answers.
+**Linear, Notion, Intercom, Slack, Attio** — these are your connected sources. Ravell syncs and indexes their content (issues, pages, conversations, messages) into a unified **Knowledge Graph**. The more you connect, the richer the answers.
 
 Data is stored as indexed documents with embeddings for semantic search. When a document is indexed, Ravell extracts entities (people, projects, issues) from metadata and content, then builds links to related documents. Retrieval uses these links to discover evidence you didn't directly search for.
 

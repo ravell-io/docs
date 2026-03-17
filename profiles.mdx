@@ -54,11 +54,47 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Refresh and confidence
 
-- **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- **Refresh**: Update your profile when your role or focus changes. Click **Refresh** in Context to regenerate from your connected sources. Regeneration can take up to two minutes. Stale profiles lead to less relevant answers.
+- **Confidence scores**: Each profile section shows a confidence score indicating how well Ravell's data supports that section. Scores are color-coded: green (70%+), amber (40–69%), and red (below 40%). Items below 60% confidence are grouped in a collapsible **Lower confidence** section.
+- **Source attribution**: Each section shows numbered source badges indicating where the data came from (e.g. Linear, Slack, Notion, Attio, Intercom, web search, or Memory).
+
+---
+
+## Source exclusions
+
+You can exclude specific web sources from being used in your profile. If a web source is providing low-quality or irrelevant data, remove it from the profile section and it will be blacklisted from future regenerations.
+
+---
+
+## Section overrides
+
+When auto-generated profile content isn't accurate, you can override individual sections with your own content.
+
+<Steps>
+  <Step title="Open the override panel">
+    Click the **override** icon on any profile section (available on sections like "Who you are", "Company context", "Goals", etc.).
+  </Step>
+  <Step title="Add your content">
+    Choose one of two input methods:
+    - **URL** — paste a web link (e.g. your company's about page or a product brief).
+    - **Upload file** — upload a PDF or Word document (`.docx`, max 5 MB).
+  </Step>
+  <Step title="Choose the override mode">
+    - **Enrichment** — your content is added alongside existing data. The section is regenerated incorporating both.
+    - **Source of truth** — your content replaces the section entirely. Ravell uses only your upload for that section.
+  </Step>
+  <Step title="Save">
+    After adding an override, the profile regenerates automatically to reflect the new content.
+  </Step>
+</Steps>
+
+You can view and remove existing overrides from the same panel. Removing an override triggers a fresh regeneration.
+
+<Note>
+  Overrides are not available on dynamic sections like **Current work** and **Team projects**, which are sourced live from Linear at query time.
+</Note>
 
 ---
 

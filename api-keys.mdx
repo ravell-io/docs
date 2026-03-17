@@ -1,0 +1,97 @@
+---
+title: "API keys & MCP"
+description: "Generate API keys for programmatic access and connect Ravell to AI clients via MCP"
+---
+
+## Overview
+
+API keys let you access Ravell programmatically. Use them to connect Ravell to AI coding assistants via MCP (Model Context Protocol) or build custom integrations.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API settings">
+    Go to **Settings → API Keys**.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API Key**. Enter a name for the key (e.g. "MCP - Claude Desktop").
+  </Step>
+  <Step title="Select scopes">
+    Choose which permissions the key should have:
+
+    | Scope | What it allows |
+    |-------|---------------|
+    | **search** | Search across your connected sources |
+    | **entities** | Look up entities (people, projects, issues) |
+    | **related** | Find related documents and evidence |
+    | **query** | Run full queries (like an Ask) |
+    | **digest** | Access agent reports and digests |
+
+    Select only the scopes you need. You can always create additional keys with different scopes.
+  </Step>
+  <Step title="Copy the key">
+    The key is shown **once** after creation. Copy it immediately and store it securely. You cannot retrieve it later.
+  </Step>
+</Steps>
+
+<Warning>
+  API keys are shown only once. If you lose a key, revoke it and create a new one.
+</Warning>
+
+---
+
+## Manage keys
+
+In **Settings → API Keys**, you can see all active keys with:
+
+- **Name** and **token prefix** (e.g. `rvl_abc•••`)
+- **Scopes** assigned to the key
+- **Created** date
+- **Last used** date
+
+To revoke a key, click **Revoke** and confirm. Any integrations using that key will stop working immediately.
+
+---
+
+## Connect via MCP
+
+MCP (Model Context Protocol) lets AI assistants like Claude query Ravell as a tool. Once connected, you can ask your AI assistant questions that draw on your Ravell data.
+
+### Quick start
+
+Add the following to your MCP configuration file (`.mcp.json` or Claude Desktop config):
+
+```json
+{
+  "mcpServers": {
+    "ravell": {
+      "command": "npx",
+      "args": ["-y", "@ravell/mcp"],
+      "env": {
+        "RAVELL_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+Replace `your-api-key-here` with the API key you created above. The key needs at least the **query** scope.
+
+<Tip>
+  The MCP configuration is available as a copyable snippet directly in **Settings → API Keys**.
+</Tip>
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Web Asks" icon="message-question" href="/asks">
+    Ask questions directly in the Ravell app.
+  </Card>
+  <Card title="Slack Agent" icon="comments" href="/slack-agent">
+    Ask questions from Slack.
+  </Card>
+</CardGroup>
