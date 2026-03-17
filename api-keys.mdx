@@ -1,0 +1,110 @@
+---
+title: "API keys & MCP"
+description: "Generate API keys for programmatic access and connect Ravell to AI coding tools via MCP"
+---
+
+## API keys
+
+API keys let you access Ravell programmatically — from scripts, automations, or AI coding tools like Claude Code. Each key is scoped to a specific workspace and set of permissions.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API key settings">
+    Go to **Settings → API Keys** in the app.
+  </Step>
+  <Step title="Click New Key">
+    Click **New Key** in the top right of the API Keys card.
+  </Step>
+  <Step title="Name your key">
+    Enter a descriptive name (e.g. "Claude Desktop", "CI pipeline", "Weekly script").
+  </Step>
+  <Step title="Select scopes">
+    Choose which permissions the key should have. All scopes are selected by default. Available scopes:
+
+    | Scope | Access |
+    |-------|--------|
+    | **search** | Full-text and semantic search across workspace data |
+    | **entities** | Read entities (people, companies, teams) |
+    | **related** | Retrieve related and linked entities |
+    | **query** | Execute AI-powered queries (the main Ravell Q&A) |
+    | **digest** | Access digest and summary generation |
+  </Step>
+  <Step title="Copy your key">
+    After creating the key, you see the full token **once**. Copy it and store it somewhere safe — you won't be able to see it again.
+  </Step>
+</Steps>
+
+<Warning>
+  API keys are shown only once at creation. If you lose a key, revoke it and create a new one.
+</Warning>
+
+---
+
+## Manage keys
+
+Your active keys are listed in **Settings → API Keys** with:
+
+- **Name** and **token prefix** (e.g. `rk_abc•••`)
+- **Scopes** as badges
+- **Created** and **last used** dates
+
+To revoke a key, click the trash icon next to it and confirm. Any integrations using the revoked key stop working immediately.
+
+---
+
+## MCP setup
+
+[MCP (Model Context Protocol)](https://modelcontextprotocol.io) lets AI coding tools like Claude Desktop and Claude Code query your Ravell workspace directly. Once connected, your AI assistant can search your Linear issues, Notion docs, Slack discussions, and more — without leaving the editor.
+
+### Connect to Claude Desktop or any MCP client
+
+<Steps>
+  <Step title="Create an API key">
+    Follow the steps above to create an API key with the scopes you need. For most AI coding tools, select all scopes.
+  </Step>
+  <Step title="Add the MCP config">
+    Add the following to your `.mcp.json` or Claude Desktop configuration file:
+
+    ```json
+    {
+      "mcpServers": {
+        "ravell": {
+          "command": "npx",
+          "args": ["-y", "@ravell/mcp"],
+          "env": {
+            "RAVELL_API_KEY": "<your-api-key>"
+          }
+        }
+      }
+    }
+    ```
+
+    Replace `<your-api-key>` with the key you copied.
+  </Step>
+  <Step title="Restart your AI tool">
+    Restart Claude Desktop (or your MCP client) to pick up the new configuration.
+  </Step>
+</Steps>
+
+<Tip>
+  The MCP Quick Start card in **Settings → API Keys** has a copy-ready version of this config snippet.
+</Tip>
+
+### Connect via Claude Code CLI
+
+Claude Code supports browser-based authentication that creates an API key automatically:
+
+1. Run the MCP auth command from the Claude Code CLI.
+2. Your browser opens to Ravell's auth page. Sign in if needed.
+3. The key is created and passed back to the CLI automatically — no manual copying required.
+
+---
+
+## Permissions
+
+- Only workspace **owners** and **members** with access to the workspace can create API keys.
+- API keys are scoped to the workspace they were created in.
+- Each key inherits the workspace's connected sources and data access.

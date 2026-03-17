@@ -91,14 +91,34 @@ You can change visibility later from the report menu (**Make private** / **Share
 
 ## Push to Notion
 
-When Notion is connected, you can **push** an answer to a Notion page:
+When Notion is connected, you can export any answer to a Notion database as a new page — complete with citations.
 
-1. Open an Ask with an answer.
-2. Click **Push to Notion** on the answer card.
-3. Choose the Notion page or database to add the report.
-4. The answer (with citations) is added as content in Notion.
+<Steps>
+  <Step title="Open the export dialog">
+    Click the **Export** button (Notion logo) on the answer card, or select **Push to Notion** from the report menu.
+  </Step>
+  <Step title="Pick a database">
+    Search or scroll to find the Notion database where you want the page created. If you've exported before, your last-used database is pre-selected.
+  </Step>
+  <Step title="Set a default (optional)">
+    Check **Set as default destination** to remember this database for future exports.
+  </Step>
+  <Step title="Push">
+    Click **Push**. The page is created in the background. When it's ready, you get a link to open it directly in Notion.
+  </Step>
+</Steps>
 
-Use this to turn Ask results into shared docs, meeting prep, or recurring reports. The content is formatted for Notion (headings, lists, links).
+The exported page includes the answer title, full content (headings, lists, links), and all citations from the original answer.
+
+<Tip>
+  You can also push Agent reports from the Inbox using the same flow.
+</Tip>
+
+<Accordion title="Troubleshooting Notion permissions">
+  If the export fails with a permissions error, open the target database in Notion, click **Share**, invite the Ravell integration, and grant **Can edit** access. Then retry the export.
+
+  If you see a "restricted resource" error, check the Ravell integration's capabilities in Notion and enable **Insert content** and **Update content**. You may need to reconnect Notion from **Sources**.
+</Accordion>
 
 ---
 
