@@ -23,11 +23,19 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Ravell organizes memories into categories so they can be applied in the right context:
 
-Memory is used to improve relevance and avoid repeating information you've already provided.
+| Category | What it captures | Example |
+|----------|-----------------|---------|
+| **Role & profile** | Your role, team, seniority | "You are a Senior PM on the Checkout team" |
+| **Projects** | Current and past projects you work on | "You own the checkout redesign project" |
+| **Preferences** | How you like answers formatted, level of detail | "You prefer bullet-point summaries" |
+| **Product** | Product facts, features, technical details | "The mobile app uses React Native" |
+| **Internal workflow** | Team processes, tools, rituals | "Your team uses 2-week sprints starting Mondays" |
+| **Company & business** | Company context, competitors, market | "Main competitor is Acme Corp" |
+| **Roadmap** | Upcoming plans, priorities, milestones | "v2 launch is planned for Q3" |
+
+Each memory also has a **confidence score** (how certain Ravell is about the fact) and an **importance score** (how relevant it is to your work). Higher-importance memories are more likely to be included in context when you ask a question.
 
 ---
 
@@ -74,8 +82,49 @@ This helps Ravell resolve references in your questions more accurately.
 
 ---
 
-## Control what gets stored
+## How memories are created
 
-- **Explicit additions**: When you add something in Settings → Memory, it's stored.
-- **Conversation context**: Ravell may infer facts from your questions and answers. You can delete anything you don't want stored.
-- **Privacy**: Memory is scoped to your account. Workspace members do not see your personal memory.
+Memories come from two sources:
+
+- **You add them manually** — Go to **Settings → Memory** and add a fact explicitly. These are marked as **user-created** and given the highest confidence.
+- **Ravell extracts them automatically** — After a conversation, Ravell analyzes what you said and extracts key facts (up to 5 per conversation). These are marked as **auto-extracted** and start with a lower confidence score that increases as they are corroborated.
+
+### Verification
+
+Memories have a verification status that evolves over time:
+
+| Status | Meaning |
+|--------|---------|
+| **Unverified** | Newly extracted, not yet confirmed |
+| **User-asserted** | You created or edited this memory manually |
+| **Corroborated** | Multiple conversations or sources support this fact |
+| **Contradicted** | New information conflicts with this memory — it is excluded from future answers |
+
+When Ravell detects a contradiction (e.g. you said "I work on Checkout" but later say "I moved to the Platform team"), it marks the old memory as contradicted and creates a new one.
+
+### Web enrichment
+
+When you mention companies, products, or other entities Ravell doesn't know about, it may search the web to fill in context. For example, if you mention a competitor by name, Ravell can look up what they do and store that as a memory for future questions. Web-enriched memories are marked with a moderate confidence score.
+
+---
+
+## Enable or disable Memory
+
+You can turn Memory on or off per workspace:
+
+1. Go to **Settings → Memory**.
+2. Toggle **Memory enabled** on or off.
+
+When disabled, Ravell stops extracting new memories and does not use existing ones for personalization. Your stored memories are preserved — re-enable Memory any time to resume.
+
+---
+
+## Safety and privacy
+
+Ravell applies safety filters before storing any memory:
+
+- **No secrets** — API keys, tokens, passwords, and credentials are blocked automatically.
+- **No PII** — Social security numbers, credit card numbers, and phone numbers are filtered out.
+- **No prompt injection** — Attempts to inject instructions into memory are detected and rejected.
+
+Memory is scoped to your account. Workspace members cannot see your personal memories. You can delete any memory at any time from **Settings → Memory**.
