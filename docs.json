@@ -90,8 +90,14 @@
           "workspace-setup",
           "workspace-management",
           "billing",
-          "visibility-sharing"
+          "visibility-sharing",
+          "api-keys"
         ]
+      },
+      {
+        "group": "Developer",
+        "tab": "Admin & Reference",
+        "pages": ["knowledge-api"]
       },
       {
         "group": "Reference",
