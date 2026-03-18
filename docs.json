@@ -55,6 +55,10 @@
         "pages": ["context", "profiles", "memory"]
       },
       {
+        "group": "API",
+        "pages": ["api/knowledge-api", "api/api-keys"]
+      },
+      {
         "group": "How Ravell Works",
         "pages": ["system-overview", "knowledge-graph", "security-privacy"]
       },

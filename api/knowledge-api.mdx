@@ -1,0 +1,325 @@
+---
+title: "Knowledge API"
+description: "Access your workspace knowledge programmatically with the REST API"
+---
+
+The Knowledge API gives you programmatic access to Ravell's knowledge base. Use it to search indexed documents, look up entities, get related items, run full AI-synthesized queries, and generate digests — all from your own tools and workflows.
+
+## Authentication
+
+Every request requires a valid API key passed as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_api_key_here" \
+  https://api.ravell.io/api/knowledge/search?query=churn+signals
+```
+
+API keys are scoped — each key only has access to the endpoints you enable when you create it. See [API keys](/api/api-keys) to learn how to create and manage keys.
+
+## Endpoints
+
+The API has five endpoints organized into two tiers:
+
+| Endpoint | Method | Scope | Tier | Description |
+|----------|--------|-------|------|-------------|
+| `/api/knowledge/search` | GET | `search` | 1 | Semantic search over indexed documents |
+| `/api/knowledge/entities` | GET | `entities` | 1 | Look up entities by name or ID |
+| `/api/knowledge/related` | GET | `related` | 1 | Find related documents or entity mentions |
+| `/api/knowledge/query` | POST | `query` | 2 | Full AI-synthesized answer to a question |
+| `/api/knowledge/digest` | POST | `digest` | 2 | Pre-built summary for a time period |
+
+<Note>
+Tier 2 endpoints (`query` and `digest`) run the full synthesis pipeline and take longer to respond than tier 1 endpoints.
+</Note>
+
+---
+
+## Search
+
+Find relevant content across your indexed documents using semantic search.
+
+```bash
+curl -G "https://api.ravell.io/api/knowledge/search" \
+  -H "Authorization: Bearer ravelk_your_api_key_here" \
+  --data-urlencode "query=what are the top customer complaints" \
+  -d "source_types[]=intercom" \
+  -d "date_from=2026-01-01" \
+  -d "limit=10"
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | The search query (max 1,000 characters) |
+| `source_types` | array | No | Filter by source type (e.g. `linear`, `intercom`, `slack`, `notion`, `attio`) |
+| `team_ids` | array | No | Filter by team ID |
+| `date_from` | string | No | Start date in `YYYY-MM-DD` format |
+| `date_to` | string | No | End date in `YYYY-MM-DD` format |
+| `limit` | integer | No | Maximum number of results to return |
+
+**Response**
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_abc123",
+      "source_type": "intercom",
+      "source_id": "conv_456",
+      "title": "Billing issue — unable to upgrade",
+      "text": "Customer reported they cannot upgrade their plan...",
+      "score": 0.92,
+      "url": "https://app.intercom.com/conversations/456",
+      "created_at": "2026-03-10T14:30:00Z"
+    }
+  ],
+  "meta": {
+    "tier": "tier1",
+    "result_count": 1,
+    "query_time_ms": 245.3,
+    "request_id": "req_xyz"
+  }
+}
+```
+
+---
+
+## Entities
+
+Look up people, companies, teams, and other entities in your knowledge graph.
+
+```bash
+curl -G "https://api.ravell.io/api/knowledge/entities" \
+  -H "Authorization: Bearer ravelk_your_api_key_here" \
+  --data-urlencode "query=Acme Corp"
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | One of `query` or `entity_id` | Fuzzy search by name or alias |
+| `entity_id` | string | One of `query` or `entity_id` | Direct lookup by entity ID |
+| `limit` | integer | No | Maximum number of results |
+
+**Response**
+
+```json
+{
+  "data": [
+    {
+      "id": 42,
+      "name": "Acme Corp",
+      "type": "company",
+      "aliases": ["Acme", "Acme Corporation"],
+      "relationships": [
+        {
+          "target_id": 99,
+          "target_name": "Jane Smith",
+          "relationship_type": "member_of",
+          "confidence": 0.95
+        }
+      ],
+      "metadata": {}
+    }
+  ],
+  "meta": {
+    "tier": "tier1",
+    "result_count": 1,
+    "request_id": "req_xyz"
+  }
+}
+```
+
+---
+
+## Related
+
+Find documents or entity mentions related to a specific document or entity.
+
+```bash
+curl -G "https://api.ravell.io/api/knowledge/related" \
+  -H "Authorization: Bearer ravelk_your_api_key_here" \
+  -d "document_id=doc_abc123"
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string | One of `document_id` or `entity_id` | Find documents linked to this document |
+| `entity_id` | string | One of `document_id` or `entity_id` | Find documents that mention this entity |
+
+When you pass a `document_id`, the response contains linked documents. When you pass an `entity_id`, it returns documents that mention that entity.
+
+**Response (document links)**
+
+```json
+{
+  "data": [
+    {
+      "document_id": "doc_def456",
+      "title": "Q1 billing roadmap",
+      "source_type": "notion",
+      "url": "https://notion.so/page/...",
+      "link_type": "shared_entity",
+      "confidence": 0.88
+    }
+  ],
+  "meta": {
+    "tier": "tier1",
+    "result_count": 1,
+    "request_id": "req_xyz"
+  }
+}
+```
+
+---
+
+## Query
+
+Ask a natural-language question and get an AI-synthesized answer with citations, just like a web Ask.
+
+```bash
+curl -X POST "https://api.ravell.io/api/knowledge/query" \
+  -H "Authorization: Bearer ravelk_your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "What are the top customer complaints this month?",
+    "source_types": ["intercom", "slack"],
+    "date_from": "2026-03-01"
+  }'
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | Yes | Your question (max 2,000 characters) |
+| `source_types` | array | No | Filter by source type |
+| `date_from` | string | No | Start date in `YYYY-MM-DD` format |
+| `date_to` | string | No | End date in `YYYY-MM-DD` format |
+
+**Response**
+
+```json
+{
+  "data": {
+    "answer": "The top customer complaints this month center around...",
+    "citations": [
+      {
+        "source_type": "intercom",
+        "title": "Billing issue — cannot upgrade",
+        "url": "https://app.intercom.com/conversations/456"
+      }
+    ],
+    "follow_up_suggestions": []
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 3,
+    "query_time_ms": 8420.1,
+    "request_id": "req_xyz"
+  }
+}
+```
+
+<Tip>
+Query runs the full synthesis pipeline — the same one behind web Asks. Expect response times of several seconds depending on complexity.
+</Tip>
+
+---
+
+## Digest
+
+Generate a pre-built summary for a time period, optionally focused on a specific topic.
+
+```bash
+curl -X POST "https://api.ravell.io/api/knowledge/digest" \
+  -H "Authorization: Bearer ravelk_your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "period": "this_week",
+    "focus": "bugs"
+  }'
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | Yes | Time period: `today`, `this_week`, or `last_7_days` |
+| `focus` | string | No | Topic focus: `bugs`, `feature_requests`, `sentiment`, or `all` (default: `all`) |
+
+**Response**
+
+```json
+{
+  "data": {
+    "summary": "This week, 12 bug reports were filed across Linear and Intercom...",
+    "citations": [...],
+    "period": "this_week",
+    "focus": "bugs"
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 5,
+    "query_time_ms": 9100.2,
+    "request_id": "req_xyz"
+  }
+}
+```
+
+---
+
+## Rate limits
+
+Requests are rate-limited per API key. Limits vary by tier:
+
+| Tier | Endpoints | Burst limit |
+|------|-----------|-------------|
+| Tier 1 | Search, Entities, Related | 100 requests per minute |
+| Tier 2 | Query, Digest | 20 requests per minute |
+
+When you exceed the limit, the API returns a `429 Too Many Requests` response with a `Retry-After` header indicating how many seconds to wait.
+
+## Error handling
+
+All errors follow a consistent format:
+
+```json
+{
+  "error": "Description of the error",
+  "meta": {
+    "request_id": "req_xyz"
+  }
+}
+```
+
+| Status code | Meaning |
+|-------------|---------|
+| `400` | Bad request — missing or invalid parameters |
+| `401` | Unauthorized — missing or invalid API key |
+| `403` | Forbidden — API key does not have the required scope |
+| `404` | Resource not found |
+| `429` | Rate limit exceeded |
+| `500` | Internal server error |
+
+## Use cases
+
+The Knowledge API is useful for:
+
+- **Custom dashboards** — Pull search results and digests into internal tools
+- **CI/CD integrations** — Automatically query for related customer feedback when shipping a feature
+- **Slack bots and automations** — Build custom workflows that query your knowledge base
+- **MCP-compatible AI tools** — Connect Claude Desktop or other AI assistants to your workspace data
+
+<CardGroup cols={2}>
+  <Card title="API keys" icon="key" href="/api/api-keys">
+    Create and manage API keys for authentication.
+  </Card>
+  <Card title="System overview" icon="diagram-project" href="/system-overview">
+    Understand how Ravell's knowledge pipeline works.
+  </Card>
+</CardGroup>
