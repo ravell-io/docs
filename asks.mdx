@@ -47,6 +47,16 @@ Reply in the same thread to ask follow-up questions. Ravell keeps the full conve
 
 You don't need to repeat the original question. Follow-ups can refine, narrow, or extend the answer.
 
+### Follow-up modes
+
+Ravell automatically decides how to handle follow-ups. For some questions, it answers from conversation context and memory (faster). For others, it reruns the full search pipeline (more thorough). The answer indicates which mode was used and why.
+
+If you want to override the automatic behavior, you can force a specific mode:
+
+- **Auto** (default) — Ravell decides whether to use context or rerun the pipeline.
+- **Force memory** — Answer from conversation context and memory only (fastest).
+- **Force rerun** — Rerun the full search pipeline regardless of available context.
+
 ---
 
 ## Citations
@@ -133,9 +143,34 @@ For a full prompt engineering guide, see [Better questions](/better-questions).
 
 ---
 
+## Folders
+
+Organize your Asks into folders in the sidebar:
+
+- **Create a folder** — Click the folder icon in the sidebar to create a new folder with a custom name and icon.
+- **Move Asks** — Drag Asks into folders, or use the menu on an Ask to move it.
+- **Reorder** — Drag folders to reorder them in the sidebar.
+- **Visibility** — Folders follow the same visibility model as Asks (private or shared with workspace).
+
+Folders help you keep related conversations together — group by project, sprint, topic, or whatever works for your workflow.
+
+---
+
+## Favorites
+
+Save important Asks for quick access:
+
+- **Favorite an Ask** — Open an Ask and click the star icon, or use the menu to add it to favorites. You can add a custom name and notes.
+- **View favorites** — Access your saved Asks from the sidebar.
+- **Remove** — Unfavorite an Ask when you no longer need quick access.
+
+Favorites are personal — workspace members don't see your favorites list.
+
+---
+
 ## Where Asks live
 
-- **Sidebar → Asks** — List of your past and current conversations. Click one to reopen it.
+- **Sidebar → Asks** — List of your past and current conversations, organized by folders.
 - **Sidebar → New Ask** — Start a fresh conversation.
 - **Cmd+K** — Open chat search to find an Ask by title.
 - **Copy link** — Share a direct URL (e.g. `https://app.ravell.io/app?chat=<slug>`).

@@ -5,13 +5,13 @@ description: "Members, invitations, and roles"
 
 ## Overview
 
-Workspace management covers members, invitations, and roles. Owners and (where permitted) members can manage these from **Settings**.
+Workspace management covers members, invitations, and roles. Owners, admins, and (where permitted) members can manage these from **Settings**.
 
 ---
 
 ## Members
 
-**Settings → Members** shows all workspace members with their roles (Owner, Member).
+**Settings → Members** shows all workspace members with their roles.
 
 - **Change role**: Owners can promote or demote members.
 - **Suspend**: Temporarily revoke access. The member can be unsuspended later.
@@ -31,8 +31,11 @@ Workspace management covers members, invitations, and roles. Owners and (where p
 
 ## Roles
 
-- **Owner**: Full access. Can manage members, billing, invitations, and delete the workspace.
-- **Member**: Can use Asks, Agents, Inbox, Sources. Cannot manage billing or remove other members.
+| Role | Capabilities |
+|------|-------------|
+| **Owner** | Full access. Can manage members, billing, invitations, API keys, and delete the workspace. |
+| **Admin** | Can manage billing, API keys, and perform administrative tasks. Cannot delete the workspace or change owner role. |
+| **Member** | Can use Asks, Agents, Inbox, and Sources. Cannot manage billing, remove other members, or manage API keys. |
 
 Only owners can change roles and manage invitations.
 

@@ -1,0 +1,92 @@
+---
+title: "API keys"
+description: "Create and manage API keys for the Knowledge API"
+---
+
+## Overview
+
+API keys authenticate requests to the [Knowledge API](/knowledge-api). Each key is scoped to a workspace and can be restricted to specific endpoints.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API key settings">
+    Go to **Settings → API Keys** in the app.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API Key**. Give it a descriptive name (e.g. "CI/CD integration" or "Internal dashboard").
+  </Step>
+  <Step title="Select scopes">
+    Choose which Knowledge API endpoints this key can access:
+
+    | Scope | Access |
+    |-------|--------|
+    | `search` | Search indexed documents |
+    | `entities` | Look up entities in the knowledge graph |
+    | `related` | Find related items |
+    | `query` | AI-powered question answering |
+    | `digest` | Automated digest generation |
+
+    Select only the scopes your integration needs.
+  </Step>
+  <Step title="Set expiration (optional)">
+    Optionally set an expiration date. Keys without an expiration remain active until revoked.
+  </Step>
+  <Step title="Copy the key">
+    Copy the key immediately — it is only shown once. The key starts with `ravelk_`.
+  </Step>
+</Steps>
+
+<Warning>
+  Store your API key securely. It cannot be retrieved after creation. If you lose it, revoke the key and create a new one.
+</Warning>
+
+---
+
+## Use the key
+
+Pass the key in the `Authorization` header of your API requests:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_key_here" \
+  "https://api.ravell.io/api/knowledge/search?query=checkout+issues"
+```
+
+---
+
+## Manage keys
+
+In **Settings → API Keys**, you can:
+
+- **View all keys** — See name, scopes, creation date, and last used timestamp for each key.
+- **Revoke a key** — Permanently deactivate a key. Revoked keys cannot be reactivated.
+
+---
+
+## Key details
+
+- Keys are prefixed with `ravelk_` for easy identification.
+- Each key is scoped to a single workspace.
+- Keys track when they were last used.
+- Expired or revoked keys are rejected immediately.
+
+---
+
+## Who can manage keys
+
+API key creation and revocation require appropriate workspace permissions. Workspace owners and admins can create and manage API keys.
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Knowledge API" icon="code" href="/knowledge-api">
+    See the full API reference and endpoint documentation.
+  </Card>
+  <Card title="Sources" icon="database" href="/sources">
+    Connect sources so the API has data to search.
+  </Card>
+</CardGroup>

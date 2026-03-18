@@ -21,20 +21,52 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ---
 
+## Enable or disable Memory
+
+Memory is **off by default** and must be enabled per workspace before Ravell starts storing facts about you.
+
+<Steps>
+  <Step title="Go to memory settings">
+    Open **Settings → Memory**.
+  </Step>
+  <Step title="Toggle Memory on">
+    Turn on the **Enable Memory** toggle. Ravell starts extracting and storing facts from your conversations.
+  </Step>
+</Steps>
+
+You can turn Memory off at any time from the same setting. Disabling Memory stops new extraction but does not delete existing memories — use **Clear memory** to remove stored facts.
+
+<Note>
+  Memory is scoped to each workspace. If you belong to multiple workspaces, you can enable or disable Memory independently in each one.
+</Note>
+
+---
+
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Ravell organizes memories into categories:
 
-Memory is used to improve relevance and avoid repeating information you've already provided.
+| Category | What it captures |
+|----------|-----------------|
+| **Role & identity** | Your role, title, and team membership |
+| **Projects** | Projects you're working on or care about |
+| **Preferences** | How you like answers formatted, level of detail |
+| **Product** | Product-related facts you've shared |
+| **Internal workflow** | How your team operates, processes, tools |
+| **Company & business** | Company context, market, competitive info |
+| **Roadmap** | Upcoming plans, priorities, and initiatives |
+
+Memories can come from three sources:
+- **Auto-extracted** — Ravell infers facts from your conversations
+- **User-created** — You explicitly add a memory in Settings
+- **User-edited** — You modify an auto-extracted memory
 
 ---
 
 ## View and edit Memory
 
 1. Go to **Settings → Memory**.
-2. You'll see what Ravell has stored about you.
+2. You'll see what Ravell has stored about you, organized by category.
 3. You can **edit** or **delete** individual items.
 4. Use **Add** to explicitly tell Ravell something to remember.
 
@@ -74,8 +106,15 @@ This helps Ravell resolve references in your questions more accurately.
 
 ---
 
+## How Memory is used
+
+When you ask a question, Ravell retrieves the most relevant memories based on the query. Memories that have been contradicted by newer information are automatically excluded. Ravell tracks which memories are used most frequently so the most valuable context is always available.
+
+---
+
 ## Control what gets stored
 
 - **Explicit additions**: When you add something in Settings → Memory, it's stored.
 - **Conversation context**: Ravell may infer facts from your questions and answers. You can delete anything you don't want stored.
 - **Privacy**: Memory is scoped to your account. Workspace members do not see your personal memory.
+- **Enable/disable**: You control whether Memory is active for each workspace in **Settings → Memory**.

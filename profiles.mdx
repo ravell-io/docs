@@ -54,11 +54,73 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Section overrides
+
+When AI-generated profile content isn't right, you can override specific sections with your own content. Overrides give you fine-grained control over what Ravell knows about you and your team.
+
+### Override modes
+
+There are two modes for overrides:
+
+- **Enrichment** — Adds your content alongside the AI-generated content. Use this when the AI-generated section is mostly right but missing important details.
+- **Source of truth** — Replaces the AI-generated content entirely. Use this when you want full control over a specific section.
+
+### Override sources
+
+You can provide override content from two source types:
+
+- **URL** — Provide a link to a web page. Ravell extracts and synthesizes the content into profile-appropriate language.
+- **File upload** — Upload a PDF or Word document (`.docx`), up to 5 MB. Ravell extracts the content and synthesizes it.
+
+### Which sections can be overridden
+
+**Individual profile sections:**
+- Who you are
+- Preferences
+
+**Workspace profile sections:**
+- Company context
+- Product context
+- ICP
+- Goals
+- Operating context
+
+### Managing overrides
+
+<Steps>
+  <Step title="Open Context">
+    Go to **Context** in the sidebar and select the profile section you want to override.
+  </Step>
+  <Step title="Add an override">
+    Click **Add override** on the section. Choose whether to provide a URL or upload a file, and select the override mode (enrichment or source of truth).
+  </Step>
+  <Step title="Wait for processing">
+    Ravell extracts content from your source and synthesizes it into the profile. This triggers a profile refresh automatically.
+  </Step>
+</Steps>
+
+You can remove overrides at any time, which restores the AI-generated content for that section.
+
+---
+
+## Source exclusions
+
+Exclude specific sources from being used in your profile generation. This is useful when a connected source contains data that isn't relevant to your profile or that you'd prefer to keep separate.
+
+To manage source exclusions:
+
+1. Go to **Context** and select the profile you want to adjust.
+2. Add a source exclusion by specifying the URL to exclude.
+3. Ravell stops using content from that URL when generating your profile.
+
+Source exclusions apply per profile type (individual or workspace). You can remove exclusions at any time to restore full source coverage.
+
+---
+
+## Refresh profiles
 
 - **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- Profiles are cached for fast answers. When you refresh, the update happens in the background and takes effect on your next question.
 
 ---
 
