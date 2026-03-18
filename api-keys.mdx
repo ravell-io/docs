@@ -1,0 +1,89 @@
+---
+title: "API keys & MCP server"
+description: "Generate API keys and connect Ravell to Claude Desktop or any MCP-compatible AI client"
+---
+
+## What are API keys?
+
+API keys let you access Ravell programmatically — through the REST API or via the MCP (Model Context Protocol) server. You can create multiple keys, each with its own name and access level, and revoke them at any time.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API settings">
+    Go to **Settings → API Keys** in your workspace.
+  </Step>
+  <Step title="Click New Key">
+    Click **New Key** and enter a descriptive name (e.g. "Claude Desktop" or "CI pipeline").
+  </Step>
+  <Step title="Choose an access level">
+    Select the scope for this key:
+
+    | Access level | What it can do |
+    |---|---|
+    | **Read** | Search, entities, and product graph queries |
+    | **Read & Write** | Everything in Read, plus AI-powered queries and digests |
+  </Step>
+  <Step title="Copy your key">
+    After creation, your key is displayed **once**. Copy it immediately and store it somewhere safe — you won't be able to see it again.
+  </Step>
+</Steps>
+
+<Warning>
+  API keys are shown only once at creation time. If you lose a key, revoke it and create a new one.
+</Warning>
+
+---
+
+## Manage existing keys
+
+In **Settings → API Keys**, you can see all active keys with their name, prefix, access level, creation date, and last-used date.
+
+To revoke a key, click the **delete icon** next to it and confirm. Revoked keys stop working immediately — any integrations using that key will lose access.
+
+---
+
+## Connect the MCP server
+
+Ravell provides an MCP server (`@ravell/mcp`) that lets AI clients like Claude Desktop query your workspace data directly.
+
+<Steps>
+  <Step title="Create an API key">
+    Follow the steps above to create an API key with **Read & Write** access.
+  </Step>
+  <Step title="Add the MCP config">
+    Add the following to your `.mcp.json` or Claude Desktop configuration file, replacing `<your-api-key>` with the key you just created:
+
+    ```json
+    {
+      "mcpServers": {
+        "ravell": {
+          "command": "npx",
+          "args": ["-y", "@ravell/mcp"],
+          "env": {
+            "RAVELL_API_KEY": "<your-api-key>"
+          }
+        }
+      }
+    }
+    ```
+  </Step>
+  <Step title="Restart your AI client">
+    Restart Claude Desktop (or your MCP-compatible client) to pick up the new server configuration.
+  </Step>
+</Steps>
+
+<Tip>
+  You can also find this configuration snippet in **Settings → API Keys** under the **MCP Quick Start** card, with a one-click copy button.
+</Tip>
+
+---
+
+## Security best practices
+
+- **One key per integration.** Create separate keys for each tool or service so you can revoke them independently.
+- **Use the narrowest scope.** If an integration only needs to read data, use a **Read** key.
+- **Rotate keys regularly.** Revoke unused or old keys and create fresh ones.
+- **Never commit keys to source control.** Use environment variables or a secrets manager.
