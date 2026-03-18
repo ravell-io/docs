@@ -1,0 +1,85 @@
+---
+title: "API keys"
+description: "Create and manage scoped API keys for the Knowledge API"
+---
+
+API keys authenticate requests to the [Knowledge API](/api/knowledge-api). Each key is scoped to specific endpoints, so you can grant only the access your integration needs.
+
+## Creating an API key
+
+<Steps>
+  <Step title="Open workspace settings">
+    Go to **Settings** in your workspace.
+  </Step>
+  <Step title="Navigate to API keys">
+    Select the **API Keys** section.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API Key**. Give it a descriptive name (e.g. "Dashboard integration" or "CI pipeline") and select the scopes you need.
+  </Step>
+  <Step title="Copy the key">
+    The full key is shown only once. Copy it and store it securely — you will not be able to see it again.
+  </Step>
+</Steps>
+
+<Warning>
+API keys are shown only at creation time. If you lose a key, revoke it and create a new one.
+</Warning>
+
+## Scopes
+
+Each API key can be granted one or more scopes. A key can only access the endpoints matching its scopes.
+
+| Scope | Endpoint | What it allows |
+|-------|----------|----------------|
+| `search` | `/api/knowledge/search` | Semantic search over indexed documents |
+| `entities` | `/api/knowledge/entities` | Entity lookup by name or ID |
+| `related` | `/api/knowledge/related` | Find related documents and entity mentions |
+| `query` | `/api/knowledge/query` | Full AI-synthesized answers |
+| `digest` | `/api/knowledge/digest` | Pre-built time-period summaries |
+
+<Tip>
+Grant the minimum scopes your integration needs. For a read-only dashboard, `search` and `entities` are likely enough. Add `query` or `digest` only if you need synthesized answers.
+</Tip>
+
+## Using an API key
+
+Pass the key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_api_key_here" \
+  https://api.ravell.io/api/knowledge/search?query=customer+churn
+```
+
+The key format is `ravelk_` followed by a 48-character string. Only the hashed version is stored on our servers — Ravell never stores your raw key.
+
+## Key expiration
+
+You can optionally set an expiration date when creating a key. After that date, the key stops working automatically. Keys without an expiration date remain active until you revoke them.
+
+## Revoking a key
+
+To revoke a key, go to **Settings → API Keys**, find the key, and click **Revoke**. Revoked keys immediately stop working and cannot be reactivated.
+
+## MCP setup
+
+If you use MCP-compatible AI tools like Claude Desktop, Ravell can generate a pre-configured API key with all scopes enabled. This is the quickest way to connect an MCP client to your workspace.
+
+The MCP key is named automatically based on your account and grants access to all Knowledge API endpoints.
+
+## Best practices
+
+- **Use descriptive names** — Name keys after their purpose (e.g. "Slack bot", "Weekly report script") so you can identify them later.
+- **Limit scopes** — Only grant the scopes your integration actually uses.
+- **Set expiration** — For temporary integrations or testing, set an expiration date.
+- **Rotate regularly** — Revoke and replace keys periodically, especially for production integrations.
+- **Never commit keys** — Store keys in environment variables or a secrets manager, not in source code.
+
+<CardGroup cols={2}>
+  <Card title="Knowledge API" icon="code" href="/api/knowledge-api">
+    Full reference for all API endpoints.
+  </Card>
+  <Card title="Security & privacy" icon="shield-halved" href="/security-privacy">
+    How Ravell handles your data.
+  </Card>
+</CardGroup>
