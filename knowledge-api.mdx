@@ -1,0 +1,227 @@
+---
+title: "Knowledge API"
+description: "Programmatic access to your workspace knowledge via REST API"
+---
+
+## Overview
+
+The **Knowledge API** gives you programmatic access to Ravell's knowledge graph. Use it to search documents, look up entities, find related content, ask natural-language questions, and generate digests — all from your own code or tools.
+
+Authentication uses [API keys](/api-keys) with scoped permissions. Each endpoint requires a specific scope on your key.
+
+---
+
+## Base URL
+
+All Knowledge API endpoints use the following base URL:
+
+```
+https://api.ravell.io/api/knowledge
+```
+
+---
+
+## Authentication
+
+Include your API key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_api_key_here" \
+  https://api.ravell.io/api/knowledge/search?query=checkout
+```
+
+See [API keys](/api-keys) to create and manage keys.
+
+---
+
+## Endpoints
+
+### Search
+
+Search indexed documents across your connected sources.
+
+**Scope required:** `search`
+
+```
+GET /api/knowledge/search
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | The search query |
+| `source_types` | string[] | No | Filter by source (e.g. `linear`, `notion`, `slack`, `intercom`, `attio`) |
+| `team_ids` | string[] | No | Filter by team |
+| `date_from` | string | No | Start date (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date (`YYYY-MM-DD`) |
+| `limit` | integer | No | Maximum number of results |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://api.ravell.io/api/knowledge/search?query=checkout+bugs&source_types[]=linear&date_from=2026-03-01"
+```
+
+---
+
+### Entities
+
+Search for people, projects, and other entities in your knowledge graph.
+
+**Scope required:** `entities`
+
+```
+GET /api/knowledge/entities
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | One of `query` or `entity_id` | Search query for entity names |
+| `entity_id` | string | One of `query` or `entity_id` | Look up a specific entity by ID |
+| `limit` | integer | No | Maximum number of results |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://api.ravell.io/api/knowledge/entities?query=checkout+team"
+```
+
+---
+
+### Related
+
+Find documents and entities related to a given document or entity.
+
+**Scope required:** `related`
+
+```
+GET /api/knowledge/related
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string | One of `document_id` or `entity_id` | Find content related to this document |
+| `entity_id` | string | One of `document_id` or `entity_id` | Find content related to this entity |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://api.ravell.io/api/knowledge/related?entity_id=abc123"
+```
+
+---
+
+### Query
+
+Ask a natural-language question and get a synthesized answer with citations — the same pipeline that powers Web Asks.
+
+**Scope required:** `query`
+
+```
+GET /api/knowledge/query
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | Yes | Your question in plain language |
+| `source_types` | string[] | No | Filter by source |
+| `date_from` | string | No | Start date (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date (`YYYY-MM-DD`) |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://api.ravell.io/api/knowledge/query?question=What+are+the+top+bugs+this+week"
+```
+
+**Response includes:**
+
+- `answer` — the synthesized answer text
+- `citations` — source references for each claim
+
+---
+
+### Digest
+
+Generate a summary of recent activity in your workspace, optionally focused on a specific area.
+
+**Scope required:** `digest`
+
+```
+GET /api/knowledge/digest
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | Yes | Time period: `today`, `this_week`, or `last_7_days` |
+| `focus` | string | No | Focus area: `bugs`, `feature_requests`, `sentiment`, or `all` (default: `all`) |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://api.ravell.io/api/knowledge/digest?period=this_week&focus=bugs"
+```
+
+**Response includes:**
+
+- `summary` — the digest text
+- `citations` — source references
+- `period` — the time period used
+- `focus` — the focus area used
+
+---
+
+## Rate limits
+
+Endpoints are rate-limited per API key. If you exceed the limit, you receive a `429` response with a `Retry-After` header.
+
+| Tier | Endpoints | Description |
+|------|-----------|-------------|
+| **Tier 1** | `search`, `entities`, `related` | Higher rate limit for lightweight lookups |
+| **Tier 2** | `query`, `digest` | Lower rate limit for synthesis-heavy requests |
+
+---
+
+## Response format
+
+All successful responses follow this structure:
+
+```json
+{
+  "data": { ... },
+  "meta": {
+    "tier": "tier1",
+    "result_count": 10,
+    "query_time_ms": 234.5,
+    "request_id": "abc-123"
+  }
+}
+```
+
+Error responses return:
+
+```json
+{
+  "error": "Description of the problem",
+  "meta": {
+    "request_id": "abc-123"
+  }
+}
+```
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="API keys" icon="key" href="/api-keys">
+    Create and manage API keys for the Knowledge API.
+  </Card>
+  <Card title="Sources" icon="plug" href="/sources">
+    Connect integrations to enrich your knowledge graph.
+  </Card>
+</CardGroup>

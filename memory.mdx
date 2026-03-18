@@ -23,11 +23,19 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Ravell organizes memories into categories:
 
-Memory is used to improve relevance and avoid repeating information you've already provided.
+| Category | Examples |
+|----------|----------|
+| **Role & profile** | Your job title, team, responsibilities |
+| **Projects** | Projects you work on, ownership areas |
+| **Preferences** | How you like answers formatted, level of detail |
+| **Product** | Product-specific context, features you care about |
+| **Internal workflow** | Processes, tools, and rituals your team follows |
+| **Company & business** | Company context, strategy, ICP |
+| **Roadmap** | Plans, priorities, and upcoming work |
+
+Memory is used to improve relevance and avoid repeating information you've already provided. Each memory has an **importance** score — higher-importance memories are more likely to be retrieved for your questions.
 
 ---
 
@@ -71,6 +79,27 @@ If your team uses specific terms, acronyms, or project names, add them as memori
 - "CSM stands for Customer Success Manager"
 
 This helps Ravell resolve references in your questions more accurately.
+
+---
+
+## Enable or disable Memory
+
+You can turn Memory on or off entirely:
+
+1. Go to **Settings → Memory**.
+2. Toggle **Memory enabled** on or off.
+
+When Memory is disabled, Ravell stops extracting new facts from your conversations and does not use stored memories to personalize answers. This is a per-user, per-workspace setting — it does not affect other workspace members.
+
+---
+
+## How Memory works behind the scenes
+
+- **Auto-extracted**: Ravell infers facts from your conversations automatically.
+- **User-created**: Facts you add manually in Settings → Memory.
+- **User-edited**: Facts that Ravell extracted and you later modified.
+
+Memories that are **contradicted** by newer information are automatically excluded from retrieval, so outdated facts do not affect your answers.
 
 ---
 

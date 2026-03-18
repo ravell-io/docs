@@ -68,6 +68,27 @@ Push any Ask answer or Agent report to Notion as a new page:
 
 ---
 
+## Write to Notion from conversations
+
+Beyond pushing reports, Ravell can take actions in Notion directly from your conversations in the Slack Agent or follow-up messages. Ask Ravell to:
+
+| Action | Example prompt |
+|--------|---------------|
+| **Create a page** | "Create a Notion page summarizing this discussion" |
+| **Create a database** | "Set up a Notion database to track these feature requests" |
+| **Update a page** | "Update the roadmap page with these new priorities" |
+| **Append content** | "Add these action items to the meeting notes page" |
+| **Add a comment** | "Comment on the Q1 planning page with this feedback" |
+| **Set default database** | "Use the Product Feedback database as the default for pushes" |
+
+These actions use your connected Notion account and respect the same page permissions you authorized during setup.
+
+<Tip>
+  Set a **default database** so that future "Push to Notion" actions go to the right place without needing to choose each time.
+</Tip>
+
+---
+
 ## Re-sync and reindex
 
 Ravell syncs Notion data periodically. Trigger a manual **Reindex** or **Sync** from **Sources** to refresh data after adding new pages or updating content.
