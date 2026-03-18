@@ -47,6 +47,17 @@ Reply in the same thread to ask follow-up questions. Ravell keeps the full conve
 
 You don't need to repeat the original question. Follow-ups can refine, narrow, or extend the answer.
 
+### How follow-ups are routed
+
+Ravell automatically decides whether to answer from existing context or run a fresh search:
+
+| Mode | When it's used | What happens |
+|------|---------------|--------------|
+| **Context follow-up** | Refining, narrowing, or rephrasing a previous answer | Ravell responds quickly using conversation context and Memory |
+| **Fresh search** | New lookups, specific item references (e.g. "ENG-142"), or explicit re-run requests | Ravell runs the full search pipeline against your sources |
+
+Phrases like "search again", "fresh search", or "re-run" trigger a fresh search automatically. Lookups like "find", "show me", or Linear issue IDs also trigger a fresh search.
+
 ---
 
 ## Citations
@@ -133,10 +144,36 @@ For a full prompt engineering guide, see [Better questions](/better-questions).
 
 ---
 
+## Organize with folders
+
+Use **folders** to group related Asks in the sidebar.
+
+- **Create a folder**: Click the folder icon in the sidebar and give it a name.
+- **Move an Ask**: Drag an Ask into a folder, or use the menu on an Ask to move it.
+- **Reorder**: Drag folders and Asks to rearrange them in the sidebar.
+- **Visibility**: Folders can be private or shared, just like Asks.
+
+Folders are useful for grouping Asks by project, sprint, or topic.
+
+---
+
+## Favorites
+
+Save important Asks for quick access by marking them as **favorites**.
+
+- Open an Ask and click the **star** icon to favorite it.
+- View all your favorites from the **Favorites** section in the sidebar.
+- Optionally add a name or notes when saving a favorite.
+- Unfavorite by clicking the star icon again.
+
+---
+
 ## Where Asks live
 
 - **Sidebar → Asks** — List of your past and current conversations. Click one to reopen it.
 - **Sidebar → New Ask** — Start a fresh conversation.
+- **Sidebar → Folders** — Grouped conversations organized by topic, project, or sprint.
+- **Sidebar → Favorites** — Bookmarked Asks for quick access.
 - **Cmd+K** — Open chat search to find an Ask by title.
 - **Copy link** — Share a direct URL (e.g. `https://app.ravell.io/app?chat=<slug>`).
 
