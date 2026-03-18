@@ -1,0 +1,110 @@
+---
+title: "API keys & MCP"
+description: "Programmatic access to Ravell via API keys and MCP integration"
+---
+
+## What are API keys?
+
+**API keys** let you access Ravell programmatically — from scripts, automations, or AI clients like Claude Desktop. You create keys in **Settings → API**, choose an access level, and use the key to authenticate requests.
+
+**Why it matters:** API keys unlock programmatic access to Ravell's search, entities, product graph, and AI-powered queries. Combined with MCP (Model Context Protocol), you can connect Ravell to any compatible AI client and query your product data from tools you already use.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API settings">
+    Go to **Settings → API**.
+  </Step>
+  <Step title="Click New Key">
+    Click **New Key** to open the creation dialog.
+  </Step>
+  <Step title="Name your key">
+    Give the key a descriptive name (e.g. "Claude Desktop", "CI pipeline", "Zapier integration").
+  </Step>
+  <Step title="Choose an access level">
+    Select the scope for this key:
+
+    | Scope | What it can do |
+    |-------|---------------|
+    | **Read** | Search, entities, and product graph queries |
+    | **Read & Write** | Everything in Read, plus AI-powered queries and digests |
+
+  </Step>
+  <Step title="Copy your key">
+    After creation, the full API key is shown **once**. Copy it and store it somewhere safe — you cannot view it again.
+  </Step>
+</Steps>
+
+<Warning>
+  API keys are shown only once at creation. If you lose a key, revoke it and create a new one.
+</Warning>
+
+---
+
+## Manage API keys
+
+In **Settings → API**, you can see all active keys with:
+
+- **Name** — the label you gave the key
+- **Token prefix** — the first characters of the key, for identification
+- **Scope** — Read or Read & Write
+- **Created date** — when the key was created
+- **Last used** — when the key was last used for a request
+
+### Revoke a key
+
+To revoke a key, click the delete icon next to it and confirm. Revoking is permanent — any integration using that key stops working immediately.
+
+---
+
+## MCP integration
+
+Ravell provides an MCP (Model Context Protocol) server that connects to Claude Desktop or any MCP-compatible AI client. This lets you query your product data directly from your AI assistant.
+
+### Set up MCP with Claude Desktop
+
+<Steps>
+  <Step title="Create an API key">
+    Follow the steps above to create an API key with **Read & Write** scope.
+  </Step>
+  <Step title="Add the MCP configuration">
+    Add the following to your `.mcp.json` or Claude Desktop configuration file:
+
+    ```json
+    {
+      "mcpServers": {
+        "ravell": {
+          "command": "npx",
+          "args": ["-y", "@ravell/mcp"],
+          "env": {
+            "RAVELL_API_KEY": "<your-api-key>"
+          }
+        }
+      }
+    }
+    ```
+
+    Replace `<your-api-key>` with the key you copied.
+  </Step>
+  <Step title="Restart your AI client">
+    Restart Claude Desktop (or your MCP client) to pick up the new configuration.
+  </Step>
+  <Step title="Start querying">
+    You can now ask your AI client questions about your product data — it uses Ravell's search and synthesis pipeline under the hood.
+  </Step>
+</Steps>
+
+<Tip>
+  The MCP configuration snippet is also available in **Settings → API** — click the copy button to grab it directly.
+</Tip>
+
+---
+
+## Best practices
+
+- **Use descriptive names** — name keys after where they're used (e.g. "Claude Desktop - work laptop") so you know which to revoke if needed.
+- **Use the narrowest scope** — if you only need search access, use **Read**. Reserve **Read & Write** for integrations that need AI queries.
+- **Rotate keys periodically** — revoke old keys and create new ones if you suspect a key may have been exposed.
+- **Never commit keys to version control** — use environment variables or secret managers instead.

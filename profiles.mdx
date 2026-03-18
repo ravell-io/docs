@@ -54,11 +54,32 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Confidence scoring
+
+Each profile section and item includes a **confidence score** — a percentage indicating how confident Ravell is in that piece of information. Scores are color-coded:
+
+- **High** — strong evidence from multiple sources
+- **Medium** — reasonable evidence, may need review
+- **Low** — limited evidence, consider verifying or overriding
+
+Items below 60% confidence are collapsed into a separate "Lower confidence" section so they don't clutter your main profile view.
+
+---
+
+## Source attribution
+
+Each profile section shows which sources contributed to its content — you'll see integration logos (Linear, Slack, Notion, etc.) indicating where the information came from. Some sections may also include web search results when relevant public context is available.
+
+If a section relies on low-quality web context, Ravell flags it with a warning so you can review and override if needed.
+
+---
+
+## Refresh and manage profiles
 
 - **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- **Source exclusions**: Exclude and blacklist specific web sources from being used in profile generation if they produce irrelevant results.
+- **Section overrides**: Manually override any AI-generated section by adding your own content (text or a URL). Overrides take priority over auto-generated content.
+- **Freshness tracking**: Profiles have freshness timestamps. Volatile sections like "current work" and "team projects" are sourced live from Linear at query time, so they stay up to date without manual refresh.
 
 ---
 

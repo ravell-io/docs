@@ -11,11 +11,12 @@ Workspace management covers members, invitations, and roles. Owners and (where p
 
 ## Members
 
-**Settings → Members** shows all workspace members with their roles (Owner, Member).
+**Settings → Members** shows all workspace members with their roles (Owner, Admin, Member).
 
-- **Change role**: Owners can promote or demote members.
+- **Change role**: Owners and admins can promote members to admin or demote admins to member.
 - **Suspend**: Temporarily revoke access. The member can be unsuspended later.
 - **Remove**: Permanently remove a member from the workspace.
+- **Import from Slack**: When Slack is connected, admins can sync members from Slack to automatically import workspace members.
 
 ---
 
@@ -23,18 +24,19 @@ Workspace management covers members, invitations, and roles. Owners and (where p
 
 **Settings → Invitations** (or **Members → Invite**) lets you invite people by email. A badge appears on Invitations when you have pending invites to review.
 
-- **Send invitation**: Enter email, optionally set role. The invitee receives an email with a link.
+- **Send invitation**: Enter email and assign a role (admin or member). The invitee receives an email with a link.
 - **Pending invitations**: View and cancel pending invites.
-- **Accept/Decline**: Invitees use the link in the email to accept or decline. Once accepted, they become members.
+- **Accept/Decline**: Invitees use the link in the email to accept or decline. Once accepted, they join with the assigned role.
 
 ---
 
 ## Roles
 
-- **Owner**: Full access. Can manage members, billing, invitations, and delete the workspace.
+- **Owner**: Full access. Can manage members, billing, invitations, integrations, and delete the workspace.
+- **Admin**: Can manage members, invitations, billing, and integrations. Cannot delete the workspace.
 - **Member**: Can use Asks, Agents, Inbox, Sources. Cannot manage billing or remove other members.
 
-Only owners can change roles and manage invitations.
+Owners and admins can change roles and manage invitations.
 
 ---
 
@@ -67,5 +69,6 @@ When onboarding your team to Ravell, follow this checklist:
 **Settings → Workspace** (or **General**) lets you:
 
 - Update workspace name.
+- Set a company website URL (used to enrich your workspace profile with public company context).
 - Complete onboarding (if applicable).
 - Delete workspace (owners only).
