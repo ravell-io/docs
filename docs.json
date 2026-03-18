@@ -90,6 +90,7 @@
           "workspace-setup",
           "workspace-management",
           "billing",
+          "api-keys",
           "visibility-sharing"
         ]
       },
