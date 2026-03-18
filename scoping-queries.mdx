@@ -5,7 +5,7 @@ description: "Limit questions to specific sources or time ranges"
 
 ## Why scope queries?
 
-By default, Ravell searches across all connected sources (Linear, Notion, Intercom, Slack). Sometimes you want to narrow the search:
+By default, Ravell searches across all connected sources (Linear, Notion, Intercom, Slack, Attio). Sometimes you want to narrow the search:
 
 - **Faster answers**: Fewer sources mean less data to search.
 - **Focused results**: When you know the answer is in one tool (e.g. Linear only).
@@ -27,11 +27,21 @@ Use the source selector (if available) in the Ask input or in the question compo
 
 ## Scope to time ranges
 
-Some questions support time filters:
+Some questions support time filters. You can use natural language or named presets:
 
 - "What did we ship **last week**?"
 - "Summarize Intercom feedback from **last month**."
 - "What are the top issues **in our current cycle**?"
+
+Named presets you can use in the date filter:
+
+| Preset | Covers |
+|--------|--------|
+| **Today** | Current day |
+| **This week** | Current calendar week |
+| **This month** | Current calendar month |
+| **This quarter** | Current calendar quarter |
+| **This year** | Current calendar year |
 
 Ravell interprets relative time ranges and scopes the search accordingly. For cycle-based questions, Linear cycle dates are used when Linear is connected.
 

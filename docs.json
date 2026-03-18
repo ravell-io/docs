@@ -94,6 +94,11 @@
         ]
       },
       {
+        "group": "Developer",
+        "tab": "Admin & Reference",
+        "pages": ["api-keys", "knowledge-api"]
+      },
+      {
         "group": "Reference",
         "tab": "Admin & Reference",
         "pages": ["shortcuts", "glossary"]

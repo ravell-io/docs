@@ -1,0 +1,84 @@
+---
+title: "API keys"
+description: "Create and manage API keys for programmatic access to your workspace"
+---
+
+## Overview
+
+**API keys** let you access the [Knowledge API](/knowledge-api) programmatically. Each key is scoped to a specific workspace and can be restricted to certain endpoints.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings → API keys** in the app.
+  </Step>
+  <Step title="Click Create key">
+    Give the key a descriptive name (e.g. "CI pipeline" or "Slack bot").
+  </Step>
+  <Step title="Select scopes">
+    Choose which Knowledge API endpoints this key can access:
+
+    | Scope | Grants access to |
+    |-------|-----------------|
+    | `search` | Search indexed documents |
+    | `entities` | Look up people, projects, and entities |
+    | `related` | Find related documents and entities |
+    | `query` | Ask natural-language questions |
+    | `digest` | Generate activity digests |
+
+  </Step>
+  <Step title="Set expiration (optional)">
+    Choose an expiration date or leave blank for a non-expiring key.
+  </Step>
+  <Step title="Copy the token">
+    The full token (starting with `ravelk_`) is shown **only once**. Copy and store it securely.
+  </Step>
+</Steps>
+
+<Warning>
+  The raw API key is displayed only at creation time. If you lose it, you need to create a new key.
+</Warning>
+
+---
+
+## Using your key
+
+Pass the key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_key_here" \
+  https://api.ravell.io/api/knowledge/search?query=checkout
+```
+
+See the [Knowledge API](/knowledge-api) reference for all available endpoints.
+
+---
+
+## Revoke a key
+
+To revoke a key, go to **Settings → API keys** and click **Revoke** next to the key. Revoked keys stop working immediately.
+
+---
+
+## Permissions
+
+Only workspace **owners** and **admins** can create and revoke API keys. Keys are scoped to the workspace where they were created.
+
+---
+
+## MCP integration
+
+Ravell supports the **Model Context Protocol (MCP)**, which lets you connect Ravell as a tool in MCP-compatible AI clients like Claude Desktop or Cursor.
+
+To set up MCP access:
+
+1. Go to **Settings → MCP** in the app.
+2. Click **Generate MCP key**. This creates an API key with full access to all Knowledge API scopes.
+3. Copy the token and configure your MCP client.
+
+<Note>
+  MCP keys are full-access API keys named "MCP — [your name]". Manage them the same way as other API keys in **Settings → API keys**.
+</Note>
