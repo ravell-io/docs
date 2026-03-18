@@ -23,11 +23,34 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Memories are organized into categories:
 
-Memory is used to improve relevance and avoid repeating information you've already provided.
+| Category | What it captures |
+|----------|-----------------|
+| **Profile & role** | Your role, team, responsibilities |
+| **Projects** | Projects you work on or care about |
+| **Preferences** | How you like answers formatted, level of detail |
+| **Product** | Product areas, features, and domain knowledge |
+| **Internal workflow** | Processes, tools, and team conventions |
+| **Company & business** | Company context, strategy, and goals |
+| **Roadmap** | Upcoming plans, priorities, and timelines |
+
+### How memories are created
+
+- **Auto-extracted**: Ravell learns facts from your conversations automatically.
+- **User-created**: You add memories explicitly in **Settings → Memory**.
+- **User-edited**: You edit an auto-extracted memory to correct or refine it.
+
+### Confidence and verification
+
+Each memory has a confidence score and verification status:
+
+- **Unverified** — Inferred from conversation, not yet confirmed.
+- **User-asserted** — You added or confirmed this fact.
+- **Corroborated** — Multiple conversations support this fact.
+- **Contradicted** — Newer information conflicts with this memory. Contradicted memories are excluded from answers.
+
+Memories with higher confidence and more frequent use are prioritized when personalizing answers.
 
 ---
 
@@ -71,6 +94,17 @@ If your team uses specific terms, acronyms, or project names, add them as memori
 - "CSM stands for Customer Success Manager"
 
 This helps Ravell resolve references in your questions more accurately.
+
+---
+
+## Enable or disable Memory
+
+You can turn automatic memory extraction on or off entirely:
+
+1. Go to **Settings → Memory**.
+2. Toggle **Memory enabled** on or off.
+
+When disabled, Ravell stops extracting new facts from your conversations. Existing memories are preserved but not used. Re-enable at any time to resume learning.
 
 ---
 

@@ -68,6 +68,42 @@ Push any Ask answer or Agent report to Notion as a new page:
 
 ---
 
+## Notion actions from Slack
+
+When both Notion and Slack are connected, you can perform Notion actions directly from the Slack Agent using natural language. Ravell delegates these requests to a Notion sub-agent with full read/write capabilities.
+
+### Create pages
+
+- `@Ravell Create a Notion page for the checkout redesign spec`
+- `@Ravell Add a page to [database] with title "Sprint 12 Review"`
+
+### Update pages
+
+- `@Ravell Update the onboarding doc with the new steps we discussed`
+- `@Ravell Append a section to the API spec page`
+
+### Create and update databases
+
+- `@Ravell Create a Notion database for tracking feature requests`
+- `@Ravell Add a "Priority" property to the feedback database`
+
+### Comments
+
+- `@Ravell Add a comment on the product roadmap page`
+
+### Search
+
+- `@Ravell Search Notion for competitive analysis`
+- `@Ravell Find the onboarding documentation in Notion`
+
+### Set default database
+
+- `@Ravell Set [database] as the default for new reports`
+
+Once set, future **Push to Notion** exports use this database automatically.
+
+---
+
 ## Re-sync and reindex
 
 Ravell syncs Notion data periodically. Trigger a manual **Reindex** or **Sync** from **Sources** to refresh data after adding new pages or updating content.

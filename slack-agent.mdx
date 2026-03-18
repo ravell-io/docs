@@ -98,6 +98,21 @@ Examples:
 
 ---
 
+## Notion actions from Slack
+
+When Notion is connected, you can create, update, and search Notion content directly from Slack. The Slack Agent delegates these requests to a Notion sub-agent.
+
+- `@Ravell Create a Notion page for the sprint retro notes`
+- `@Ravell Update the product roadmap page with this week's changes`
+- `@Ravell Search Notion for onboarding docs`
+- `@Ravell Push this to Notion` — Export the current answer to a Notion page
+- `@Ravell Create a Notion database for tracking bugs`
+- `@Ravell Set the product feedback database as the default`
+
+For more details, see [Notion integration](/integrations/notion#notion-actions-from-slack).
+
+---
+
 ## In-thread follow-ups
 
 Reply in the thread to ask follow-up questions. Ravell keeps conversation context, so you can say things like:
@@ -159,6 +174,14 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 - `@Ravell Pause the [agent name]` — Pause an agent
 - `@Ravell Resume the [agent name]` — Resume an agent
 - `@Ravell Send that report to #channel` — Update delivery
+
+### Notion actions
+- `@Ravell Create a Notion page for [topic]` — Create a page
+- `@Ravell Update [page] with [content]` — Update a page
+- `@Ravell Append [content] to [page]` — Add content to existing page
+- `@Ravell Create a Notion database for [topic]` — Create a database
+- `@Ravell Search Notion for [topic]` — Search Notion content
+- `@Ravell Set [database] as the default` — Set default export destination
 
 ### Follow-ups
 - Reply in any thread to follow up — Ravell keeps conversation context
