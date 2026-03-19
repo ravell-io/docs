@@ -1,0 +1,156 @@
+---
+title: "Product intelligence"
+description: "Proactive insights from Ravell's product graph — ranked problems, blind spots, and a weekly brief"
+---
+
+Ravell doesn't just answer your questions — it proactively surfaces what matters. **Product intelligence** builds a structured product graph from your connected sources, tracking problems, features, decisions, and product areas. It then scores, ranks, and delivers insights so you can focus on the right things.
+
+---
+
+## What the product graph tracks
+
+The product graph is a layer on top of Ravell's [knowledge graph](/knowledge-graph) that identifies and connects product-level concepts:
+
+| Entity type | What it represents | Example |
+|-------------|-------------------|---------|
+| **Problem** | A customer pain point, bug, or issue | "Checkout timeout errors", "Slow dashboard load" |
+| **Feature** | A product capability or feature request | "Bulk export", "SSO support" |
+| **Decision** | A product decision that affects problems or features | "Deprioritize PDF export", "Resolve billing bugs in Q2" |
+| **Product area** | A broad area of the product | "Billing", "Onboarding", "API" |
+
+These entities are extracted from your connected sources (Linear issues, Notion pages, Intercom conversations, Slack messages) using both metadata and AI-powered extraction. When a Linear issue is labeled "bug", Ravell creates a problem entity. When an Intercom conversation and a Linear issue both mention the same pain point, Ravell links them.
+
+---
+
+## Assertions and evidence
+
+Every connection in the product graph is backed by an **assertion** — a claim that two entities are related, grounded in a specific document.
+
+For example:
+- "Checkout timeout errors" **is evidenced by** a specific Intercom conversation
+- "SSO support" **addresses** the problem "Enterprise customers blocked on evaluation"
+- "Billing" **contains** the feature "Subscription management"
+
+Each assertion carries a **confidence score** (0–1) and tracks where it was extracted from. Higher-confidence assertions from structured metadata (like Linear labels) are automatically promoted, while lower-confidence ones from AI extraction stay in review.
+
+---
+
+## Ranked problems
+
+Ravell scores every problem entity using four signals:
+
+| Signal | Weight | What it measures |
+|--------|--------|-----------------|
+| **Evidence volume** | 30% | How many documents mention this problem (log-scaled) |
+| **Confidence** | 25% | How strong the evidence is across assertions |
+| **Recency** | 25% | How recently the problem was mentioned |
+| **Source diversity** | 20% | How many different tools report this problem |
+
+A problem mentioned once in a single Slack thread scores lower than one referenced across Linear issues, Intercom conversations, and Notion docs. Recency ensures stale problems naturally decay over time.
+
+Problems are also tagged with **coverage status** — whether any feature or decision in the graph addresses them. Uncovered problems with high scores are your biggest gaps.
+
+---
+
+## Blind spots
+
+Blind spot detection finds problems that are rising in mentions but lack sufficient attention. Ravell flags three types:
+
+- **New** — A problem entity that appeared recently with significant evidence
+- **Rising** — A problem whose mention velocity is increasing (2x or more compared to baseline)
+- **Uncovered** — A frequently mentioned problem with no linked feature or decision addressing it
+
+Each blind spot includes a severity score so you can prioritize which ones to investigate first.
+
+---
+
+## Weekly brief
+
+The **weekly product intelligence brief** is a scheduled report that summarizes the state of your product graph. It runs automatically (default: Monday at 9am) and delivers to your Inbox and optionally to a Slack channel.
+
+Each brief includes:
+
+| Section | What it shows |
+|---------|---------------|
+| **Rising** | Problems with accelerating evidence velocity |
+| **Blind spots** | New, rising, or uncovered issues that need attention |
+| **Improving** | Problems where evidence volume dropped after a linked feature shipped |
+| **Changes since last brief** | New entries, rank changes, and dropped items compared to the previous week |
+| **Possible duplicates** | Entity pairs with high semantic similarity that may represent the same thing |
+| **Graph health** | Total entities, assertions, promotion rate, and staleness percentage |
+
+### Enable the weekly brief
+
+<Steps>
+  <Step title="Open product intelligence">
+    Navigate to **Product Intelligence** in the dashboard.
+  </Step>
+  <Step title="Enable the brief">
+    Click **Enable weekly brief**. Ravell creates a scheduled automation that runs every Monday at 9am.
+  </Step>
+  <Step title="Choose a Slack channel (optional)">
+    If Slack is connected, select a channel to receive the brief. You can change this later.
+  </Step>
+  <Step title="Customize the schedule">
+    Adjust the day, time, and timezone to match your team's cadence.
+  </Step>
+</Steps>
+
+<Tip>
+You can test the brief before waiting for the next scheduled run. Use **Send test brief** to deliver a one-time brief to your selected Slack channel.
+</Tip>
+
+### Pause or disable
+
+You can pause the weekly brief at any time from the product intelligence settings. Pausing stops scheduled runs but preserves your configuration. Re-enable to resume.
+
+---
+
+## How extraction works
+
+Ravell builds the product graph using two extraction methods:
+
+1. **Metadata extraction** — Structured data from your tools. For example, a Linear issue labeled "bug" automatically creates a problem entity. A Linear project creates a product area entity. These assertions have high confidence and are promoted automatically.
+
+2. **AI extraction** — Ravell reads document content and identifies product entities and their relationships. This catches mentions that metadata alone would miss — like a customer describing a pain point in an Intercom conversation, or a decision documented in a Notion page. AI-extracted assertions start at lower confidence and are promoted when corroborated by additional evidence.
+
+Both methods contribute to the same graph. Over time, entities that appear across multiple sources and extraction methods build stronger evidence and higher confidence scores.
+
+---
+
+## Velocity tracking
+
+Ravell tracks how frequently each problem is mentioned over time. It compares the last 14 days against a 76-day baseline to compute a **velocity ratio**:
+
+- **Rising** (2x+ baseline) — This problem is accelerating and may need attention
+- **Steady** (0.5x–2x baseline) — Mention rate is stable
+- **Declining** (below 0.5x baseline) — This problem is fading
+
+Velocity data feeds into the weekly brief's "Rising" section and the problem priority score's recency signal.
+
+---
+
+## Impact detection
+
+When a feature ships and a linked problem's evidence volume drops, Ravell detects the impact. It compares the 30-day window before and after a feature's most recent activity to measure the change.
+
+Problems that show a meaningful decline in evidence after a feature shipped appear in the brief's "Improving" section — giving your team visibility into what's working.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents, resolves entities, and discovers evidence.
+  </Card>
+  <Card title="Agents & Inbox" icon="robot" href="/agents">
+    Schedule recurring queries and get reports in your Inbox.
+  </Card>
+  <Card title="System overview" icon="sitemap" href="/system-overview">
+    The full architecture from question to answer.
+  </Card>
+  <Card title="Sources" icon="plug" href="/sources">
+    Connect and manage your integrations.
+  </Card>
+</CardGroup>
