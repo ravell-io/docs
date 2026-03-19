@@ -1,0 +1,135 @@
+---
+title: "Product intelligence"
+description: "Track problems, blind spots, and product health with Ravell's product graph"
+---
+
+## Overview
+
+Product intelligence gives you a structured view of the problems, features, and decisions in your product — built automatically from your connected sources. Instead of manually tagging and categorizing, Ravell extracts product entities and relationships from Linear issues, Intercom conversations, Slack discussions, and Notion docs.
+
+<Note>Product intelligence is currently available to select workspaces. Contact your Ravell admin if you don't see it in your sidebar.</Note>
+
+---
+
+## What it tracks
+
+Ravell builds a product graph with four entity types:
+
+| Entity type | What it represents | Example |
+|-------------|-------------------|---------|
+| **Problem** | A customer pain point or issue | "Users can't export reports to CSV" |
+| **Feature** | A product capability or planned work | "CSV export for reports" |
+| **Decision** | A product decision or prioritization call | "Defer CSV export to Q3" |
+| **Product area** | A high-level area of the product | "Reporting" |
+
+These entities are connected by relationships — a problem affects a customer, a feature addresses a problem, a decision deprioritizes a feature, and features belong to product areas.
+
+---
+
+## Problems
+
+The **Problems** view shows customer pain points ranked by priority. Each problem is scored based on:
+
+- **Evidence count** — how many sources mention this problem
+- **Customer impact** — how many customers are affected
+- **Recency** — when the problem was last reported
+- **Temporal trends** — whether mentions are increasing or decreasing
+
+Problems with more evidence from more customers, reported more recently, rank higher.
+
+---
+
+## Blind spots
+
+**Blind spots** are problems that have no coverage — no feature addressing them, no decision resolving them. These are the gaps your team may not be aware of.
+
+Use blind spots to find:
+
+- Customer pain points with no planned work
+- Recurring complaints that haven't been triaged
+- Emerging issues that haven't been discussed yet
+
+---
+
+## Graph health
+
+The **Health** view shows aggregate metrics about your product graph:
+
+- Entity counts by type
+- Assertion coverage (how well-evidenced your entities are)
+- Data staleness indicators
+
+Use this to understand how complete your product picture is and whether you need to connect more sources.
+
+---
+
+## Entity explorer
+
+Browse all entities in the product graph. You can filter by type, search by name, and drill into any entity to see:
+
+- **Assertions** — the specific evidence supporting this entity, with confidence scores and source links
+- **Relationships** — how this entity connects to other problems, features, decisions, and product areas
+
+---
+
+## Weekly product brief
+
+The product brief is a weekly digest delivered to Slack that summarizes what changed in your product landscape. It includes:
+
+- **Top problems** — highest-priority customer pain points
+- **New blind spots** — problems without coverage since the last brief
+- **Velocity tracking** — what shipped and what slipped
+- **Merge suggestions** — duplicate entities that should be combined
+
+### Set up the brief
+
+<Steps>
+  <Step title="Open product intelligence">
+    Go to **Product Intelligence** in the sidebar.
+  </Step>
+  <Step title="Enable the brief">
+    Click **Enable brief** and choose a Slack channel for delivery.
+  </Step>
+  <Step title="Configure schedule">
+    Set your preferred day, time, and timezone. The default is weekly.
+  </Step>
+  <Step title="Send a test">
+    Click **Test brief** to send a preview to the selected channel immediately.
+  </Step>
+</Steps>
+
+### Interactive actions
+
+When the brief is delivered to Slack, it includes interactive buttons:
+
+- **Tell me more** — get a deeper explanation of a specific problem or entity
+- **Mark reviewed** — accept all pending assertions for an entity
+- **Merge entities** — combine duplicate entities directly from the brief
+
+---
+
+## How extraction works
+
+<Accordion title="Behind the scenes">
+Ravell automatically extracts product entities and relationships from your indexed documents using a combination of:
+
+- **LLM-based extraction** — analyzes document content to identify problems, features, decisions, and their relationships
+- **Metadata extraction** — uses structured data (labels, tags, statuses) to create assertions
+- **Deduplication** — matches new extractions against existing entities to avoid duplicates
+- **Confidence scoring** — each assertion has a confidence score. High-confidence assertions are promoted automatically; lower-confidence ones are held for review.
+
+The graph gets richer over time as more documents are indexed and more relationships are discovered.
+</Accordion>
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents and resolves entities across tools.
+  </Card>
+  <Card title="Agents" icon="bolt" href="/agents">
+    Set up scheduled reports to monitor product health automatically.
+  </Card>
+</CardGroup>

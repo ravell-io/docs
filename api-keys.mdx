@@ -1,0 +1,141 @@
+---
+title: "API keys"
+description: "Create API keys to access Ravell's Knowledge API and connect MCP clients"
+---
+
+## Overview
+
+API keys let you access Ravell's data programmatically. Use them to search your indexed knowledge, query entities, or connect external tools like MCP-compatible AI clients.
+
+API keys are scoped to a workspace and tied to the user who created them.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings → API keys** in the app.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API key**. Give it a name, choose a scope, and optionally set an expiration date.
+  </Step>
+  <Step title="Copy the key">
+    The key is shown once. Copy it and store it securely — you won't be able to see it again.
+  </Step>
+</Steps>
+
+### Scopes
+
+| Scope | What it allows |
+|-------|---------------|
+| **Read** | Search documents, query entities, retrieve related content |
+| **Read & Write** | Everything in Read, plus write operations |
+
+### Key format
+
+API keys use the prefix `ravelk_` followed by a unique token. Include the key in the `Authorization` header of your requests:
+
+```bash
+Authorization: Bearer ravelk_your_key_here
+```
+
+---
+
+## Revoke a key
+
+Go to **Settings → API keys**, find the key, and click **Revoke**. Revoked keys stop working immediately.
+
+---
+
+## Knowledge API
+
+The Knowledge API lets you programmatically search and query your workspace's indexed data. All endpoints require an API key with at least **Read** scope.
+
+### Search
+
+Search across all indexed documents using semantic and lexical search.
+
+```bash
+GET /api/knowledge/search?query=checkout+feedback
+```
+
+Optional filters: `source_types`, `team_ids`, `date_from`, `date_to`, `limit`.
+
+### Entities
+
+Search for entities (people, companies, teams, projects) by name or ID.
+
+```bash
+GET /api/knowledge/entities?query=Acme+Corp
+```
+
+### Related
+
+Find documents and entities related to a specific document.
+
+```bash
+GET /api/knowledge/related?document_id=123
+```
+
+### Query
+
+Get a synthesized answer with citations, just like a Web Ask.
+
+```bash
+POST /api/knowledge/query
+```
+
+Include your question in the request body. The response includes a cited answer.
+
+### Digest
+
+Get a time-period-based summary of activity across your sources.
+
+```bash
+POST /api/knowledge/digest
+```
+
+Supports periods like `today`, `this_week`, and `last_7_days`, with optional focus areas: `bugs`, `feature_requests`, `sentiment`, or `all`.
+
+---
+
+## MCP integration
+
+Ravell supports the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/), which lets AI assistants like Claude, Cursor, and other MCP-compatible clients access your workspace's knowledge directly.
+
+### Connect an MCP client
+
+<Steps>
+  <Step title="Generate an MCP key">
+    Go to **Settings → API keys** and click **Create MCP key**. This creates a full-access API key named after your account.
+  </Step>
+  <Step title="Configure your client">
+    Add Ravell as an MCP server in your client's configuration using the generated key and your workspace's MCP endpoint.
+  </Step>
+  <Step title="Start querying">
+    Your AI client can now search your workspace, retrieve entities, and get synthesized answers through Ravell.
+  </Step>
+</Steps>
+
+---
+
+## Limits and security
+
+- API keys are workspace-scoped — they can only access data in the workspace where they were created.
+- Each key tracks last-used time for auditing.
+- Keys with an expiration date stop working automatically after that date.
+- Only workspace members can create keys. Revoke keys for anyone who leaves the team.
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Sources" icon="plug" href="/sources">
+    Connect integrations to index more data for the API.
+  </Card>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    Understand how Ravell links and retrieves documents.
+  </Card>
+</CardGroup>
