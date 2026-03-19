@@ -1,0 +1,127 @@
+---
+title: "Product Intelligence"
+description: "Surface problems, blind spots, and entity relationships from your connected sources automatically"
+---
+
+Product Intelligence gives you a real-time dashboard built from Ravell's [knowledge graph](/knowledge-graph). Instead of asking questions, you get a continuously updated view of what's happening across your product — ranked problems, blind spots, entity relationships, and a weekly brief delivered to Slack.
+
+---
+
+## Overview dashboard
+
+The overview is your starting point. It shows four metric cards at the top:
+
+| Metric | What it shows |
+|--------|--------------|
+| **Problems** | Total problems detected, plus how many lack a corresponding feature |
+| **Blind spots** | Areas with rising or unaddressed signals, ranked by severity |
+| **Entities** | Total entities (problems, features, decisions, areas) and relationships in the graph |
+| **This week** | New assertions in the last 7 days, with a 30-day comparison |
+
+Below the metrics, you see two ranked lists:
+
+- **Top problems** — A table of the highest-priority problems, scored by evidence count, source diversity, confidence, and recency. Each row shows whether the problem has a corresponding feature or not.
+- **Blind spots** — Cards highlighting areas where Ravell detected signals you may be missing, with severity scores and source breakdowns.
+
+---
+
+## Entity explorer
+
+Click **Browse all** from the overview to open the entity explorer. This is a searchable, filterable list of every entity Ravell has extracted from your sources.
+
+### Entity types
+
+| Type | Description |
+|------|------------|
+| **Problem** | A pain point, bug, or issue mentioned across sources |
+| **Feature** | A capability, enhancement, or shipped feature |
+| **Decision** | A product or engineering decision referenced in discussions |
+| **Product area** | A broader theme or domain grouping related entities |
+
+### Searching and filtering
+
+Use the search bar to find entities by name. Switch between tabs to filter by type: All, Problems, Features, Decisions, or Areas. The list loads more results as you scroll.
+
+### Entity detail
+
+Select an entity to see its detail panel:
+
+- **Evidence** — Every assertion (mention) from your sources, ranked by confidence. Each assertion shows the source type, source title, content snippet, confidence percentage, and when it was last seen.
+- **Connections** — How the entity relates to other problems, features, and decisions in the graph. Each connection shows the relationship type, direction, and confidence score.
+
+---
+
+## Weekly brief
+
+The weekly brief delivers a summary of problems, blind spots, and trends to a Slack channel on a recurring schedule.
+
+<Note>
+The weekly brief requires a connected Slack integration. If Slack is not connected, the brief section does not appear.
+</Note>
+
+### Set up the weekly brief
+
+<Steps>
+  <Step title="Open Product Intelligence">
+    Navigate to **Product Intelligence** in the sidebar.
+  </Step>
+  <Step title="Click Set up">
+    In the weekly brief section, click **Set up**.
+  </Step>
+  <Step title="Select a Slack channel">
+    Choose the channel where the brief should be posted. The Ravell bot must be invited to the channel.
+  </Step>
+  <Step title="Enable">
+    Click **Enable**. The brief sends every Monday at 9am UTC by default.
+  </Step>
+</Steps>
+
+### Configure the brief
+
+After enabling, click the brief row to open editing. You can change:
+
+- **Channel** — Which Slack channel receives the brief
+- **Day** — Any weekday (Monday through Friday)
+- **Time** — Hour of the day (00:00–23:00)
+- **Timezone** — UTC, Europe/London, Europe/Dublin, US/Eastern, US/Central, US/Pacific, Asia/Tokyo, or Australia/Sydney
+
+You can also **send a test** to preview the brief before the next scheduled run, or **pause** it to stop delivery temporarily.
+
+---
+
+## How problems are scored
+
+Each problem receives a priority score based on:
+
+- **Evidence count** — How many assertions mention it
+- **Source diversity** — How many different source types reference it (e.g. Intercom + Linear + Slack scores higher than Slack alone)
+- **Confidence** — Average confidence of the underlying assertions
+- **Recency** — How recently the problem was last referenced
+
+Problems with more evidence from more sources, with higher confidence and recent activity, rank higher.
+
+---
+
+## How blind spots are detected
+
+A blind spot is an entity where Ravell sees signals that may not be getting enough attention. Each blind spot has:
+
+- **Blind spot type** — The category of gap (e.g. rising mentions without a feature, unaddressed feedback)
+- **Severity score** — How urgent the blind spot is, based on recent vs. baseline evidence
+- **Source types** — Which integrations contributed to the detection
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents, resolves entities, and discovers evidence.
+  </Card>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect and manage the integrations that feed Product Intelligence.
+  </Card>
+  <Card title="Agents" icon="robot" href="/agents">
+    Schedule recurring questions for automated reports.
+  </Card>
+</CardGroup>
