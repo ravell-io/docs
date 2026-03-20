@@ -54,11 +54,37 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Refresh profiles
 
-- **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+Update your profile when your role or focus changes. Click **Refresh** in Context to regenerate from your connected sources. The refresh runs in the background — you can continue using Ravell while it updates. Stale profiles lead to less relevant answers, so refresh after major role or project changes.
+
+---
+
+## Section overrides
+
+You can manually override any AI-generated profile section when the auto-generated content isn't quite right:
+
+1. Open **Context** and navigate to the profile section you want to override.
+2. Click **Override** on that section.
+3. Provide your replacement content. You can:
+   - **Type it directly** — Write the override text in the editor.
+   - **Provide a URL** — Point to a source document (e.g. a Notion page or website) for Ravell to use.
+   - **Upload a file** — Attach a document with the information you want used.
+4. Save. The profile refreshes automatically with your override applied.
+
+To remove an override and revert to AI-generated content, delete the override from the same section. The profile regenerates automatically.
+
+---
+
+## Source exclusions
+
+Exclude specific URLs from being used in your profile context. This is useful when a source contains irrelevant or sensitive data that skews your profile:
+
+1. Open **Context** and go to the profile you want to adjust (individual or workspace).
+2. Find the **Source exclusions** section.
+3. Add the URL of the source you want to exclude.
+
+Exclusions are per profile type — you can exclude a source from your individual profile while keeping it in the workspace profile, or vice versa. Remove an exclusion to let that source contribute to your profile again.
 
 ---
 

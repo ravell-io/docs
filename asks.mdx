@@ -47,6 +47,8 @@ Reply in the same thread to ask follow-up questions. Ravell keeps the full conve
 
 You don't need to repeat the original question. Follow-ups can refine, narrow, or extend the answer.
 
+Ravell automatically decides whether a follow-up can be answered from the existing conversation context or needs a fresh search. When you reference a specific item (like a Linear issue identifier) or ask for the latest data, Ravell runs a new search to get up-to-date results.
+
 ---
 
 ## Citations
@@ -64,17 +66,20 @@ The **Sources** rail (next to the answer) may show a "Context used" panel. This 
 
 ---
 
-## Scoping
+## Scoping and filters
 
-By default, Ravell searches across all connected sources. You can narrow the search:
+By default, Ravell searches across all connected sources. You can narrow the search using the filter controls above the input:
 
-- **All sources** (default) — Linear, Notion, Intercom, Slack.
-- **Specific source** — Use the source selector to limit (e.g. "Linear only" or "Notion only").
+- **Sources** — Limit to specific integrations (e.g. "Linear only" or "Notion only"). Default is all connected sources.
+- **Date range** — Choose a preset (`Today`, `This week`, `This month`, `This quarter`, `This year`) or set a custom date range with specific start and end dates.
+- **Teams** — Filter by specific Linear teams or Slack channels when you want results from a particular group.
+- **Priorities** — Narrow to specific issue priorities (e.g. urgent, high).
 
 Scoping is useful when:
 - You know the answer is in one tool.
 - You want faster results (fewer sources = less to search).
 - You're testing or comparing answers across tools.
+- You need results from a specific time period or team.
 
 ---
 
@@ -133,9 +138,22 @@ For a full prompt engineering guide, see [Better questions](/better-questions).
 
 ---
 
+## Organizing Asks with folders
+
+You can create **folders** to organize your Asks in the sidebar:
+
+- **Create a folder** — Click the folder icon in the sidebar. Give it a name, choose an icon, and set visibility (private or shared).
+- **Move Asks into folders** — Drag an Ask into a folder, or use the options menu to move it.
+- **Reorder** — Drag to reorder folders and Asks within them.
+- **Shared folders** — Shared folders are visible to your workspace. All Asks inside a shared folder are also shared (folder and Ask visibility must match).
+
+Folders help you group related conversations — by project, sprint, topic, or however you work.
+
+---
+
 ## Where Asks live
 
-- **Sidebar → Asks** — List of your past and current conversations. Click one to reopen it.
+- **Sidebar → Asks** — List of your past and current conversations, organized by folders. Click one to reopen it.
 - **Sidebar → New Ask** — Start a fresh conversation.
 - **Cmd+K** — Open chat search to find an Ask by title.
 - **Copy link** — Share a direct URL (e.g. `https://app.ravell.io/app?chat=<slug>`).
