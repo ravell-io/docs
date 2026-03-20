@@ -13,14 +13,16 @@ The diagram below shows how data flows through Ravell: from your tools into a kn
 
 ```mermaid
 flowchart TB
-    subgraph Flywheel["Data Flywheel"]
+    subgraph Flywheel["Learning Loop"]
         direction TB
         A[More Users]
         B[Better Linking]
         C[More Value]
+        D[Engagement Signals]
         A --> B
         B --> C
-        C --> A
+        C --> D
+        D --> A
     end
 
     subgraph Tools["Your Tools"]
@@ -38,6 +40,7 @@ flowchart TB
 
     subgraph Core["Ravell Core"]
         KG[(Knowledge Graph)]
+        PG[Product Graph]
         SE[Synthesis Engine]
     end
 
@@ -50,12 +53,15 @@ flowchart TB
     N --> KG
     I --> KG
     S --> KG
+    KG --> PG
     KG --> SE
+    PG --> SE
     UP --> SE
     WP --> SE
     M --> SE
     SE --> CA
     SE --> PR
+    PR -.->|engagement signals| PG
 ```
 
 ---
@@ -94,7 +100,7 @@ flowchart LR
 
 **Linear, Notion, Intercom, Slack** — these are your connected sources. Ravell syncs and indexes their content (issues, pages, conversations, messages) into a unified **Knowledge Graph**. The more you connect, the richer the answers.
 
-Data is stored as indexed documents with embeddings for semantic search. When a document is indexed, Ravell extracts entities (people, projects, issues) from metadata and content, then builds links to related documents. Retrieval uses these links to discover evidence you didn't directly search for.
+Data is stored as indexed documents with embeddings for semantic search. When a document is indexed, Ravell extracts entities (people, projects, issues) from metadata and content, then builds links to related documents. Ravell also extracts higher-level product concepts — problems, feature requests, and topics — into a **Product Graph** that powers product intelligence briefs and emerging issue detection. Retrieval uses these links to discover evidence you didn't directly search for.
 
 ### How documents are linked
 
@@ -138,6 +144,18 @@ The Knowledge Graph stores your indexed documents and the links between them. It
 
 When you ask a question, Ravell classifies intent, plans retrieval, and searches across these lanes. Results are fused, filtered, and re-ranked so the best evidence surfaces first.
 
+### Product Graph
+
+The Product Graph sits on top of the Knowledge Graph and extracts product-level concepts from your data:
+
+| Entity type | What it captures |
+|-------------|-----------------|
+| **Problem** | Customer pain points, bugs, and recurring complaints |
+| **Feature request** | Asks and requests extracted from feedback and conversations |
+| **Topic** | Grouping categories that connect related problems and requests |
+
+The Product Graph tracks relationships between these entities and scores problems by evidence volume, source diversity, recency, and engagement signals. Problems that lack a corresponding feature request are flagged as **emerging issues**. This powers the product intelligence briefs that agents deliver to your Inbox and Slack.
+
 ### Synthesis Engine
 
 The Synthesis Engine takes retrieved evidence and adaptive context, then generates answers. It:
@@ -162,15 +180,16 @@ Both outputs are evidence-backed: every claim ties to a source. You can click ci
 
 ---
 
-## Data Flywheel
+## Learning loop
 
 Ravell improves as you use it:
 
-- **More Users** — More questions, more conversations, more data to learn from
-- **Better Linking** — More document links, entity resolution, and cross-source connections
-- **More Value** — Richer answers, better retrieval, more relevant proactive reports
+- **More users** — more questions, more conversations, more data to learn from
+- **Better linking** — more document links, entity resolution, and cross-source connections
+- **More value** — richer answers, better retrieval, more relevant proactive reports
+- **Engagement signals** — your interactions with briefs (clicking **Tell me more**, **Mark reviewed**, or dismissing entities) feed back into problem priority scoring
 
-The flywheel reinforces itself: better answers attract more usage, which improves linking and context, which delivers more value.
+The loop reinforces itself: better answers attract more usage, which improves linking and context, which delivers more value. Engagement signals from product intelligence briefs add a direct feedback mechanism — problems you engage with rise in priority, making future briefs more relevant to what you care about.
 
 ---
 

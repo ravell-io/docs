@@ -23,11 +23,25 @@ When Ravell indexes a document, it creates links to related documents. These lin
 
 ## Entity resolution
 
-Ravell identifies entities — people, projects, teams, features — mentioned across your tools and resolves them to the same underlying concept.
+Ravell identifies entities — people, projects, teams, and product concepts — mentioned across your tools and resolves them to the same underlying concept.
 
 For example, "Project Phoenix", "the Phoenix project", and "ENG-Phoenix" might all refer to the same Linear project. Ravell recognizes these as the same entity and links documents that reference it, even when they use different names.
 
 Entity resolution works across sources: a customer mentioned in Intercom, a project in Linear, and a discussion in Slack can all be connected if they reference the same entity.
+
+---
+
+## Product graph entities
+
+Beyond document-level entities like people and projects, Ravell extracts higher-level product concepts from your data. These are the entity types that power [product intelligence briefs](/agents) and emerging issue detection:
+
+| Entity type | What it represents | Example |
+|-------------|-------------------|---------|
+| **Problem** | A customer pain point, bug, or recurring complaint | "Users can't export reports to CSV" |
+| **Feature request** | A request or ask extracted from feedback and conversations | "Support for SSO login" |
+| **Topic** | A grouping category that connects related problems and requests | "Onboarding", "Billing", "Mobile app" |
+
+Ravell also tracks relationships between these entities — for example, which feature requests address which problems, and which topics group related requests together. When a problem has no feature request that addresses it, Ravell flags it as an **emerging issue** so you can spot gaps in your roadmap.
 
 ---
 
@@ -73,8 +87,15 @@ The knowledge graph gets richer as you use Ravell:
 - **More documents** mean more potential links between sources
 - **More users** create more conversations, which surface more entity references
 - **More sources** add more cross-tool connections
+- **Engagement signals** from your interactions with briefs and reports feed back into entity scoring
 
-This is the data flywheel: better linking leads to better retrieval, which leads to better answers, which attracts more usage.
+### Learning loop
+
+Ravell tracks how you interact with product intelligence briefs and uses that feedback to improve priority scoring over time. When you click **Tell me more** or **Mark reviewed** on a problem in a brief, Ravell records that as a positive signal. If you dismiss an entity, it records a negative signal.
+
+These signals are aggregated daily and factor into how problems are prioritized in future briefs — entities you engage with rise in priority, while dismissed ones sink. Absence generates no signal, so ignoring something doesn't penalize it.
+
+This creates a feedback loop: the more you use briefs, the better Ravell gets at surfacing what matters to you.
 
 ---
 
