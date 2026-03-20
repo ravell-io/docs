@@ -1,0 +1,157 @@
+---
+title: "Product Intelligence"
+description: "Automatic problem detection, entity tracking, and trend analysis across your sources"
+---
+
+## What is Product Intelligence?
+
+**Product Intelligence** is Ravell's automated system for detecting problems, tracking feature requests, and surfacing trends across all your connected sources. Instead of manually reviewing tickets and conversations, Ravell continuously extracts signals from your data, ranks them by severity, and highlights what needs attention.
+
+You get a dashboard with ranked problems, emerging issues, and entity-level drill-downs — all backed by evidence from your actual tools.
+
+**Why it matters:** Product teams miss signals buried in support tickets, Slack threads, and issue trackers. Product Intelligence surfaces them automatically, so you can act on real patterns instead of anecdotes.
+
+---
+
+## Dashboard overview
+
+The Product Intelligence dashboard shows four key metrics and a ranked list of top problems.
+
+### Metrics
+
+| Metric | What it shows |
+|--------|---------------|
+| **Problems** | Total number of detected problems across all sources. The subtitle shows how many of the top-ranked problems have no team response yet. |
+| **Emerging issues** | Signals that are rising in frequency but haven't been addressed. Shows the highest severity score across all emerging issues. |
+| **Entities** | Total count of tracked entities (problems, feature requests, topics) and the number of relationships between them. |
+| **This week** | New evidence extracted in the last 7 days, with a monthly comparison. |
+
+### Top problems
+
+A ranked table of the highest-priority problems, scored by Ravell's prioritization algorithm. Each problem shows:
+
+- **Score** — A priority score combining severity, frequency, and recency
+- **Evidence** — Number of individual pieces of evidence (assertions) backing this problem
+- **Sources** — How many different source types mention it (e.g. Slack + Intercom = 2)
+- **Status** — Whether your team has responded to the problem ("Has response") or not ("No response yet")
+
+Problems without a response are flagged so you can prioritize them.
+
+---
+
+## Entity types
+
+Ravell classifies extracted signals into three entity types:
+
+| Type | What it represents | Example |
+|------|--------------------|---------|
+| **Problem** | A recurring issue or pain point reported across sources | "Checkout flow is confusing" |
+| **Feature request** | A capability users are asking for | "Add bulk export to CSV" |
+| **Topic** | A general theme or area of discussion | "Mobile performance" |
+
+Each entity is backed by **assertions** — individual pieces of evidence extracted from your connected sources. An entity with 12 assertions means Ravell found 12 distinct mentions across your tools.
+
+---
+
+## Entity explorer
+
+The entity explorer lets you browse, search, and filter all tracked entities.
+
+### Tabs
+
+| Tab | What it shows |
+|-----|---------------|
+| **All** | Every entity across all types |
+| **Problems** | Only problem entities |
+| **Requests** | Only feature request entities |
+| **Topics** | Only topic entities |
+
+### Search and filter
+
+- **Search** — Type to filter entities by name. Results update as you type.
+- **Sort** — Switch between sorting by mentions (most evidence first) or alphabetically by name.
+- **Filter by mentions** — Show all entities, only those with mentions, or only those with no mentions yet.
+
+### Entity detail
+
+Select an entity to see its full detail:
+
+- **Evidence** — Every assertion backing this entity, with the source text, source type, confidence score, and when it was last seen.
+- **Connections** — Relationships to other entities (e.g. a problem connected to a feature request that would address it). Each connection shows the relationship type and confidence.
+
+### Confidence badges
+
+When Ravell's confidence in an entity is below 60%, a confidence badge appears next to it. This means the system has found some evidence but isn't certain it represents a real, distinct product signal. Entities with low confidence typically have fewer sources or ambiguous mentions.
+
+<Tip>
+Low-confidence entities aren't necessarily wrong — they may just need more data. As more evidence comes in from your sources, confidence scores update automatically.
+</Tip>
+
+---
+
+## Emerging issues
+
+Emerging issues (shown on the dashboard) are signals that are **rising in frequency but haven't been addressed yet**. Ravell detects them by comparing recent evidence counts against a baseline period.
+
+Each emerging issue shows:
+
+- **Severity score** — How urgent the issue is, based on the rate of increase and source diversity
+- **Source count** — How many different source types are reporting it
+
+When no emerging issues are detected, the dashboard confirms your product coverage looks good.
+
+---
+
+## Weekly brief
+
+You can set up a **weekly brief** that delivers a summary of ranked problems, emerging issues, and trends to a Slack channel on a schedule.
+
+<Steps>
+  <Step title="Enable the brief">
+    On the Product Intelligence dashboard, find the **Weekly brief** section and click **Set up**.
+  </Step>
+  <Step title="Choose a channel">
+    Select the Slack channel where the brief should be posted.
+  </Step>
+  <Step title="Set the schedule">
+    Choose the day (Monday–Friday), time, and timezone. The default is Monday at 9am.
+  </Step>
+  <Step title="Save">
+    The brief runs automatically at the scheduled time. You can pause, edit, or send a test brief at any time.
+  </Step>
+</Steps>
+
+---
+
+## How it works
+
+<Accordion title="Behind the scenes">
+Product Intelligence is built on top of Ravell's [knowledge graph](/knowledge-graph). As documents are indexed from your connected sources, Ravell:
+
+1. **Extracts assertions** — Individual claims or signals from source content (e.g. "user reports checkout is confusing" from an Intercom conversation).
+2. **Resolves entities** — Groups related assertions into entities using semantic matching. Multiple mentions of the same problem across different tools get merged into one entity.
+3. **Classifies types** — Each entity is classified as a problem, feature request, or topic.
+4. **Scores and ranks** — Problems are scored by priority (combining severity, frequency, recency, and source diversity). Emerging issues are detected by comparing recent vs. baseline evidence counts.
+5. **Tracks responses** — Ravell monitors whether your team has responded to detected problems, so you can see what still needs attention.
+
+All data refreshes automatically as new content is indexed from your sources.
+</Accordion>
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents and resolves entities across your tools.
+  </Card>
+  <Card title="Sources" icon="plug" href="/sources">
+    Connect more tools to improve entity detection and evidence coverage.
+  </Card>
+  <Card title="Agents" icon="bolt" href="/agents">
+    Schedule recurring questions alongside Product Intelligence.
+  </Card>
+  <Card title="System overview" icon="circle-nodes" href="/system-overview">
+    The full architecture from ingestion to intelligence.
+  </Card>
+</CardGroup>
