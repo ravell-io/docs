@@ -22,6 +22,11 @@
 - **Citation**: A clickable reference linking an answer claim to its source data.
 - **Template**: A pre-built agent configuration for common use cases.
 - **Visibility**: Private (only you) or shared (workspace-visible) for Asks and Agents.
+- **Product Graph**: Layer on top of the knowledge graph tracking product-level entities (problems, feature requests, topics) and their relationships.
+- **Problem**: A product graph entity — customer pain point, bug, or recurring complaint.
+- **Feature Request**: A product graph entity — customer ask or request extracted from feedback.
+- **Topic**: A product graph entity — grouping category connecting related problems and requests.
+- **Emerging Issue**: A problem with no feature request addressing it — a roadmap gap flagged by Ravell.
 
 ## Style preferences
 
