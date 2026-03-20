@@ -1,0 +1,104 @@
+---
+title: "API keys & MCP"
+description: "Programmatic access to Ravell via API keys and MCP server integration"
+---
+
+## API keys
+
+API keys give you programmatic access to Ravell. Use them to integrate Ravell into scripts, workflows, or AI clients.
+
+Open **Settings → API** to manage your keys.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API settings">
+    Go to **Settings → API**.
+  </Step>
+  <Step title="Click New Key">
+    Enter a name for the key (e.g. "Claude Desktop", "CI Pipeline").
+  </Step>
+  <Step title="Choose an access level">
+    Select the scope:
+
+    | Scope | What it can do |
+    |-------|---------------|
+    | **Read** | Search, entities, and product graph queries |
+    | **Read & Write** | Everything in Read, plus AI-powered queries and digests |
+
+  </Step>
+  <Step title="Copy your key">
+    The key is shown once after creation. Copy it and store it somewhere safe — you won't be able to see it again.
+  </Step>
+</Steps>
+
+<Warning>
+API keys are shown only once. If you lose a key, revoke it and create a new one.
+</Warning>
+
+---
+
+## Manage keys
+
+The API settings page shows all active keys with:
+
+- **Name** — The label you gave the key.
+- **Token prefix** — The first few characters for identification.
+- **Scopes** — The access level (Read or Read & Write).
+- **Created date** — When the key was created.
+- **Last used** — When the key was last used, or "Never used" if it hasn't been.
+
+To revoke a key, click the delete icon next to it and confirm. Revoked keys stop working immediately.
+
+---
+
+## MCP server
+
+Ravell provides an MCP (Model Context Protocol) server that connects your Ravell workspace to AI clients like Claude Desktop. This lets Claude (or any MCP-compatible client) search your connected sources, query the product graph, and run AI-powered queries through Ravell.
+
+### Set up MCP with Claude Desktop
+
+<Steps>
+  <Step title="Create an API key">
+    Follow the steps above to create an API key with **Read & Write** scope.
+  </Step>
+  <Step title="Add the config to Claude Desktop">
+    Add the following to your `.mcp.json` or Claude Desktop configuration file:
+
+    ```json
+    {
+      "mcpServers": {
+        "ravell": {
+          "command": "npx",
+          "args": ["-y", "@ravell-io/mcp"],
+          "env": {
+            "RAVELL_API_KEY": "<your-api-key>"
+          }
+        }
+      }
+    }
+    ```
+
+    Replace `<your-api-key>` with the key you copied in the previous step.
+  </Step>
+  <Step title="Restart Claude Desktop">
+    Restart the application to pick up the new MCP server configuration.
+  </Step>
+</Steps>
+
+Once connected, Claude Desktop can use Ravell to search across your Linear, Notion, Intercom, Slack, and Attio data directly in your conversations.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect the integrations that API keys and MCP can query.
+  </Card>
+  <Card title="Security & privacy" icon="shield-halved" href="/security-privacy">
+    How Ravell handles your data and credentials.
+  </Card>
+</CardGroup>

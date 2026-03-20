@@ -55,6 +55,10 @@
         "pages": ["context", "profiles", "memory"]
       },
       {
+        "group": "Product Intelligence",
+        "pages": ["product-intelligence"]
+      },
+      {
         "group": "How Ravell Works",
         "pages": ["system-overview", "knowledge-graph", "security-privacy"]
       },
@@ -90,7 +94,8 @@
           "workspace-setup",
           "workspace-management",
           "billing",
-          "visibility-sharing"
+          "visibility-sharing",
+          "api-keys"
         ]
       },
       {
