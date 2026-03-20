@@ -1,0 +1,144 @@
+---
+title: "Product intelligence"
+description: "Automatic problem detection, entity tracking, and trend analysis across your connected sources"
+---
+
+## What is Product intelligence?
+
+**Product intelligence** is Ravell's automatic analysis layer. It continuously processes data from your connected sources — Linear, Intercom, Slack, Notion, and Attio — to identify customer problems, feature requests, and topics without you asking a question.
+
+Open **Product intelligence** from the sidebar to see the dashboard.
+
+**Why it matters:** Instead of manually sifting through tickets, conversations, and documents, Ravell surfaces what matters: the top problems your customers face, emerging issues nobody has responded to, and how evidence is trending over time. You get a prioritized view of your product's reality, updated as new data flows in.
+
+---
+
+## Overview dashboard
+
+The dashboard shows four metric cards at the top:
+
+| Metric | What it shows |
+|--------|---------------|
+| **Problems** | Customer pain points extracted from your sources. Shows how many of the top problems have no team response yet. |
+| **Emerging issues** | Rising problems that nobody has responded to. Includes the highest severity score when issues are detected. |
+| **Entities** | Total count of problems, feature requests, and topics tracked across all sources, plus the number of relationships between them. |
+| **This week** | New evidence collected from your integrations in the last 7 days, with a 30-day comparison. |
+
+Below the metrics, you'll see two sections:
+
+### Top problems
+
+A ranked table of the most significant customer problems. Each row shows:
+
+- **Rank** — Position based on priority score.
+- **Problem** — The problem name, identified by Ravell from your sources.
+- **Score** — A priority score based on evidence count, source diversity, confidence, and recency.
+- **Evidence** — Number of mentions across your connected sources.
+- **Sources** — How many different source types (Slack, Linear, Intercom, etc.) mention this problem. Higher diversity means stronger signal.
+- **Status** — Whether your team has responded to this problem or not.
+
+### Emerging issues
+
+Cards showing problems where evidence is rising but your team hasn't responded yet. Each card displays the issue name, type, severity score, and how many source types it appears in.
+
+These are your blind spots — problems gaining traction that might slip through the cracks without proactive attention.
+
+---
+
+## Entity explorer
+
+Click **Browse all** on the dashboard to open the entity explorer. This is a searchable, filterable catalog of everything Ravell has identified across your sources.
+
+### Entity types
+
+Ravell classifies entities into three categories:
+
+- **Problems** — Customer pain points and issues.
+- **Feature requests** — Things customers or team members have asked for.
+- **Topics** — General themes or areas of discussion.
+
+### Browsing and filtering
+
+- **Search** — Find entities by name.
+- **Filter by type** — Use the tabs (All, Problems, Requests, Topics) to narrow the list.
+- **Sort** — Sort by mentions (default, most mentioned first) or alphabetically by name.
+- **Filter by mentions** — Show all entities, only those with mentions, or only those without mentions.
+
+### Entity detail view
+
+Select an entity to see its full detail:
+
+- **Evidence** — All sources where this entity was mentioned, ranked by confidence. Each piece of evidence shows the source content, source type, confidence percentage, and date.
+- **Connections** — How this entity relates to other problems, feature requests, and topics. Relationships have types (e.g. "related to", "caused by") and confidence scores.
+
+<Tip>
+Low-confidence entities display a badge indicating that Ravell isn't certain this is a real product issue yet. As more evidence appears, confidence increases.
+</Tip>
+
+---
+
+## Weekly brief
+
+The weekly brief delivers a summary of your product intelligence to a Slack channel on a schedule. It includes ranked problems, emerging issues, and trends.
+
+<Note>
+The weekly brief requires a connected Slack integration. If Slack is not connected, the brief option won't appear on the dashboard.
+</Note>
+
+### Set up a weekly brief
+
+<Steps>
+  <Step title="Open Product intelligence">
+    Navigate to **Product intelligence** from the sidebar.
+  </Step>
+  <Step title="Click Set up on the Weekly Brief card">
+    The card appears below the dashboard title. Click **Set up** to configure.
+  </Step>
+  <Step title="Select a Slack channel">
+    Choose the channel where you want the brief delivered. The Ravell bot must be invited to the channel.
+  </Step>
+  <Step title="Enable">
+    Click **Enable**. The brief sends every Monday at 9am UTC by default.
+  </Step>
+</Steps>
+
+### Edit or pause
+
+Click the Weekly Brief card to open the editor. From here you can:
+
+- **Change the channel** — Select a different Slack channel.
+- **Change the schedule** — Pick a different day (Monday–Friday), time, and timezone.
+- **Send a test** — Deliver a test brief to the selected channel immediately.
+- **Pause** — Stop the brief from running. Resume any time.
+
+---
+
+## How it works
+
+Product intelligence is built on Ravell's [knowledge graph](/knowledge-graph). As documents are indexed from your sources, Ravell:
+
+1. **Extracts assertions** — Identifies claims, complaints, requests, and topics from source content.
+2. **Resolves entities** — Groups related assertions into unified entities, even when different sources use different names.
+3. **Scores and ranks** — Calculates priority scores based on evidence count, source diversity, confidence, recency, and velocity trends.
+4. **Detects blind spots** — Flags entities where evidence is rising but no team response exists.
+
+The system improves as you connect more sources and accumulate more data. More evidence means higher-confidence rankings and better blind spot detection.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents and resolves entities across your tools.
+  </Card>
+  <Card title="Agents" icon="robot" href="/agents">
+    Schedule recurring questions for automated reports.
+  </Card>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect integrations to feed the product graph.
+  </Card>
+  <Card title="System overview" icon="microchip" href="/system-overview">
+    The full architecture from data ingestion to answers.
+  </Card>
+</CardGroup>
