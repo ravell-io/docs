@@ -26,7 +26,7 @@ Agents use the same search and synthesis quality as Web Asks. The only differenc
 
 ## Behind the scenes
 
-At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after several failures, the agent pauses so you can fix the issue.
+At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after 5 consecutive failures, the agent auto-pauses so you can fix the issue and resume it.
 
 ---
 
@@ -34,11 +34,14 @@ At the scheduled time, Ravell runs your question through the same pipeline as We
 
 1. Open **Agents** in the sidebar.
 2. Click **Create agent** (or start from a template).
-3. Enter your question — same format as Web Asks. Be specific: time ranges and topics improve results.
-4. Choose a schedule (see below).
-5. Set visibility (private or shared).
-6. Optionally enable **Deliver to Slack** and select a channel (requires shared visibility).
-7. Save. The agent runs at the next scheduled time.
+3. Give it a name (3–80 characters).
+4. Enter your question (up to 2,000 characters) — same format as Web Asks. Be specific: time ranges and topics improve results.
+5. Choose a schedule (see below).
+6. Set visibility (private or shared).
+7. Optionally enable **Deliver to Slack** and select a channel (requires shared visibility). Both public and private channels are supported.
+8. Save. The agent runs at the next scheduled time.
+
+Each workspace can have up to 25 agents.
 
 ---
 
@@ -56,7 +59,7 @@ You choose the days (Mon–Sun), hour, and minute. Times are in your selected ti
 
 ### Hourly interval
 
-Run every N hours. Examples:
+Run every N hours (minimum 1 hour). Examples:
 
 - Every 1 hour
 - Every 2 hours
