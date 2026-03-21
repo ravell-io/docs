@@ -1,0 +1,82 @@
+---
+title: "Push to Notion"
+description: "Export answers and reports from Ravell to Notion databases"
+---
+
+## What is Push to Notion?
+
+**Push to Notion** lets you export any answer from a Web Ask or agent report directly to a Notion database. The answer — including formatted content and citations — is created as a new page in your chosen database.
+
+Use this to turn Ravell insights into shared team documents, meeting notes, or a running archive of recurring reports.
+
+<Note>Push to Notion requires a connected Notion integration. See [Notion integration](/integrations/notion) to set it up.</Note>
+
+---
+
+## Export an answer
+
+<Steps>
+  <Step title="Open an Ask or Inbox report">
+    Navigate to any conversation with an answer, or open a report from the Inbox.
+  </Step>
+  <Step title="Click Push to Notion">
+    Find the **Push to Notion** button on the answer card or in the report actions menu.
+  </Step>
+  <Step title="Choose a Notion database">
+    Search for and select the Notion database where you want to create the page. You can type to filter the list.
+  </Step>
+  <Step title="Confirm">
+    Click **Export**. Ravell creates a new page in the selected database with the answer content, title, and citations.
+  </Step>
+</Steps>
+
+---
+
+## Default export destination
+
+After your first export, Ravell remembers the last database you used. You can change it on each export, but having a default saves time for recurring workflows.
+
+---
+
+## What gets exported
+
+The Notion page includes:
+
+- **Title** — The question or report title
+- **Content** — The full answer, formatted with headings, lists, and links
+- **Citations** — Source references preserved as links
+
+Content is formatted for Notion's block structure, so it looks native in your workspace.
+
+---
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| "Insufficient permissions" error | Ravell doesn't have access to the selected database | Open the database in Notion and share it with the Ravell integration |
+| "Restricted resource" error | The database is in a restricted section of your Notion workspace | Move the database to a section Ravell can access, or update Notion permissions |
+| Export stuck on "Exporting" | Network or sync delay | Wait a moment and refresh. If it persists, try again |
+| Database not showing in picker | Ravell can't see the database | Make sure the Ravell Notion integration has access to the database. In Notion, open the database → Share → Add the Ravell integration |
+
+---
+
+## Use cases
+
+- **Meeting prep** — Push a weekly roundup to a shared Notion database before your team sync
+- **Report archive** — Export recurring agent reports to build a searchable history
+- **Stakeholder updates** — Push cross-source summaries to a Notion page shared with leadership
+- **Knowledge base** — Turn deep-dive Ask answers into reference docs in Notion
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Notion integration" icon="file" href="/integrations/notion">
+    Connect and configure the Notion integration.
+  </Card>
+  <Card title="Agents" icon="clock" href="/agents">
+    Set up recurring reports to push to Notion on a schedule.
+  </Card>
+</CardGroup>

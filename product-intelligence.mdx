@@ -1,0 +1,140 @@
+---
+title: "Product intelligence"
+description: "Automatically surface product problems, emerging issues, and trends from your connected sources"
+---
+
+## What is Product Intelligence?
+
+**Product Intelligence** is Ravell's automated problem-detection layer. It continuously analyzes data from your connected sources — Linear issues, Intercom conversations, Slack threads, Notion pages, and Attio records — to build a live picture of your product's health. Instead of waiting for someone to ask the right question, Product Intelligence surfaces problems, feature requests, and emerging trends automatically.
+
+You'll find it under **Intelligence** in the sidebar.
+
+---
+
+## Overview dashboard
+
+The overview shows three things at a glance:
+
+| Section | What it shows |
+|---------|---------------|
+| **Top problems** | Ranked table of the most impactful product problems, scored by evidence strength and trend direction |
+| **Emerging issues** | Newly detected blind spots — problems or patterns that appeared recently and may need attention |
+| **Health metrics** | Total entity count, total assertions (evidence pieces), and mean confidence across the graph |
+
+### Top problems
+
+Each row in the problems table includes:
+
+- **Rank** — Position by composite score
+- **Problem** — The issue name, auto-extracted from your sources
+- **Score** — A weighted score based on evidence volume, recency, and source diversity
+- **Evidence** — Number of source mentions backing this problem
+- **Trend** — A sparkline showing whether mentions are rising, falling, or stable
+- **Sources** — How many different source types reference this problem
+- **Status** — Whether the problem has a response (e.g. a related Linear issue in progress)
+
+You can **dismiss** a problem if it's not relevant. Ravell learns from dismissals to improve future rankings.
+
+### Emerging issues
+
+Emerging issues are blind spots — problems or patterns Ravell detected recently that may not have enough evidence to rank in the top problems yet. Each card shows the issue name, severity score, type, and source count.
+
+---
+
+## Entity explorer
+
+Click **Browse all** on the overview to open the entity explorer. This is a searchable, filterable list of everything in your product graph.
+
+### Filtering and sorting
+
+- **Search** — Find entities by name
+- **Type filter** — View all entities, or filter to Problems, Requests (feature requests), or Topics
+- **Sort** — By mention count (default) or alphabetically by name
+- **Mention filter** — Show all, only those with mentions, or only those without
+
+### Entity detail
+
+Select an entity to see its detail view:
+
+- **Name and type** — The canonical name and entity type (problem, feature request, or topic)
+- **Mention count** — How many source mentions reference this entity
+- **Confidence** — A visual indicator based on mean confidence across all evidence. Entities below 60% confidence show a badge indicating the system isn't sure this is a real product issue yet
+- **Evidence** — A list of all source mentions, each with the source content excerpt, source type, confidence percentage, and date last seen
+- **Connections** — How this entity relates to others. Relationships show direction (outgoing or incoming), relationship type (e.g. "causes", "contains"), the connected entity name, and confidence score
+
+---
+
+## Weekly brief
+
+Product Intelligence can deliver a weekly summary to a Slack channel. The brief includes ranked problems, emerging issues, and trends.
+
+<Note>The weekly brief requires a connected Slack integration.</Note>
+
+### Set up the weekly brief
+
+<Steps>
+  <Step title="Open Product Intelligence">
+    Go to **Intelligence** in the sidebar.
+  </Step>
+  <Step title="Click Set up on the Weekly Brief card">
+    If no brief is configured, you'll see a setup prompt. Click **Set up**.
+  </Step>
+  <Step title="Choose a Slack channel">
+    Select a public or private channel where the brief should be posted. The Ravell bot must be invited to the channel.
+  </Step>
+  <Step title="Enable">
+    Click **Enable**. The brief sends every Monday at 9am UTC by default.
+  </Step>
+</Steps>
+
+### Configure the brief
+
+After enabling, click the weekly brief card to edit:
+
+- **Channel** — Change the delivery channel
+- **Day** — Choose any weekday (Monday through Friday)
+- **Time** — Choose the hour (0–23)
+- **Timezone** — Select from common timezones (UTC, Europe/London, US/Eastern, US/Pacific, and more)
+
+You can also:
+
+- **Send test** — Send a test brief to the selected channel before the next scheduled delivery
+- **Pause** — Temporarily stop the brief without losing your configuration
+- **Resume** — Restart a paused brief
+
+---
+
+## How entities are created
+
+Ravell builds the product graph automatically as it indexes your connected sources. The system extracts problems, feature requests, and topics from Linear issues, Intercom conversations, Slack messages, Notion pages, and Attio records.
+
+Entities are deduplicated and merged when Ravell detects that two references point to the same underlying issue. When an auto-merge happens, you'll see a banner with the option to undo.
+
+---
+
+## Tips
+
+<Tip>
+**Connect more sources for better coverage.** Product Intelligence works best when it can cross-reference multiple tools. A problem mentioned in both Intercom conversations and Linear issues gets a higher confidence score than one from a single source.
+</Tip>
+
+<Tip>
+**Dismiss irrelevant problems.** This teaches Ravell what matters to your team and improves future rankings.
+</Tip>
+
+<Tip>
+**Use the weekly brief to keep your team aligned.** Post it to a shared channel so everyone sees the same picture of product health.
+</Tip>
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    Learn how Ravell links documents and resolves entities across sources.
+  </Card>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect more tools to improve Product Intelligence coverage.
+  </Card>
+</CardGroup>
