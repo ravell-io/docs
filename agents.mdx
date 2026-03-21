@@ -26,7 +26,21 @@ Agents use the same search and synthesis quality as Web Asks. The only differenc
 
 ## Behind the scenes
 
-At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after several failures, the agent pauses so you can fix the issue.
+At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after 5 consecutive failures, the agent automatically pauses so you can fix the issue.
+
+---
+
+## Limits
+
+| Limit | Value |
+|-------|-------|
+| Maximum agents per workspace | 25 |
+| Minimum interval (hourly schedule) | 1 hour |
+| Consecutive failures before auto-pause | 5 |
+| Agent name length | 3–80 characters |
+| Prompt length | 1–2,000 characters |
+
+If an agent is auto-paused after failures, you can edit the question or schedule and resume it manually.
 
 ---
 

@@ -1,0 +1,235 @@
+---
+title: "Knowledge API"
+description: "Access Ravell's search, entities, and synthesis programmatically via API keys"
+---
+
+## Overview
+
+The **Knowledge API** lets you access Ravell's search and synthesis capabilities programmatically. Use it to build custom integrations, connect MCP-compatible tools, power dashboards, or incorporate Ravell into your CI/CD workflows.
+
+All endpoints are authenticated with [API keys](/api-keys) and scoped to your workspace.
+
+**Base URL:** `https://api.ravell.io/api/knowledge`
+
+---
+
+## Authentication
+
+Include your API key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_api_key" \
+  https://api.ravell.io/api/knowledge/search?query=checkout+feedback
+```
+
+API keys are created in **Settings → API keys**. See [API keys](/api-keys) for details.
+
+---
+
+## Endpoints
+
+### Search
+
+Search across your indexed documents using semantic and lexical search.
+
+**Scope required:** `read`
+
+```
+GET /api/knowledge/search
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | The search query |
+| `source_types` | string[] | No | Filter by source type (e.g. `linear`, `notion`, `slack`, `intercom`, `attio`) |
+| `team_ids` | string[] | No | Filter by Linear team IDs |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+| `limit` | integer | No | Maximum number of results |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_api_key" \
+  "https://api.ravell.io/api/knowledge/search?query=checkout+bugs&source_types[]=linear&date_from=2025-01-01"
+```
+
+**Response:**
+
+```json
+{
+  "data": [
+    {
+      "title": "Checkout payment fails on mobile",
+      "content": "...",
+      "source_type": "linear",
+      "url": "https://linear.app/team/ENG-142"
+    }
+  ],
+  "meta": {
+    "tier": "tier1",
+    "result_count": 12,
+    "query_time_ms": 230.5,
+    "request_id": "req_abc123"
+  }
+}
+```
+
+---
+
+### Entities
+
+Search for entities (people, companies, products) in your knowledge graph, or retrieve a specific entity by ID.
+
+**Scope required:** `read`
+
+```
+GET /api/knowledge/entities
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | One of `query` or `entity_id` | Search entities by name |
+| `entity_id` | string | One of `query` or `entity_id` | Retrieve a specific entity |
+| `limit` | integer | No | Maximum number of results |
+
+---
+
+### Related
+
+Find documents and entities related to a specific document or entity.
+
+**Scope required:** `read`
+
+```
+GET /api/knowledge/related
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string | One of `document_id` or `entity_id` | Find items related to this document |
+| `entity_id` | string | One of `document_id` or `entity_id` | Find items related to this entity |
+
+---
+
+### Query
+
+Run a full synthesis query — the same pipeline as a Web Ask. Ravell searches your sources, retrieves evidence, and returns an answer with citations.
+
+**Scope required:** `read_write`
+
+```
+POST /api/knowledge/query
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | Yes | The question to answer |
+| `source_types` | string[] | No | Filter by source type |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+
+**Example:**
+
+```bash
+curl -X POST -H "Authorization: Bearer ravelk_your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What are the top customer complaints this week?"}' \
+  https://api.ravell.io/api/knowledge/query
+```
+
+**Response:**
+
+```json
+{
+  "data": {
+    "answer": "The top customer complaints this week are...",
+    "citations": [
+      {
+        "title": "Support ticket #1234",
+        "source_type": "intercom",
+        "url": "https://app.intercom.com/..."
+      }
+    ],
+    "follow_up_suggestions": []
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 8,
+    "query_time_ms": 4200.3,
+    "request_id": "req_def456"
+  }
+}
+```
+
+<Note>
+Query requests run the full synthesis pipeline and take longer than search requests (typically 3-10 seconds). They also require the `read_write` scope.
+</Note>
+
+---
+
+### Digest
+
+Get a pre-built summary for a time period and focus area. Useful for automated daily or weekly digests.
+
+**Scope required:** `read_write`
+
+```
+GET /api/knowledge/digest
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | Yes | Time period: `today`, `this_week`, or `last_7_days` |
+| `focus` | string | No | Focus area: `all` (default), `bugs`, `feature_requests`, or `sentiment` |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_api_key" \
+  "https://api.ravell.io/api/knowledge/digest?period=this_week&focus=bugs"
+```
+
+**Response:**
+
+```json
+{
+  "data": {
+    "summary": "This week, the team addressed 12 bugs...",
+    "citations": [...],
+    "period": "this_week",
+    "focus": "bugs"
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 15,
+    "query_time_ms": 5100.2,
+    "request_id": "req_ghi789"
+  }
+}
+```
+
+---
+
+## Scopes and rate limits
+
+API endpoints are divided into two tiers:
+
+| Tier | Endpoints | Required scope | Description |
+|------|-----------|---------------|-------------|
+| **Tier 1** | `search`, `entities`, `related` | `read` | Fast retrieval operations |
+| **Tier 2** | `query`, `digest` | `read_write` | Full synthesis operations |
+
+Rate limits are applied per API key. If you exceed the limit, you receive a `429 Too Many Requests` response with a `Retry-After` header.
+
+---
+
+## Use cases
+
+| Use case | Endpoint | Example |
+|----------|----------|---------|
+| Power an MCP integration | `search`, `query` | Connect Ravell to Claude Desktop or Cursor |
+| Custom Slack bot | `query` | Answer questions in your own bot |
+| CI/CD checks | `search` | Search for related issues before deploying |
+| Dashboard widgets | `digest` | Show a daily summary on your internal dashboard |
+| Entity lookup | `entities`, `related` | Find all information about a customer or project |
