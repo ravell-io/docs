@@ -61,9 +61,13 @@ Each source adds value on its own, but the real power comes from cross-source qu
 
 In **Sources**, you can see the status of each connection:
 
-- **Synced**: Data is up to date.
-- **Syncing**: Sync in progress.
-- **Error**: Sync failed. Check the connection and re-authorize if needed.
+| Status | Meaning |
+|--------|---------|
+| **Synced** | Data is up to date |
+| **Syncing** | Sync in progress |
+| **Error** | Sync failed — check the connection and re-authorize if needed |
+| **Expired** | OAuth token expired — reconnect to resume syncing |
+| **Disconnecting** | Scheduled for removal (see [Disconnect a source](#disconnect-a-source)) |
 
 Use **Reindex** or **Sync** to refresh data manually when needed.
 
@@ -84,4 +88,7 @@ Scoping is useful when you know the answer is likely in one place.
 
 1. Go to **Settings → Integrations** (or **Sources**).
 2. Find the integration and click **Disconnect**.
-3. Ravell stops syncing and removes the data from its index. Past Ask answers that cited that source will still show the citations, but the underlying data may no longer be available.
+3. Ravell stops syncing immediately. The integration enters a **Disconnecting** state with a 7-day grace period before data is removed from the index.
+4. During the grace period, you can reconnect the source to keep your data. After 7 days, indexed data is permanently removed.
+
+Past Ask answers that cited that source will still show the citations, but the underlying data may no longer be available after removal.
