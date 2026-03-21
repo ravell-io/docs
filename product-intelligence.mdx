@@ -1,0 +1,158 @@
+---
+title: "Product intelligence"
+description: "Ravell automatically extracts, ranks, and tracks problems, feature requests, and themes from your connected sources"
+---
+
+Product intelligence gives you a ranked, evidence-backed view of what your customers care about most — without manually reading through tickets, Slack threads, and CRM notes. Ravell continuously analyzes your connected sources and surfaces the issues that matter.
+
+---
+
+## What is product intelligence?
+
+Product intelligence is a structured layer that sits on top of Ravell's knowledge graph. While [Asks](/asks) let you pull answers on demand, product intelligence **pushes** insights to you — automatically extracting entities from your data and ranking them by importance.
+
+### Why it matters
+
+Most teams know they have product feedback scattered across tools. The problem is turning that noise into signal. Product intelligence does the heavy lifting: it reads your Intercom conversations, Linear issues, Slack threads, Notion pages, and Attio records, then extracts and ranks what matters.
+
+---
+
+## What Ravell tracks
+
+Ravell extracts three types of entities from your connected sources:
+
+| Entity type | What it is | Example |
+|-------------|-----------|---------|
+| **Problem** | A customer pain point, bug, or issue | "Checkout flow times out on mobile" |
+| **Feature request** | Something customers are asking for | "Add bulk export for invoices" |
+| **Topic** | A broader theme or area of interest | "Mobile experience" |
+
+Each entity is backed by **evidence** — the specific mentions, conversations, and issues where Ravell found it. You can always click through to see exactly where a claim comes from.
+
+---
+
+## The overview
+
+Open **Product Intelligence** in the sidebar to see a ranked view of what matters most across your connected sources.
+
+### Top problems
+
+The overview shows a ranked table of the most pressing problems, ordered by priority score. Each row includes:
+
+- **Rank** — Position based on a composite of evidence volume, source diversity, recency, and confidence
+- **Problem name** — A normalized label Ravell extracted from your data
+- **Priority score** — A weighted score reflecting how urgent the problem is
+- **Evidence count** — How many mentions Ravell found across your sources
+- **Trend** — Whether mentions are rising, steady, or declining over time
+- **Sources** — How many different tools (Linear, Intercom, Slack, etc.) mention this problem
+- **Status** — Whether your team has already responded to this issue or not
+
+### Emerging issues
+
+Below the top problems, Ravell highlights **emerging issues** — blind spots your team may not be tracking yet. These are problems or themes that are growing in mentions but haven't been addressed. Each shows a severity score and the number of sources mentioning it.
+
+### Health metrics
+
+A summary bar shows overall coverage: total entities tracked, total evidence collected, and mean confidence across your data.
+
+---
+
+## Exploring entities
+
+Click **Entities** to browse the full list of everything Ravell has extracted. You can:
+
+- **Filter by type** — Switch between All, Problems, Feature Requests, and Topics
+- **Search** — Find specific entities by name
+- **Sort** — Order by mention count or alphabetically
+
+Click any entity to see its detail view:
+
+- **Evidence** — Every mention, sorted by confidence. Each shows the source content, source type (Linear, Intercom, Slack, etc.), confidence percentage, and date.
+- **Connections** — Relationships to other entities (e.g., a problem that "causes" another problem, or a feature request "related to" a topic). These connections are built from Ravell's knowledge graph.
+
+---
+
+## Dismissing irrelevant items
+
+Not every extracted problem is relevant. If Ravell surfaces something that doesn't matter to your team, click the dismiss button (the X icon) on any problem row. Dismissed items:
+
+- Disappear from your ranked view immediately
+- Help Ravell learn what matters to your team over time
+- Can still be found in the full entity explorer if needed
+
+<Tip>
+Dismissing a few irrelevant items early on helps Ravell learn your team's priorities faster.
+</Tip>
+
+---
+
+## Weekly brief
+
+Set up a recurring Slack digest to get a summary of your top product intelligence delivered to a channel each week.
+
+<Steps>
+  <Step title="Open the weekly brief section">
+    Scroll to the bottom of the **Product Intelligence** overview and find the weekly brief card.
+  </Step>
+  <Step title="Pick a Slack channel">
+    Select the channel where you want the digest delivered.
+  </Step>
+  <Step title="Set a schedule">
+    Choose a day (Monday through Friday), time, and timezone. The default is Monday at 9:00 AM UTC.
+  </Step>
+  <Step title="Enable the brief">
+    Click **Enable**. You can send a test message first to preview the format.
+  </Step>
+</Steps>
+
+Once enabled, you can pause, resume, or change the schedule anytime. The brief summarizes your top problems, trends, and any new emerging issues since the last digest.
+
+---
+
+## How it builds over time
+
+Product intelligence starts working as soon as you connect your first source, but it gets better over time:
+
+- **More sources** mean more evidence and higher confidence scores
+- **Dismissals** teach Ravell what's relevant to your team
+- **New data** from ongoing conversations, issues, and tickets keeps the rankings fresh
+
+When you first connect sources, you'll see an onboarding card showing the progress of the initial analysis. Once complete, it tells you how many problems Ravell found in your data.
+
+---
+
+## Tips
+
+<AccordionGroup>
+  <Accordion title="When should I check product intelligence?">
+    Check the overview weekly or before planning sessions. It's designed to give you a quick pulse on what customers care about without reading every ticket.
+  </Accordion>
+  <Accordion title="How is this different from Asks?">
+    Asks are on-demand — you ask a question and get an answer. Product intelligence is proactive — Ravell continuously extracts and ranks entities without you asking. Use Asks for specific questions; use product intelligence for a broad view of what matters.
+  </Accordion>
+  <Accordion title="Can I combine product intelligence with agents?">
+    Yes. Agent templates like **Feature request clustering** and **Churn signals** query the same underlying data. Product intelligence gives you the ranked view; agents give you scheduled reports on specific topics.
+  </Accordion>
+  <Accordion title="What if I disagree with a ranking?">
+    Dismiss items that aren't relevant. Over time, Ravell learns your team's priorities. You can also use the entity explorer to drill into the evidence and judge for yourself.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents and discovers connections across your tools.
+  </Card>
+  <Card title="Agent templates" icon="bolt" href="/agent-templates">
+    Scheduled reports for churn signals, feature clustering, and more.
+  </Card>
+  <Card title="Web Asks" icon="message-question" href="/asks">
+    Ask specific questions and get evidence-backed answers on demand.
+  </Card>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect the tools that feed into product intelligence.
+  </Card>
+</CardGroup>
