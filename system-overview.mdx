@@ -38,6 +38,7 @@ flowchart TB
 
     subgraph Core["Ravell Core"]
         KG[(Knowledge Graph)]
+        PG[Product Graph]
         SE[Synthesis Engine]
     end
 
@@ -50,7 +51,9 @@ flowchart TB
     N --> KG
     I --> KG
     S --> KG
+    KG --> PG
     KG --> SE
+    PG --> SE
     UP --> SE
     WP --> SE
     M --> SE
@@ -94,7 +97,7 @@ flowchart LR
 
 **Linear, Notion, Intercom, Slack** — these are your connected sources. Ravell syncs and indexes their content (issues, pages, conversations, messages) into a unified **Knowledge Graph**. The more you connect, the richer the answers.
 
-Data is stored as indexed documents with embeddings for semantic search. When a document is indexed, Ravell extracts entities (people, projects, issues) from metadata and content, then builds links to related documents. Retrieval uses these links to discover evidence you didn't directly search for.
+Data is stored as indexed documents with embeddings for semantic search. When a document is indexed, Ravell extracts entities (people, projects, issues, problems, feature requests) from metadata and content, then builds links to related documents. Retrieval uses these links to discover evidence you didn't directly search for.
 
 ### How documents are linked
 
@@ -137,6 +140,10 @@ The Knowledge Graph stores your indexed documents and the links between them. It
 - **Graph expansion** — follow document links to discover related evidence
 
 When you ask a question, Ravell classifies intent, plans retrieval, and searches across these lanes. Results are fused, filtered, and re-ranked so the best evidence surfaces first.
+
+### Product Graph
+
+The Product Graph sits on top of the Knowledge Graph and identifies recurring **problems**, **feature requests**, and **topics** from your indexed documents. Each problem is classified by subtype (bug, feature gap, UX friction, or integration issue) and scored by priority based on source diversity, evidence volume, recency, and engagement signals. This layer powers product intelligence queries like "What are the top customer problems?" and proactive blind spot detection — surfacing rising issues that have no planned response. See the [knowledge graph](/knowledge-graph#product-graph) page for details.
 
 ### Synthesis Engine
 

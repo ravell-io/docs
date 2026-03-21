@@ -9,10 +9,15 @@ description: "Definitions of key Ravell terms"
 |------|------------|
 | **Ask** | A conversation thread where you ask questions and get evidence-backed answers with citations. Each Ask can have multiple follow-up messages. |
 | **Agent** | A scheduled query that runs on a recurring basis (e.g. every Monday at 9am). Agents produce reports that appear in your Inbox. |
+| **Blind spot** | A problem in the [product graph](/knowledge-graph#blind-spots) that is rising in mentions but has no linked feature request addressing it. Blind spots surface emerging issues before they become urgent. |
 | **Citation** | A clickable reference in an answer that links to the original source data (Linear issue, Notion page, Intercom conversation, or Slack message). |
 | **Context** | The central view combining your individual profile, workspace profile, and Memory. Used to personalize answers. |
+| **Evidence** | A document (or group of related documents) that backs a claim in an answer or supports a problem in the product graph. Evidence is grouped by parent document so comments on a single issue count as one source. |
 | **Inbox** | Where proactive reports from your agents land. Each agent run produces a report you can read, follow up on, or push to Notion. |
+| **Knowledge graph** | The layer that stores indexed documents and the links between them (explicit references, shared entities, threads, shared authors, URL references). Powers graph expansion during retrieval. |
 | **Memory** | Facts Ravell learns about you over time from conversations and manual entries. Used to personalize answers across sessions. |
+| **Problem** | A recurring customer pain point or product deficiency tracked in the [product graph](/knowledge-graph#product-graph). Each problem has a subtype: bug, feature gap, UX friction, or integration issue. |
+| **Product graph** | A structured layer on top of the knowledge graph that identifies and scores recurring [problems, feature requests, and topics](/knowledge-graph#product-graph) from your indexed documents. |
 | **Profile (Individual)** | Your personal context: role, focus areas, current work, preferences. Auto-generated from your connected sources and editable manually. |
 | **Profile (Workspace)** | Your team's context: company mission, goals, product context, ICP. Shared across all workspace members. |
 | **Scoping** | Limiting a question to specific sources (e.g. "Linear only") or time ranges (e.g. "last 30 days") for faster, more focused answers. |
