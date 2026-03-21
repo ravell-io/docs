@@ -31,6 +31,29 @@ Memory is used to improve relevance and avoid repeating information you've alrea
 
 ---
 
+## How Memory learns automatically
+
+Ravell doesn't just store what you explicitly add — it also learns from your conversations.
+
+### Automatic extraction
+
+After each conversation, Ravell analyzes the exchange and extracts up to five key facts worth remembering. Only high-confidence facts are stored (those above a minimum confidence threshold). Extracted memories are categorized automatically — for example, facts about your company go into "company/business", facts about your role go into "profile/role", and roadmap details are tagged as "roadmap".
+
+### Web enrichment
+
+When you mention a company, product, or concept in conversation, Ravell may search the web for additional context and synthesize extra memories from what it finds. This happens in the background so your next question benefits from richer context.
+
+### Claim reconciliation
+
+As memories accumulate, Ravell checks for contradictions and corroboration:
+
+- **Corroboration**: When multiple conversations confirm the same fact, the memory's confidence increases.
+- **Contradiction**: When new information conflicts with an existing memory (e.g. "We use 2-week sprints" vs. "We switched to 1-week sprints"), the older memory is down-weighted so the newer fact takes priority.
+
+You can always override any memory by editing or deleting it manually.
+
+---
+
 ## View and edit Memory
 
 1. Go to **Settings → Memory**.
@@ -74,8 +97,22 @@ This helps Ravell resolve references in your questions more accurately.
 
 ---
 
+## How memories are selected
+
+When you ask a question, Ravell doesn't use all your memories — it selects the most relevant ones using a scoring algorithm that considers:
+
+- **Semantic similarity** to your question (weighted most heavily).
+- **Importance** of the memory (high-importance facts like your role are prioritized).
+- **Recency** (recently created or used memories score higher).
+- **Confidence** (corroborated memories rank above unverified ones).
+- **Usage frequency** (memories that have helped answer past questions get a small boost).
+
+Memories about your role and identity are always included regardless of the question, so Ravell always knows who you are.
+
+---
+
 ## Control what gets stored
 
-- **Explicit additions**: When you add something in Settings → Memory, it's stored.
-- **Conversation context**: Ravell may infer facts from your questions and answers. You can delete anything you don't want stored.
+- **Explicit additions**: When you add something in Settings → Memory, it's stored with the highest confidence.
+- **Conversation context**: Ravell automatically infers facts from your questions and answers. You can delete anything you don't want stored.
 - **Privacy**: Memory is scoped to your account. Workspace members do not see your personal memory.
