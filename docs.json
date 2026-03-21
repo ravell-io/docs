@@ -99,6 +99,11 @@
         "pages": ["shortcuts", "glossary"]
       },
       {
+        "group": "Developer",
+        "tab": "Admin & Reference",
+        "pages": ["api-keys", "knowledge-api", "mcp"]
+      },
+      {
         "group": "Help",
         "tab": "Admin & Reference",
         "pages": ["help/faq", "help/troubleshooting"]

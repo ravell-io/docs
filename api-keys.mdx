@@ -1,0 +1,99 @@
+---
+title: "API keys"
+description: "Create and manage API keys to access the Ravell Knowledge API and MCP integration"
+---
+
+## What are API keys?
+
+**API keys** let you access Ravell's Knowledge API and connect external tools like MCP clients. You create and manage keys from **Settings → API Keys** in the Ravell app.
+
+Each key is scoped to your workspace and tied to the user who created it. Keys are shown once at creation — store them securely.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings → API Keys** in the Ravell app.
+  </Step>
+  <Step title="Click Create key">
+    Give the key a descriptive name (e.g. "CI pipeline" or "MCP — Cursor").
+  </Step>
+  <Step title="Choose scopes">
+    Select the permissions for this key:
+
+    | Scope | Access | Use case |
+    |-------|--------|----------|
+    | **read** | Search, entities, related items | Read-only integrations, dashboards |
+    | **read_write** | Everything in read, plus query and digest | Full API access, MCP clients |
+
+    The `read_write` scope includes all `read` permissions.
+  </Step>
+  <Step title="Set expiration (optional)">
+    Choose an expiration date or leave blank for a non-expiring key.
+  </Step>
+  <Step title="Copy the key">
+    The full key is shown **once**. Copy it and store it securely — you cannot retrieve it later.
+  </Step>
+</Steps>
+
+API keys use the prefix `ravelk_` for easy identification.
+
+---
+
+## Manage keys
+
+From **Settings → API Keys**, you can:
+
+- **View** all active keys with their name, scope, creation date, and last used timestamp.
+- **Revoke** a key to immediately disable it. Revoked keys cannot be restored.
+
+---
+
+## Authentication
+
+Include your API key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_key_here" \
+  https://api.ravell.io/api/knowledge/search?query=checkout+feedback
+```
+
+All Knowledge API endpoints use this authentication method. Requests without a valid key return `401 Unauthorized`.
+
+---
+
+## Rate limits
+
+Rate limits depend on the endpoint tier:
+
+| Tier | Endpoints | Burst limit | Sustained rate |
+|------|-----------|-------------|----------------|
+| **Tier 1** | search, entities, related | 100 requests/min | 50 requests/min |
+| **Tier 2** | query, digest | 20 requests/min | 10 requests/min |
+
+When you exceed the limit, the API returns `429 Too Many Requests` with a `Retry-After` header.
+
+---
+
+## Security best practices
+
+- Store keys in environment variables or a secrets manager — never commit them to source control.
+- Use the narrowest scope needed. If you only need search, use `read`.
+- Set expiration dates for keys used in temporary workflows.
+- Revoke keys immediately if they are compromised.
+- Each key is workspace-scoped and cannot access data from other workspaces.
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Knowledge API" icon="code" href="/knowledge-api">
+    Use your API key to search, query, and explore your workspace data.
+  </Card>
+  <Card title="MCP integration" icon="puzzle-piece" href="/mcp">
+    Connect Ravell to AI tools like Claude Desktop or Cursor.
+  </Card>
+</CardGroup>
