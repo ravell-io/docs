@@ -98,6 +98,16 @@ See the full [Agent templates gallery](/agent-templates) for details, customizat
 - **Run now** — Trigger a run immediately instead of waiting for the schedule.
 - **Delete** — Remove the agent. Past runs remain in the Inbox.
 
+### Limits and auto-pause
+
+| Limit | Value |
+|-------|-------|
+| Max agents per workspace | 25 |
+| Min hourly interval | 1 hour |
+| Consecutive failures before auto-pause | 5 |
+
+If an agent fails 5 times in a row, Ravell automatically pauses it. Check the agent's configuration and question, fix the issue, then resume it manually.
+
 ---
 
 ## Reports in the Inbox
@@ -118,6 +128,10 @@ When Slack is connected, you can deliver agent reports directly to a Slack chann
 4. Save. When the agent runs, the report is posted to the selected channel.
 
 Reports appear in the channel with the same format as in the Inbox: evidence-backed, with citations. Teammates can read them without opening Ravell.
+
+<Tip>
+  You can deliver to both public and private Slack channels. For private channels, make sure the Ravell bot has been invited to the channel first.
+</Tip>
 
 ---
 
