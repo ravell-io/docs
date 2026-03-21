@@ -21,13 +21,38 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ---
 
+## Enable or disable Memory
+
+Memory extraction is off by default. You can toggle it per workspace:
+
+1. Go to **Settings → Memory**.
+2. Toggle **Enable Memory** on or off.
+
+When disabled, Ravell does not extract or use memories from your conversations. You can still manually add memories, but automatic extraction is paused.
+
+---
+
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Ravell organizes memories into categories:
 
-Memory is used to improve relevance and avoid repeating information you've already provided.
+| Category | What it captures |
+|----------|-----------------|
+| **Profile & role** | Your role, team, and responsibilities |
+| **Projects** | Projects you're working on or following |
+| **Preferences** | How you like answers formatted, level of detail |
+| **Product** | Product knowledge, features, and technical context |
+| **Internal workflow** | Processes, tools, and conventions your team uses |
+| **Company & business** | Company context, market, and strategy |
+| **Roadmap** | Upcoming plans, initiatives, and timelines |
+
+Each memory also has:
+
+- **Importance** — How relevant the memory is (higher = used more often in answers).
+- **Confidence** — How certain Ravell is about the memory's accuracy.
+- **Source** — Whether it was auto-extracted from a conversation, manually created by you, or edited.
+
+Memory is used to improve relevance and avoid repeating information you've already provided. Memories flagged as contradicted are excluded from retrieval.
 
 ---
 
@@ -74,8 +99,17 @@ This helps Ravell resolve references in your questions more accurately.
 
 ---
 
+## How Memory is used
+
+For each question, Ravell retrieves the most relevant memories based on the topic. Your role and identity memories are always included. The more you use Ravell, the better it understands your context.
+
+You can see how often each memory is used — the hit count and last used date are tracked for each item. This helps you identify which memories are actively improving your answers.
+
+---
+
 ## Control what gets stored
 
 - **Explicit additions**: When you add something in Settings → Memory, it's stored.
 - **Conversation context**: Ravell may infer facts from your questions and answers. You can delete anything you don't want stored.
 - **Privacy**: Memory is scoped to your account. Workspace members do not see your personal memory.
+- **Disable entirely**: Turn off Memory in **Settings → Memory** to stop all automatic extraction.

@@ -68,6 +68,29 @@ Push any Ask answer or Agent report to Notion as a new page:
 
 ---
 
+## Advanced Notion actions
+
+Beyond pushing reports, Ravell can perform a range of Notion actions through the Slack Agent and follow-up conversations. Ask in natural language:
+
+| Action | Example prompt |
+|--------|---------------|
+| **Create a page** | "Create a Notion page called Sprint 12 Retro in our team space" |
+| **Update a page** | "Update the onboarding doc with the new steps we discussed" |
+| **Append content** | "Add a section about error handling to the API docs page" |
+| **Add a comment** | "Add a comment to the product roadmap page about the timeline change" |
+| **Create a database** | "Create a Notion database for tracking customer feedback" |
+| **Update a database** | "Add a Priority column to the feedback database" |
+| **Set default database** | "Set the Product Feedback database as my default for Notion pushes" |
+| **Search Notion** | "Find the page about our deployment process in Notion" |
+
+These actions are available in both the Slack Agent (mention **@Ravell**) and follow-up conversations in Web Asks. Ravell uses your connected Notion workspace and respects the permissions you granted during OAuth setup.
+
+<Tip>
+Set a default Notion database so future "push to Notion" actions go to the right place without you choosing each time.
+</Tip>
+
+---
+
 ## Re-sync and reindex
 
 Ravell syncs Notion data periodically. Trigger a manual **Reindex** or **Sync** from **Sources** to refresh data after adding new pages or updating content.

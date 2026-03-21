@@ -1,0 +1,76 @@
+---
+title: "API keys"
+description: "Create and manage API keys for the Knowledge API and MCP integrations"
+---
+
+## Overview
+
+**API keys** authenticate requests to the [Knowledge API](/knowledge-api) and MCP integrations. Each key is scoped to your workspace and can be restricted to specific permissions.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings → API keys**.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API key**. Enter a name (e.g. "CI pipeline" or "Dashboard integration").
+  </Step>
+  <Step title="Choose scopes">
+    Select the permissions for this key:
+
+    - **Read** — Access search, entities, and related endpoints (Tier 1).
+    - **Read & Write** — Access all endpoints including query and digest (Tier 1 + Tier 2).
+  </Step>
+  <Step title="Set expiration (optional)">
+    Optionally set an expiration date. Keys without an expiration remain active until revoked.
+  </Step>
+  <Step title="Copy the key">
+    Copy the key immediately — it is only shown once. The key starts with `ravelk_`.
+  </Step>
+</Steps>
+
+<Warning>
+Store your API key securely. You cannot view the full key again after creation. If you lose it, revoke the key and create a new one.
+</Warning>
+
+---
+
+## Scopes
+
+| Scope | Access |
+|-------|--------|
+| **Read** | `search`, `entities`, `related` endpoints |
+| **Read & Write** | All endpoints including `query` and `digest` |
+
+A key with **Read & Write** scope automatically covers **Read** operations. Choose the minimum scope needed for your use case.
+
+---
+
+## MCP keys
+
+When you set up an MCP integration, Ravell creates a dedicated API key named **"MCP — [your name]"** with full scopes. This key works the same as any other API key but is pre-configured for MCP tools.
+
+To generate an MCP key, use the MCP setup flow in **Settings**.
+
+---
+
+## Manage API keys
+
+In **Settings → API keys**, you can:
+
+- **View** all active keys for your workspace, including name, scopes, creation date, and last used timestamp.
+- **Revoke** a key to immediately disable it. Revoked keys cannot be reactivated — create a new one instead.
+
+Only workspace admins and the key creator can manage API keys.
+
+---
+
+## Best practices
+
+- **Use descriptive names** — Name keys after their purpose (e.g. "Slack bot", "Weekly digest script") so you can identify them later.
+- **Use minimum scopes** — If you only need search, use the `read` scope.
+- **Rotate keys periodically** — Set expiration dates and replace keys on a schedule.
+- **Revoke unused keys** — Remove keys for integrations you no longer use.

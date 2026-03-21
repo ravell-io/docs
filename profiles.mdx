@@ -54,11 +54,56 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Refresh profiles
 
-- **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
+
+---
+
+## Section overrides
+
+If an AI-generated profile section isn't quite right, you can manually override it:
+
+<Steps>
+  <Step title="Open Context">
+    Go to **Context** from the sidebar and select the profile (individual or workspace).
+  </Step>
+  <Step title="Find the section">
+    Locate the section you want to override (e.g. "Current work" or "Company context").
+  </Step>
+  <Step title="Override the content">
+    Click the override option on the section. You can:
+
+    - **Write your own text** — Replace the AI-generated content with your own description.
+    - **Upload a file** — Provide a document that Ravell should use as the source for this section.
+    - **Provide a URL** — Point to an external page with the correct information.
+  </Step>
+  <Step title="Save">
+    Save the override. The profile refreshes to use your custom content for that section. Future auto-refreshes will not overwrite your override.
+  </Step>
+</Steps>
+
+To remove an override and return to AI-generated content, delete the override from the same section.
+
+---
+
+## Source exclusions
+
+Exclude specific sources from being used in your profile context:
+
+<Steps>
+  <Step title="Open Context">
+    Go to **Context** from the sidebar.
+  </Step>
+  <Step title="Manage exclusions">
+    Find the **Source exclusions** option in your profile settings.
+  </Step>
+  <Step title="Add exclusions by URL">
+    Add the URL of any source you want to exclude. For example, exclude a specific Notion page or Linear project that isn't relevant to your profile.
+  </Step>
+</Steps>
+
+Excluded sources are not used when generating or refreshing your profile. You can remove exclusions at any time to include the source again.
 
 ---
 
