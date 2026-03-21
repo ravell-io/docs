@@ -83,6 +83,30 @@ Ravell checks for duplicates before creating issues and uses conversation contex
 
 ---
 
+## Notion actions (natural language)
+
+You can create and update Notion content directly from Slack. Ravell delegates to a Notion sub-agent that handles page creation, database operations, and more.
+
+- `@Ravell Push this to Notion` — Pushes the most recent answer as a new Notion page.
+- `@Ravell Create a Notion page for the API spec` — Creates a new page with content.
+- `@Ravell Add a comment on [page name]` — Adds a comment to an existing Notion page.
+- `@Ravell Set the default database to [database name]` — Sets a default destination for future pushes.
+
+When you say "push this to Notion", Ravell automatically includes the content from the last answer in the thread. **Notion must be connected** for these actions to work.
+
+---
+
+## Product intelligence from Slack
+
+When the Product Graph is enabled for your workspace, you can query product intelligence directly from Slack:
+
+- `@Ravell What are the top problems our customers face?` — Returns ranked problems with velocity data.
+- `@Ravell Show me blind spots in customer feedback` — Surfaces rising issues not yet in the backlog.
+- `@Ravell Search the product graph for "checkout"` — Finds entities related to a topic.
+- `@Ravell Tell me more about [entity name]` — Gets details on a specific problem, feature request, or topic.
+
+---
+
 ## Manage agents from Slack
 
 You can create, update, list, pause, resume, and delete agents directly from Slack.
@@ -159,6 +183,18 @@ You can use the Slack Agent in both channels and DMs. In channels, the conversat
 - `@Ravell Pause the [agent name]` — Pause an agent
 - `@Ravell Resume the [agent name]` — Resume an agent
 - `@Ravell Send that report to #channel` — Update delivery
+
+### Notion actions
+- `@Ravell Push this to Notion` — Push the latest answer to a Notion page
+- `@Ravell Create a Notion page for [topic]` — Create a new page
+- `@Ravell Add a comment on [page]` — Comment on an existing page
+- `@Ravell Set the default database to [name]` — Set default push destination
+
+### Product intelligence
+- `@Ravell What are the top problems?` — Ranked problems
+- `@Ravell Show me blind spots` — Rising issues not in the backlog
+- `@Ravell Search the product graph for [topic]` — Find entities
+- `@Ravell Tell me more about [entity]` — Entity details
 
 ### Follow-ups
 - Reply in any thread to follow up — Ravell keeps conversation context

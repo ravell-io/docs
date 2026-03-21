@@ -26,7 +26,18 @@ Agents use the same search and synthesis quality as Web Asks. The only differenc
 
 ## Behind the scenes
 
-At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after several failures, the agent pauses so you can fix the issue.
+At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after five consecutive failures, the agent automatically pauses so you can investigate and fix the issue.
+
+---
+
+## Agent types
+
+Ravell supports two agent types:
+
+- **Standard agents**: You write the question, and Ravell runs it on a schedule through the same pipeline as Web Asks.
+- **Product intelligence briefs**: A system-generated weekly summary of top problems, blind spots, and velocity changes from the [Product Graph](/knowledge-graph#product-graph). No question needed — Ravell composes the brief automatically.
+
+When creating an agent, choose the type that fits your use case. Product intelligence briefs require the Product Graph to be enabled for your workspace.
 
 ---
 
@@ -34,11 +45,12 @@ At the scheduled time, Ravell runs your question through the same pipeline as We
 
 1. Open **Agents** in the sidebar.
 2. Click **Create agent** (or start from a template).
-3. Enter your question — same format as Web Asks. Be specific: time ranges and topics improve results.
-4. Choose a schedule (see below).
-5. Set visibility (private or shared).
-6. Optionally enable **Deliver to Slack** and select a channel (requires shared visibility).
-7. Save. The agent runs at the next scheduled time.
+3. Choose the agent type — **Standard** or **Product intelligence brief**.
+4. For standard agents, enter your question — same format as Web Asks. Be specific: time ranges and topics improve results.
+5. Choose a schedule (see below).
+6. Set visibility (private or shared).
+7. Optionally enable **Deliver to Slack** and select a channel (requires shared visibility).
+8. Save. The agent runs at the next scheduled time.
 
 ---
 
@@ -95,8 +107,16 @@ See the full [Agent templates gallery](/agent-templates) for details, customizat
 
 - **Pause** — Pause an agent to stop it from running. Resume when ready.
 - **Edit** — Change the question, schedule, visibility, or Slack delivery.
-- **Run now** — Trigger a run immediately instead of waiting for the schedule.
+- **Run now** — Trigger a run immediately instead of waiting for the schedule. Useful for testing a new agent or getting an on-demand report.
 - **Delete** — Remove the agent. Past runs remain in the Inbox.
+
+<Note>
+If an agent fails five consecutive runs, Ravell automatically pauses it. Check the question and schedule, then resume when ready.
+</Note>
+
+### Limits
+
+Each workspace can have up to 25 agents. Agent names must be between 3 and 80 characters, and prompts can be up to 2,000 characters. The minimum interval for hourly agents is 1 hour.
 
 ---
 

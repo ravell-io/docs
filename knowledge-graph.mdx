@@ -1,9 +1,9 @@
 ---
 title: "Knowledge graph"
-description: "How Ravell links documents, resolves entities, and discovers evidence across your tools"
+description: "How Ravell links documents, resolves entities, and surfaces product intelligence across your tools"
 ---
 
-Ravell doesn't just search your tools — it builds a knowledge graph that connects documents across Linear, Notion, Intercom, Slack, and Attio. This page explains how that works under the hood.
+Ravell doesn't just search your tools — it builds a knowledge graph that connects documents across Linear, Notion, Intercom, Slack, and Attio. On top of the document graph, the **Product Graph** extracts and tracks problems, feature requests, and topics to give you a structured view of product intelligence. This page explains how both layers work.
 
 ---
 
@@ -54,15 +54,64 @@ This is why Ravell can answer questions like "What do we know about the checkout
 
 ---
 
+## Product Graph
+
+The **Product Graph** is a structured layer on top of the document graph. It extracts entities from your indexed data and tracks them over time so you can see what matters most across your product.
+
+### Entity types
+
+| Entity type | What it represents | Example |
+|-------------|-------------------|---------|
+| **Problem** | A pain point, bug, or issue affecting users | "Checkout timeout errors on mobile" |
+| **Feature request** | Something users or the team want built | "Add CSV export to the dashboard" |
+| **Topic** | A recurring theme or product area | "Onboarding flow", "API performance" |
+
+Entities are extracted automatically when documents are indexed. Ravell uses multiple extraction methods — metadata matching, LLM analysis, co-mentions, theme detection, and explicit references — to build a high-confidence picture.
+
+### Ranked problems
+
+The Product Graph ranks problems by combining mention frequency, velocity (how fast mentions are growing), customer impact, and recency. Problems decay over time (older problems lose priority unless they keep being mentioned), so the ranking reflects what matters *now*.
+
+Ask Ravell about problems directly:
+
+- "What are the top problems our customers face?"
+- "Which issues are growing fastest this month?"
+
+### Blind spots
+
+Blind spots are problems or feature requests that are rising in mentions but not yet getting attention in your Linear backlog. These are the gaps between what customers are saying and what the team is working on.
+
+- "What are we missing in our backlog?"
+- "Show me blind spots in customer feedback"
+
+### Browse entities
+
+You can browse and search entities in the Product Graph by type. Each entity shows its supporting assertions (the evidence linking it to documents), relationships to other entities, and mention history.
+
+### Weekly product intelligence brief
+
+You can set up a **weekly brief** that summarizes the most important product intelligence — top problems, blind spots, velocity changes, and new patterns — and delivers it to a Slack channel. The brief runs automatically on a schedule you configure.
+
+To set up a weekly brief:
+
+1. Open **Agents** and create a new agent.
+2. Choose the **Product intelligence brief** type.
+3. Select a Slack channel for delivery and configure the schedule.
+4. Save. The brief runs at the scheduled time and posts to Slack.
+
+You can also trigger a test brief immediately to preview the output before the first scheduled run.
+
+---
+
 ## Source quality tracking
 
 Ravell tracks the quality and reliability of evidence from each source:
 
-- **Freshness**: How recently the document was created or updated
-- **Completeness**: Whether the document has enough content to be useful
-- **Relevance signals**: How often a document appears in successful answers
+- **Freshness**: How recently the document was created or updated.
+- **Completeness**: Whether the document has enough content to be useful.
+- **Relevance signals**: How often a source is cited in successful answers.
 
-This quality tracking helps Ravell prioritize better evidence when multiple documents cover the same topic.
+This quality tracking helps Ravell prioritize better evidence when multiple documents cover the same topic. Sources that consistently produce cited evidence get higher selection priority, while underused sources are occasionally explored to discover new value.
 
 ---
 
@@ -70,9 +119,10 @@ This quality tracking helps Ravell prioritize better evidence when multiple docu
 
 The knowledge graph gets richer as you use Ravell:
 
-- **More documents** mean more potential links between sources
-- **More users** create more conversations, which surface more entity references
-- **More sources** add more cross-tool connections
+- **More documents** mean more potential links between sources.
+- **More users** create more conversations, which surface more entity references.
+- **More sources** add more cross-tool connections.
+- **Product Graph entities** get refined as new evidence arrives — problems merge, confidence increases, and stale entities decay.
 
 This is the data flywheel: better linking leads to better retrieval, which leads to better answers, which attracts more usage.
 

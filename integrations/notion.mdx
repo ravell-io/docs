@@ -68,6 +68,19 @@ Push any Ask answer or Agent report to Notion as a new page:
 
 ---
 
+## Notion actions from Slack
+
+When both Notion and Slack are connected, you can manage Notion content directly from the [Slack Agent](/slack-agent):
+
+- **Push answers** — Say `@Ravell Push this to Notion` to export the latest answer as a Notion page.
+- **Create pages** — `@Ravell Create a Notion page for the API spec` creates a new page with content.
+- **Add comments** — `@Ravell Add a comment on [page name]` adds a comment to an existing page.
+- **Set default database** — `@Ravell Set the default database to [name]` configures where future pushes go by default.
+
+Ravell converts Markdown content into Notion blocks (headings, lists, code blocks, links) so the output is properly formatted.
+
+---
+
 ## Re-sync and reindex
 
 Ravell syncs Notion data periodically. Trigger a manual **Reindex** or **Sync** from **Sources** to refresh data after adding new pages or updating content.

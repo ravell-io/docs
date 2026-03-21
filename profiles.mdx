@@ -54,11 +54,41 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Refresh and freshness
 
-- **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+Profiles have a freshness window. When a profile becomes stale, Ravell automatically regenerates it from your connected sources in the background. You can also trigger a manual refresh:
+
+1. Open **Context** from the sidebar.
+2. Click **Refresh** on the individual or workspace profile.
+3. Ravell regenerates the profile from your current source data. This may take a moment.
+
+While the new profile is generating, Ravell uses the cached version so your answers aren't delayed.
+
+---
+
+## Source exclusions
+
+Exclude specific sources from being used in your profile if you want to control what Ravell learns about you:
+
+1. Open **Context** from the sidebar.
+2. Go to your individual profile.
+3. Click **Source exclusions** to see and manage excluded sources.
+4. Add or remove exclusions. For example, you might exclude a personal Slack channel from contributing to your profile.
+
+Excluded sources are still searchable in Asks — this only affects what feeds into your profile.
+
+---
+
+## Section overrides
+
+When the AI-generated content in a profile section isn't quite right, you can override it manually:
+
+1. Open **Context** and view your individual or workspace profile.
+2. Find the section you want to correct (e.g. "Current work" or "Goals").
+3. Click to override the section with your own text.
+4. Your override replaces the AI-generated content for that section.
+
+Overrides persist across profile refreshes. Remove an override to revert to the auto-generated content.
 
 ---
 
