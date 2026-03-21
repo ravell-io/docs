@@ -54,11 +54,67 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Refresh profiles
 
-- **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
+
+---
+
+## Section overrides
+
+When the auto-generated content for a profile section isn't quite right, you can override it with your own source material. Overrides work in two modes:
+
+| Mode | What it does |
+|------|-------------|
+| **Enrichment** | Adds your source material as additional context alongside the AI-generated content |
+| **Source of truth** | Replaces the AI-generated content entirely with content synthesized from your source |
+
+### How to add an override
+
+<Steps>
+  <Step title="Open the profile section">
+    Go to **Context** and find the section you want to override (e.g. **Company context** on the workspace profile).
+  </Step>
+  <Step title="Add an override">
+    Click the override option for that section. Choose your source type:
+
+    - **URL** — Provide a web URL. Ravell fetches and extracts the content.
+    - **File** — Upload a PDF, Word document (.docx), or plain text file (max 5 MB).
+  </Step>
+  <Step title="Select the mode">
+    Choose **Enrichment** to add context or **Source of truth** to replace the AI-generated content.
+  </Step>
+</Steps>
+
+After you add or remove an override, Ravell automatically refreshes the profile section.
+
+### Valid section keys
+
+| Profile type | Sections you can override |
+|-------------|--------------------------|
+| **Individual** | Who you are, Preferences |
+| **Workspace** | Company context, Product context, ICP, Goals, Operating context |
+
+<Note>
+  Each section can have only one **source of truth** override, but multiple **enrichment** overrides.
+</Note>
+
+---
+
+## Source exclusions
+
+Exclude specific URLs from being used when generating your profile. This is useful when a particular page adds noise or contains irrelevant information.
+
+<Steps>
+  <Step title="Open exclusions">
+    Go to **Context** and find the source exclusions setting for the profile type you want to adjust.
+  </Step>
+  <Step title="Add a URL">
+    Enter the full URL (e.g. `https://example.com/page`) you want to exclude.
+  </Step>
+</Steps>
+
+Exclusions are URL-based — you exclude individual pages, not entire integrations. You can set exclusions separately for your individual profile and the workspace profile.
 
 ---
 

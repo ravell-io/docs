@@ -1,0 +1,198 @@
+---
+title: "API & MCP"
+description: "Access your workspace knowledge programmatically with API keys and MCP"
+---
+
+## What is the Knowledge API?
+
+The **Knowledge API** lets you access your Ravell workspace data programmatically. You can search documents, look up entities, find related content, ask questions, and generate digests — all using the same intelligence pipeline that powers Web Asks.
+
+Use the API to integrate Ravell into your own tools, scripts, dashboards, or AI workflows.
+
+---
+
+## API keys
+
+API keys authenticate requests to the Knowledge API. Each key is scoped to a workspace and has a defined set of permissions.
+
+### Create an API key
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings** in the sidebar.
+  </Step>
+  <Step title="Navigate to API keys">
+    Select the **API Keys** section.
+  </Step>
+  <Step title="Create a key">
+    Click **Create API key**. Give it a name, select scopes, and optionally set an expiration date.
+  </Step>
+  <Step title="Copy the token">
+    Copy the token immediately — it is only shown once. Store it securely.
+  </Step>
+</Steps>
+
+<Warning>
+  The raw token is only displayed at creation. If you lose it, revoke the key and create a new one.
+</Warning>
+
+### Scopes
+
+| Scope | Access |
+|-------|--------|
+| `read` | Search documents, look up entities, find related content |
+| `read_write` | Everything in `read`, plus ask questions and generate digests |
+
+A `read_write` key automatically covers `read` operations.
+
+### Revoke a key
+
+Go to **Settings → API Keys**, find the key, and click **Revoke**. The key stops working immediately.
+
+---
+
+## Authentication
+
+Include your API key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_token_here" \
+  https://api.ravell.io/api/knowledge/search?query=checkout
+```
+
+All endpoints return JSON. Error responses include an `error` field and a `meta.request_id` for debugging.
+
+---
+
+## Endpoints
+
+### Search documents
+
+Search across your indexed documents using semantic and lexical matching.
+
+```
+GET /api/knowledge/search
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | The search query |
+| `source_types` | string | No | Comma-separated source types to filter (e.g. `linear`, `slack`) |
+| `team_ids` | string | No | Comma-separated team IDs to filter |
+| `date_from` | string | No | Start date in `YYYY-MM-DD` format |
+| `date_to` | string | No | End date in `YYYY-MM-DD` format |
+| `limit` | integer | No | Max results to return |
+
+**Scope required:** `read`
+
+### Look up entities
+
+Search for people, companies, or projects in your workspace knowledge graph.
+
+```
+GET /api/knowledge/entities
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | One of `query` or `entity_id` | Search by name |
+| `entity_id` | string | One of `query` or `entity_id` | Look up by ID |
+| `limit` | integer | No | Max results to return |
+
+**Scope required:** `read`
+
+### Find related content
+
+Find documents or entities related to a given document or entity.
+
+```
+GET /api/knowledge/related
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string | One of `document_id` or `entity_id` | Find content related to this document |
+| `entity_id` | string | One of `document_id` or `entity_id` | Find content related to this entity |
+
+**Scope required:** `read`
+
+### Ask a question
+
+Run a full synthesis query — the same pipeline as Web Asks. Returns an answer with citations.
+
+```
+POST /api/knowledge/query
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | Yes | The question to ask |
+| `source_types` | string | No | Comma-separated source types to filter |
+| `date_from` | string | No | Start date in `YYYY-MM-DD` format |
+| `date_to` | string | No | End date in `YYYY-MM-DD` format |
+
+**Scope required:** `read_write`
+
+### Generate a digest
+
+Get a pre-built summary for a time period and focus area.
+
+```
+POST /api/knowledge/digest
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | Yes | One of: `today`, `this_week`, `last_7_days` |
+| `focus` | string | No | One of: `bugs`, `feature_requests`, `sentiment`, `all` (default: `all`) |
+
+**Scope required:** `read_write`
+
+---
+
+## Response format
+
+All successful responses follow this structure:
+
+```json
+{
+  "data": { ... },
+  "meta": {
+    "tier": "tier1",
+    "result_count": 10,
+    "query_time_ms": 142.3,
+    "request_id": "req_abc123"
+  }
+}
+```
+
+Error responses:
+
+```json
+{
+  "error": "query parameter is required",
+  "meta": {
+    "request_id": "req_abc123"
+  }
+}
+```
+
+---
+
+## Rate limits
+
+API requests are rate-limited per key. If you exceed the limit, you receive a `429 Too Many Requests` response with a `Retry-After` header indicating when to retry.
+
+The `query` and `digest` endpoints have separate, lower rate limits than `search`, `entities`, and `related`.
+
+---
+
+## MCP integration
+
+Ravell supports the **Model Context Protocol (MCP)**, allowing AI tools and assistants to query your workspace knowledge directly.
+
+When you connect an MCP-compatible client (such as Claude Desktop or another AI assistant), Ravell generates a dedicated API key with full access to the Knowledge API. The MCP client uses this key to search your documents, look up entities, and ask questions on your behalf.
+
+<Tip>
+  MCP keys are managed alongside your other API keys in **Settings → API Keys**. You can revoke an MCP key at any time to disconnect the client.
+</Tip>
