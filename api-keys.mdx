@@ -1,0 +1,189 @@
+---
+title: "API keys"
+description: "Create API keys for programmatic access to Ravell's Knowledge API"
+---
+
+## What are API keys?
+
+API keys let you access Ravell's Knowledge API programmatically. Use them to search your indexed data, look up entities, find related items, run natural-language queries, and generate digests — all from your own code, scripts, or tools.
+
+API keys are workspace-scoped. Each key belongs to a workspace and can only access data within that workspace.
+
+---
+
+## Managing API keys
+
+### Create a key
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings → API Keys**.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API Key**. Give it a name (e.g. "CI pipeline" or "Internal dashboard"), select the scopes you need, and optionally set an expiration date.
+  </Step>
+  <Step title="Copy the token">
+    The full token is shown **once** after creation. Copy it immediately — you won't be able to see it again. Tokens start with `ravelk_`.
+  </Step>
+</Steps>
+
+<Warning>
+Store your API key securely. Treat it like a password. If you lose it, revoke the old key and create a new one.
+</Warning>
+
+### Scopes
+
+| Scope | Access |
+|-------|--------|
+| `read` | Search, entity lookup, and related items |
+| `read_write` | Everything in `read`, plus query synthesis and digest generation |
+
+A key with `read_write` scope automatically covers all `read` operations.
+
+### Revoke a key
+
+Go to **Settings → API Keys**, find the key, and click **Revoke**. Revoked keys stop working immediately.
+
+---
+
+## Knowledge API
+
+The Knowledge API provides programmatic access to Ravell's search, entity resolution, and synthesis capabilities. All endpoints require an API key passed in the `Authorization` header.
+
+### Authentication
+
+Include your API key in every request:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_token_here" \
+  https://api.ravell.io/api/knowledge/search?query=checkout+bugs
+```
+
+### Endpoints
+
+#### Search
+
+Find relevant evidence across your indexed sources.
+
+```
+GET /api/knowledge/search
+```
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `query` | Yes | Natural-language search query |
+| `source_types` | No | Filter by source type (e.g. `linear`, `intercom`) |
+| `team_ids` | No | Filter by team IDs |
+| `date_from` | No | Start date (`YYYY-MM-DD`) |
+| `date_to` | No | End date (`YYYY-MM-DD`) |
+| `limit` | No | Maximum number of results |
+
+**Scope required:** `read`
+
+---
+
+#### Entities
+
+Search for entities (people, companies, teams, product concepts) by name or ID.
+
+```
+GET /api/knowledge/entities
+```
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `query` | One of `query` or `entity_id` | Search entities by name |
+| `entity_id` | One of `query` or `entity_id` | Look up a specific entity |
+| `limit` | No | Maximum number of results |
+
+**Scope required:** `read`
+
+---
+
+#### Related items
+
+Given a document or entity, find related items across your sources.
+
+```
+GET /api/knowledge/related
+```
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `document_id` | One of `document_id` or `entity_id` | Find items related to a document |
+| `entity_id` | One of `document_id` or `entity_id` | Find items related to an entity |
+
+**Scope required:** `read`
+
+---
+
+#### Query
+
+Ask a natural-language question and get a synthesized answer with citations. This runs the same RAG pipeline as Web Asks.
+
+```
+POST /api/knowledge/query
+```
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `question` | Yes | Natural-language question |
+| `source_types` | No | Filter by source type |
+| `date_from` | No | Start date (`YYYY-MM-DD`) |
+| `date_to` | No | End date (`YYYY-MM-DD`) |
+
+**Scope required:** `read_write`
+
+Returns an `answer` with `citations` linking back to source data.
+
+---
+
+#### Digest
+
+Generate a time-based summary of activity across your sources.
+
+```
+POST /api/knowledge/digest
+```
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `period` | Yes | Time period: `today`, `this_week`, or `last_7_days` |
+| `focus` | No | Focus area: `all` (default), `bugs`, `feature_requests`, or `sentiment` |
+
+**Scope required:** `read_write`
+
+Returns a `summary` with `citations` for the specified period and focus.
+
+---
+
+### Rate limits
+
+API requests are rate-limited per key. If you exceed the limit, you'll receive a `429` response with a `Retry-After` header indicating when you can retry.
+
+- **Read endpoints** (search, entities, related) have higher rate limits.
+- **Synthesis endpoints** (query, digest) have lower rate limits since they run the full pipeline.
+
+---
+
+## MCP integration
+
+Ravell supports [Model Context Protocol (MCP)](https://modelcontextprotocol.io) for connecting AI tools directly to your workspace data. When you connect via MCP, Ravell generates a full-access API key automatically.
+
+The MCP key gives your AI tools access to all Knowledge API endpoints, so they can search your sources, look up entities, and run queries on your behalf.
+
+---
+
+## Tips
+
+<Tip>
+Start with `read` scope if you only need search and entity lookups. Upgrade to `read_write` when you need synthesis (query and digest).
+</Tip>
+
+<Tip>
+Use date filters on search and query endpoints to narrow results to a specific time window. This improves both speed and relevance.
+</Tip>
+
+<Tip>
+The digest endpoint is useful for automated reporting — combine it with a cron job to generate daily or weekly summaries without setting up an Agent.
+</Tip>
