@@ -20,4 +20,11 @@ description: "Definitions of key Ravell terms"
 | **Source** | A connected integration (Linear, Notion, Intercom, Slack, Attio) that Ravell syncs and indexes for search. |
 | **Template** | A pre-built agent configuration with a question and schedule for common use cases like weekly roundups or standup prep. |
 | **Visibility** | Whether an Ask or Agent is **private** (only you) or **shared** (visible to your workspace). |
+| **API Key** | A token for programmatic access to Ravell via the API or MCP. Created and managed in Settings → API Keys. |
+| **Entity** | A product concept (problem, feature request, or topic) automatically extracted from your sources and tracked in the product graph. |
+| **MCP (Model Context Protocol)** | A protocol that connects Ravell to AI clients like Claude Desktop. Uses an API key and the `@ravell-io/mcp` package. |
+| **Product Intelligence** | Ravell's automated problem-detection layer. Continuously analyzes connected sources to surface problems, feature requests, and trends. |
+| **Push to Notion** | Exporting an answer or report from Ravell to a Notion database as a new page with formatted content and citations. |
+| **Run** | A single execution of an Agent. Each run produces a report that appears in your Inbox. Runs have statuses: queued, running, success, error, or skipped. |
+| **Weekly Brief** | An automated weekly summary of product intelligence (problems, emerging issues, trends) delivered to a Slack channel. |
 | **Workspace** | Your team's shared space in Ravell. All sources, Asks, Agents, and reports live in a workspace. |

@@ -40,6 +40,10 @@
         "pages": ["agents", "agent-templates", "inbox"]
       },
       {
+        "group": "Product Intelligence",
+        "pages": ["product-intelligence"]
+      },
+      {
         "group": "Integrations",
         "pages": [
           "sources",
@@ -53,6 +57,10 @@
       {
         "group": "Personalization",
         "pages": ["context", "profiles", "memory"]
+      },
+      {
+        "group": "Features",
+        "pages": ["push-to-notion"]
       },
       {
         "group": "How Ravell Works",
@@ -90,7 +98,8 @@
           "workspace-setup",
           "workspace-management",
           "billing",
-          "visibility-sharing"
+          "visibility-sharing",
+          "api-keys"
         ]
       },
       {
