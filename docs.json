@@ -40,6 +40,10 @@
         "pages": ["agents", "agent-templates", "inbox"]
       },
       {
+        "group": "Product Intelligence",
+        "pages": ["product-intelligence"]
+      },
+      {
         "group": "Integrations",
         "pages": [
           "sources",
