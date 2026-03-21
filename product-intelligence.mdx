@@ -1,0 +1,171 @@
+---
+title: "Product intelligence"
+description: "Automatically surface top problems, blind spots, and trends from your connected tools"
+---
+
+## What is product intelligence?
+
+Product intelligence is a layer that sits on top of Ravell's [knowledge graph](/knowledge-graph). It automatically extracts **product entities** — problems, feature requests, and topics — from your connected sources, scores them by priority, and surfaces what matters most.
+
+Instead of asking individual questions, product intelligence continuously analyzes your Linear issues, Intercom conversations, Slack messages, Notion pages, and Attio data to build a structured view of what your customers are experiencing and what your team should focus on.
+
+**Why it matters:** You get a living, evidence-backed picture of your product's top problems and gaps — without manually triaging feedback across tools.
+
+---
+
+## How it works
+
+When Ravell indexes a document from any connected source, it runs an extraction pipeline that:
+
+1. **Identifies product entities** — problems, feature requests, and topics mentioned in the document.
+2. **Creates assertions** — evidence-backed claims linking entities to source documents (e.g., "slow dashboard loading" is evidenced by 3 Intercom conversations and 2 Linear issues).
+3. **Scores and ranks** — each problem gets a composite priority score based on evidence volume, confidence, recency, source diversity, and engagement.
+4. **Detects patterns** — rising trends, blind spots, and improving problems are surfaced automatically.
+
+The more sources you connect, the richer the intelligence. A problem mentioned in Intercom conversations, Linear issues, and Slack threads scores higher than one seen in a single source.
+
+---
+
+## Entity types
+
+Product intelligence tracks three types of entities:
+
+| Entity type | What it represents | Example |
+|---|---|---|
+| **Problem** | A recurring customer pain point or product deficiency | "Slow dashboard loading for large datasets" |
+| **Feature request** | A proposed product improvement that doesn't exist yet | "Bulk CSV export for analytics" |
+| **Topic** | A broad domain that groups related problems and requests | "Analytics dashboard", "Billing and payments" |
+
+Entities are extracted from your documents using both structured metadata (e.g., Linear issue labels) and AI analysis of document content. Ravell resolves duplicates across sources — the same problem described differently in Slack and Intercom maps to a single entity.
+
+---
+
+## Scored problems
+
+Every problem entity receives a **priority score** based on five weighted factors:
+
+| Factor | What it measures |
+|---|---|
+| **Evidence** | How many documents mention this problem |
+| **Confidence** | How reliably the problem was identified across sources |
+| **Recency** | How recently the problem was mentioned (recent evidence weighs more) |
+| **Source diversity** | How many different tools surface this problem (cross-source signals are stronger) |
+| **Engagement** | How your team interacts with the entity (reviewing, dismissing, or requesting more detail) |
+
+Problems with high scores across multiple factors are the ones most likely to deserve your attention.
+
+---
+
+## Blind spots
+
+Blind spots are **rising problems with no planned response**. Ravell identifies these by looking for problems that:
+
+- Have increasing evidence over the last two weeks compared to the prior baseline
+- Have no associated feature request addressing them
+
+These are the gaps in your roadmap — problems that are getting worse but aren't being worked on. Each blind spot includes a severity score based on how fast evidence is growing.
+
+---
+
+## Weekly brief
+
+The **weekly brief** is an automated digest delivered to a Slack channel. It summarizes the most important product intelligence insights for your team.
+
+Each brief includes:
+
+- **Rising problems** — issues with increasing velocity, including evidence counts and source diversity
+- **Blind spots** — uncovered rising problems with severity scores
+- **Improving problems** — issues where evidence decreased after a feature was shipped
+- **Changes since last brief** — new entries, rank changes, and problems that dropped off the list
+- **Possible duplicates** — entities that may refer to the same thing, with similarity scores
+
+### Set up the weekly brief
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings** → **Product Intelligence** in your workspace.
+  </Step>
+  <Step title="Enable the brief">
+    Turn on the weekly brief and select the Slack channel where it should be delivered.
+  </Step>
+  <Step title="Configure schedule">
+    The default schedule is every Monday at 9:00 AM. Adjust the day, time, and timezone to match your team's rhythm.
+  </Step>
+  <Step title="Review your first brief">
+    The brief runs at the next scheduled time. You can also trigger it manually to see an immediate preview.
+  </Step>
+</Steps>
+
+<Tip>
+Reply to a brief in Slack to ask follow-up questions. Ravell responds in the thread with additional context about the problems and trends mentioned.
+</Tip>
+
+---
+
+## Entity management
+
+### Reviewing entities
+
+When you interact with product intelligence, Ravell learns from your behavior to improve future prioritization:
+
+- **Tell me more** on a brief item signals interest and boosts the entity's priority
+- **Mark reviewed** acknowledges you've seen the entity
+- **Dismiss** reduces the entity's priority in future rankings
+
+### Merging duplicates
+
+Ravell suggests merges when two entities appear to describe the same thing (e.g., "checkout timeout errors" and "payment page timeouts"). You can:
+
+- **Accept the merge** — the entities are combined, and their evidence is unified
+- **Undo a merge** — if a merge was incorrect, reverse it to restore both entities
+
+---
+
+## Querying product intelligence
+
+You can access product intelligence insights through multiple surfaces:
+
+### In Slack
+
+Ask the Slack Agent questions like:
+
+- "What are the top problems right now?"
+- "Are there any blind spots in our roadmap?"
+- "Tell me more about the dashboard performance problem"
+- "Search for entities related to billing"
+
+The Slack Agent uses product intelligence data to give you scored, evidence-backed answers.
+
+### Via the API
+
+If you use Ravell's API, product intelligence data is available through the knowledge endpoints. You can query for scored problems, blind spots, and graph health programmatically.
+
+---
+
+## How the graph improves
+
+Product intelligence gets smarter as your workspace grows:
+
+- **More documents** mean more evidence for each entity, improving confidence and scoring accuracy
+- **More sources** increase source diversity, making cross-tool patterns visible
+- **Your interactions** — reviewing, dismissing, and merging entities — train the system on what matters to your team
+- **Time** — the system tracks velocity, so it can distinguish rising problems from stable ones and detect when shipped features reduce reported issues
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents and resolves entities across your tools.
+  </Card>
+  <Card title="Agents" icon="bolt" href="/agents">
+    Schedule recurring questions for automated reports.
+  </Card>
+  <Card title="Slack Agent" icon="comments" href="/slack-agent">
+    Ask product intelligence questions directly in Slack.
+  </Card>
+  <Card title="Sources" icon="plug" href="/sources">
+    Connect more tools to enrich product intelligence.
+  </Card>
+</CardGroup>
