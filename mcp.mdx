@@ -1,0 +1,85 @@
+---
+title: "MCP integration"
+description: "Connect Ravell to AI tools like Claude Desktop and Cursor using the Model Context Protocol"
+---
+
+## What is MCP?
+
+The **Model Context Protocol (MCP)** is an open standard for connecting AI tools to external data sources. With Ravell's MCP integration, you can access your workspace knowledge directly from tools like Claude Desktop, Cursor, Windsurf, and other MCP-compatible clients.
+
+This means you can ask product questions, search your connected sources, and get evidence-backed answers without leaving your AI tool.
+
+---
+
+## Set up MCP
+
+<Steps>
+  <Step title="Generate an MCP key">
+    In the Ravell app, go to **Settings → API Keys** and create a new key with `read_write` scope. Name it something recognizable like "MCP — Cursor".
+
+    Alternatively, use the dedicated MCP key generation flow if your client supports it — this creates a full-access key automatically.
+  </Step>
+  <Step title="Configure your MCP client">
+    Add Ravell as an MCP server in your client's configuration. The exact setup depends on your tool:
+
+    **Claude Desktop** — Edit your `claude_desktop_config.json`:
+
+    ```json
+    {
+      "mcpServers": {
+        "ravell": {
+          "url": "https://api.ravell.io/api/knowledge",
+          "headers": {
+            "Authorization": "Bearer ravelk_your_key_here"
+          }
+        }
+      }
+    }
+    ```
+
+    **Cursor** — Add the server in Cursor's MCP settings with the same URL and key.
+  </Step>
+  <Step title="Start using Ravell in your AI tool">
+    Once connected, you can ask your AI tool questions that pull from your Ravell workspace. For example:
+
+    - "Search my workspace for checkout feedback from this week"
+    - "What are the top open issues in the current cycle?"
+    - "Find documents related to the onboarding project"
+  </Step>
+</Steps>
+
+---
+
+## What you can do via MCP
+
+The MCP integration exposes the same capabilities as the [Knowledge API](/knowledge-api):
+
+| Capability | Description |
+|------------|-------------|
+| **Search** | Find documents across all connected sources |
+| **Entities** | Look up people, projects, and features in your workspace |
+| **Related** | Discover connected documents and entities |
+| **Query** | Ask natural-language questions and get synthesized answers |
+| **Digest** | Generate time-based summaries of workspace activity |
+
+---
+
+## Security
+
+- MCP keys follow the same security model as all [API keys](/api-keys).
+- Each key is scoped to a single workspace.
+- You can revoke an MCP key at any time from **Settings → API Keys**.
+- Keys are never stored in plain text on Ravell's servers.
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="API keys" icon="key" href="/api-keys">
+    Create and manage API keys.
+  </Card>
+  <Card title="Knowledge API" icon="code" href="/knowledge-api">
+    Full API reference for all endpoints.
+  </Card>
+</CardGroup>
