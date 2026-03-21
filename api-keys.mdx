@@ -1,0 +1,210 @@
+---
+title: "API keys"
+description: "Access Ravell's knowledge and product graph programmatically with API keys"
+---
+
+## Overview
+
+API keys let you access Ravell's knowledge base programmatically — through the REST API or as an MCP (Model Context Protocol) server. Use API keys to search your workspace, query entities, generate AI-powered answers, and access the product graph from external tools and AI assistants.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings → API Keys** in the Ravell app.
+  </Step>
+  <Step title="Create a key">
+    Click **Create API Key**. Give it a name and select the scopes you need:
+
+    - **Read** — search, entity lookup, related content, and product graph access.
+    - **Read & Write** — everything in Read, plus AI-powered queries and digests.
+  </Step>
+  <Step title="Copy the token">
+    Copy the token immediately — it is only shown once. Tokens start with `ravelk_`.
+  </Step>
+</Steps>
+
+You can optionally set an expiration date. Expired or revoked keys stop working immediately.
+
+---
+
+## Scopes
+
+| Scope | Access level | Endpoints |
+|---|---|---|
+| **Read** | Search and browse your knowledge base | Search, entities, related content, product graph |
+| **Read & Write** | Generate AI-powered answers | Everything in Read, plus query and digest |
+
+A key with Read & Write scope can access all Read endpoints as well.
+
+---
+
+## Authentication
+
+Include your API key as a Bearer token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_token_here" \
+  https://app.ravell.io/api/knowledge/search?query=checkout+flow
+```
+
+---
+
+## Knowledge API
+
+All endpoints are under `/api/knowledge/`. Results include metadata with request timing and result counts.
+
+### Search
+
+Find documents across your workspace using semantic and keyword search.
+
+```
+GET /api/knowledge/search
+```
+
+| Parameter | Required | Description |
+|---|---|---|
+| `query` | Yes | Search query |
+| `source_types` | No | Filter by source (e.g., `linear`, `slack`, `notion`, `intercom`) |
+| `date_from` | No | Start date (`YYYY-MM-DD`) |
+| `date_to` | No | End date (`YYYY-MM-DD`) |
+| `limit` | No | Max results |
+
+### Entities
+
+Look up entities (people, projects, features) in your knowledge graph.
+
+```
+GET /api/knowledge/entities
+```
+
+| Parameter | Required | Description |
+|---|---|---|
+| `query` | One of `query` or `entity_id` | Search entities by name |
+| `entity_id` | One of `query` or `entity_id` | Look up a specific entity |
+| `limit` | No | Max results |
+
+### Related content
+
+Discover content related to a specific document or entity.
+
+```
+GET /api/knowledge/related
+```
+
+| Parameter | Required | Description |
+|---|---|---|
+| `document_id` | One of `document_id` or `entity_id` | Find content related to a document |
+| `entity_id` | One of `document_id` or `entity_id` | Find content related to an entity |
+
+### Query
+
+Ask a question and get an AI-powered answer with citations. Requires **Read & Write** scope.
+
+```
+POST /api/knowledge/query
+```
+
+| Parameter | Required | Description |
+|---|---|---|
+| `question` | Yes | Your question |
+| `source_types` | No | Filter by source |
+| `date_from` | No | Start date (`YYYY-MM-DD`) |
+| `date_to` | No | End date (`YYYY-MM-DD`) |
+
+Returns an answer, citations, and follow-up suggestions.
+
+### Digest
+
+Generate an activity digest for a time period. Requires **Read & Write** scope.
+
+```
+POST /api/knowledge/digest
+```
+
+| Parameter | Required | Description |
+|---|---|---|
+| `period` | Yes | Time period for the digest |
+| `focus` | No | Focus area (defaults to all) |
+
+Returns a summary with citations.
+
+---
+
+## Product graph API
+
+Access Ravell's product intelligence graph to retrieve ranked problems, blind spots, and graph health. All endpoints are under `/api/knowledge/product_graph/`.
+
+<Note>
+The product graph API is available for workspaces with the product graph feature enabled. Contact support if you'd like access.
+</Note>
+
+### Top problems
+
+Get priority-ranked product problems extracted from your data.
+
+```
+GET /api/knowledge/product_graph/problems
+```
+
+| Parameter | Required | Description |
+|---|---|---|
+| `limit` | No | Max results (default 10, max 25) |
+
+Each problem includes its priority score, evidence count, source types, velocity trend, and whether a feature request addresses it.
+
+### Blind spots
+
+Detect rising problems that have no corresponding feature request.
+
+```
+GET /api/knowledge/product_graph/blind_spots
+```
+
+| Parameter | Required | Description |
+|---|---|---|
+| `limit` | No | Max results (default 10, max 25) |
+
+Each blind spot includes a severity score, recent vs. baseline evidence counts, and which source types the evidence comes from.
+
+### Health
+
+Get overall health metrics for your product graph.
+
+```
+GET /api/knowledge/product_graph/health
+```
+
+Returns entity counts, assertion counts, promotion rates, and data freshness indicators.
+
+---
+
+## MCP server
+
+Ravell works as an MCP (Model Context Protocol) server, so you can connect it to AI assistants like Claude Desktop, Cursor, or other MCP-compatible tools. The MCP server exposes the same Knowledge and Product Graph endpoints listed above.
+
+To connect an MCP client, generate an API key with the scopes you need. Your MCP client uses this key to authenticate all requests.
+
+---
+
+## Managing keys
+
+- View all active keys in **Settings → API Keys**.
+- **Revoke** a key at any time — it stops working immediately.
+- Keys track last-used timestamps so you can identify stale keys.
+- Set expiration dates for keys that should only be active for a limited time.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents, resolves entities, and tracks product problems.
+  </Card>
+  <Card title="Security & privacy" icon="shield-halved" href="/security-privacy">
+    How Ravell handles your data.
+  </Card>
+</CardGroup>

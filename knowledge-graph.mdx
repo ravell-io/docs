@@ -1,9 +1,9 @@
 ---
 title: "Knowledge graph"
-description: "How Ravell links documents, resolves entities, and discovers evidence across your tools"
+description: "How Ravell links documents, resolves entities, tracks product problems, and discovers evidence across your tools"
 ---
 
-Ravell doesn't just search your tools — it builds a knowledge graph that connects documents across Linear, Notion, Intercom, Slack, and Attio. This page explains how that works under the hood.
+Ravell doesn't just search your tools — it builds a knowledge graph that connects documents across Linear, Notion, Intercom, Slack, and Attio. This page explains how that works under the hood, including how Ravell automatically extracts product problems and ranks them by evidence.
 
 ---
 
@@ -54,6 +54,75 @@ This is why Ravell can answer questions like "What do we know about the checkout
 
 ---
 
+## Product graph
+
+Beyond linking documents and resolving entities, Ravell automatically extracts **product problems** and **feature requests** from your data. This product graph layer sits on top of the knowledge graph, turning scattered feedback into a prioritized view of what matters most.
+
+### What gets extracted
+
+Ravell processes indexed documents from all connected sources and identifies:
+
+| Entity type | What it represents | Example |
+|---|---|---|
+| **Problem** | A customer pain point or product issue mentioned in your data | "Login timeouts during peak hours" |
+| **Feature request** | A request from a customer or team member | "Add SSO support for enterprise accounts" |
+| **Topic** | A grouping label that organizes related entities | "Authentication", "Performance" |
+
+Entities are extracted from Linear issues, Intercom conversations, Slack threads, Notion pages, and Attio records. Each extraction includes a confidence score and links back to the source document as evidence.
+
+### How problems are ranked
+
+Ravell scores each problem using a weighted composite of five signals:
+
+| Signal | Weight | What it measures |
+|---|---|---|
+| **Source diversity** | 30% | How many different tools mention the problem (Slack + Linear + Intercom = 3 sources). Cross-channel problems rank highest. |
+| **Evidence volume** | 25% | How many distinct evidence sources reference the problem, scaled logarithmically. |
+| **Recency** | 20% | When the problem was last mentioned. Recent problems score higher, with a 30-day decay half-life. |
+| **Engagement** | 15% | How your team interacts with the problem — viewing, dismissing, or requesting more detail adjusts its priority. |
+| **Confidence** | 10% | The average extraction confidence. A tiebreaker, not a primary driver. |
+
+Problems also include a **velocity indicator** — rising, steady, or declining — based on whether mentions are increasing or decreasing over the past two weeks compared to baseline.
+
+### Top problems
+
+The **Top Problems** view shows your highest-priority product issues ranked by the composite score above. Each problem includes:
+
+- The number of evidence sources and which tools they come from
+- Whether a feature request addresses it
+- Its velocity trend (rising, steady, or declining)
+
+This helps you focus on the problems that matter most, backed by evidence from across your tools — not just the loudest voices.
+
+### Blind spots
+
+**Blind spots** are problems that are growing in frequency but have no corresponding feature request activity. Ravell flags a problem as a blind spot when:
+
+1. It has at least two evidence mentions in the past 14 days
+2. Its recent mention rate is at least 2x the baseline rate
+3. No feature request addresses it
+
+Blind spots are sorted by severity — the bigger the gap between recent mentions and baseline, the more urgent the issue. These represent genuine gaps in your product awareness: problems getting worse that nobody is working on.
+
+### Weekly product intelligence brief
+
+You can enable a **weekly brief** that Ravell delivers to a Slack channel. The brief includes:
+
+- **Rising problems** — issues gaining momentum
+- **Blind spots** — uncovered and accelerating problems
+- **Improving problems** — where a feature request appears to be reducing pain
+- **Rank changes** — which problems moved up or down since last week
+- **Merge suggestions** — potential duplicate entities that could be combined
+- **Graph health** — overall stats on entity count, evidence, and data freshness
+
+You can interact with the brief in Slack: ask Ravell to tell you more about a problem, mark it as reviewed, or merge suggested duplicates.
+
+### Entity deduplication
+
+Ravell detects potential duplicate entities using embedding similarity. When two problems are near-identical (e.g., "slow page loads" and "slow page load times"), Ravell suggests a merge. High-confidence duplicates are merged automatically; lower-confidence matches surface as suggestions in the weekly brief for you to review.
+
+---
+
 ## Source quality tracking
 
 Ravell tracks the quality and reliability of evidence from each source:
@@ -73,6 +142,7 @@ The knowledge graph gets richer as you use Ravell:
 - **More documents** mean more potential links between sources
 - **More users** create more conversations, which surface more entity references
 - **More sources** add more cross-tool connections
+- **More engagement** with the product graph refines problem rankings over time
 
 This is the data flywheel: better linking leads to better retrieval, which leads to better answers, which attracts more usage.
 
