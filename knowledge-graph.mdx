@@ -66,6 +66,14 @@ This quality tracking helps Ravell prioritize better evidence when multiple docu
 
 ---
 
+## Product intelligence layer
+
+On top of document linking and entity resolution, Ravell builds a **product intelligence** layer. It automatically extracts product entities — problems, feature requests, and topics — from your indexed documents, scores them by priority, and detects trends like rising problems and blind spots.
+
+This transforms the knowledge graph from a retrieval tool into a continuous product health monitor. See [Product intelligence](/product-intelligence) for the full details.
+
+---
+
 ## How the graph improves over time
 
 The knowledge graph gets richer as you use Ravell:
@@ -73,6 +81,7 @@ The knowledge graph gets richer as you use Ravell:
 - **More documents** mean more potential links between sources
 - **More users** create more conversations, which surface more entity references
 - **More sources** add more cross-tool connections
+- **Your interactions** with product intelligence (reviewing, dismissing, merging entities) improve scoring accuracy
 
 This is the data flywheel: better linking leads to better retrieval, which leads to better answers, which attracts more usage.
 
@@ -83,6 +92,9 @@ This is the data flywheel: better linking leads to better retrieval, which leads
 <CardGroup cols={2}>
   <Card title="System overview" icon="diagram-project" href="/system-overview">
     The full architecture from question to answer.
+  </Card>
+  <Card title="Product intelligence" icon="chart-mixed" href="/product-intelligence">
+    Scored problems, blind spots, and weekly briefs from your knowledge graph.
   </Card>
   <Card title="Managing sources" icon="plug" href="/sources">
     Connect and manage your integrations.

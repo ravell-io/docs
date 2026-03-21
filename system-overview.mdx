@@ -38,19 +38,24 @@ flowchart TB
 
     subgraph Core["Ravell Core"]
         KG[(Knowledge Graph)]
+        PI[Product Intelligence]
         SE[Synthesis Engine]
     end
 
     subgraph Output["Output"]
         CA[Cited Answers]
         PR[Proactive Reports]
+        WB[Weekly Briefs]
     end
 
     L --> KG
     N --> KG
     I --> KG
     S --> KG
+    KG --> PI
     KG --> SE
+    PI --> SE
+    PI --> WB
     UP --> SE
     WP --> SE
     M --> SE
@@ -138,6 +143,20 @@ The Knowledge Graph stores your indexed documents and the links between them. It
 
 When you ask a question, Ravell classifies intent, plans retrieval, and searches across these lanes. Results are fused, filtered, and re-ranked so the best evidence surfaces first.
 
+### Product Intelligence
+
+The Product Intelligence layer sits on top of the Knowledge Graph. It continuously extracts **product entities** — problems, feature requests, and topics — from indexed documents, then scores and ranks them based on evidence volume, confidence, recency, source diversity, and engagement signals.
+
+This powers:
+
+- **Scored problems** — a prioritized view of your product's top issues
+- **Blind spot detection** — rising problems with no planned response
+- **Weekly briefs** — automated digests delivered to Slack with trends, ranking changes, and merge suggestions
+
+Product intelligence data is also available to the Synthesis Engine and the Slack Agent, so when you ask questions like "What are our top problems?", the answer draws on pre-computed scores and trends rather than searching from scratch.
+
+Learn more in the [Product intelligence guide](/product-intelligence).
+
 ### Synthesis Engine
 
 The Synthesis Engine takes retrieved evidence and adaptive context, then generates answers. It:
@@ -157,8 +176,9 @@ The same engine powers Web Asks, the Slack Agent, and Agents. Quality is consist
 |--------|------------------|--------------|
 | **Cited Answers** | Asks (web), Slack threads | One-off questions |
 | **Proactive Reports** | Inbox, optionally Slack | Scheduled Agents |
+| **Weekly Briefs** | Slack channel | Product intelligence schedule |
 
-Both outputs are evidence-backed: every claim ties to a source. You can click citations to verify, follow up in the same thread, or push reports to Notion when connected.
+All outputs are evidence-backed: every claim ties to a source. You can click citations to verify, follow up in the same thread, or push reports to Notion when connected. Weekly briefs include interactive elements — reply in the thread to ask follow-up questions about any problem or trend.
 
 ---
 
@@ -179,6 +199,9 @@ The flywheel reinforces itself: better answers attract more usage, which improve
 <CardGroup cols={2}>
   <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
     Deep dive into document linking, entity resolution, and graph expansion.
+  </Card>
+  <Card title="Product intelligence" icon="chart-mixed" href="/product-intelligence">
+    Scored problems, blind spots, and weekly briefs.
   </Card>
   <Card title="Security & privacy" icon="shield-halved" href="/security-privacy">
     How Ravell handles your data and keeps workspaces isolated.
