@@ -1,0 +1,124 @@
+---
+title: "Product Intelligence"
+description: "Track problems, feature requests, and trends extracted from your connected sources"
+---
+
+## What is Product Intelligence?
+
+**Product Intelligence** is Ravell's automated analysis layer. It continuously extracts and organizes **problems**, **feature requests**, and **topics** from your connected sources into a structured knowledge graph — so you can see what customers care about without reading every conversation.
+
+Open **Intelligence** from the sidebar to access the overview dashboard and entity explorer.
+
+<Note>Product Intelligence is being rolled out progressively. If you don't see **Intelligence** in your sidebar, it hasn't been enabled for your workspace yet.</Note>
+
+---
+
+## Overview dashboard
+
+The overview gives you a high-level snapshot of what's happening across your product:
+
+### Top problems
+
+A ranked table of the most significant problems detected across your sources. Each row shows:
+
+- **Problem name** — the canonical name Ravell assigned
+- **Score** — a priority score based on frequency and severity
+- **Evidence** — how many source documents mention it
+- **Trend** — a sparkline showing whether mentions are rising, steady, or declining
+- **Sources** — how many different integrations surfaced this problem
+- **Status** — whether there's an existing response (e.g. a linked Linear issue) or not
+
+You can dismiss problems you've already addressed. Dismissed items are hidden from the dashboard.
+
+### Emerging issues
+
+These are **blind spots** — new or unexpected patterns that Ravell detected but that don't yet have significant evidence. Each card shows the issue name, severity, and how many sources contributed. Use these to catch problems early before they grow.
+
+### Health metrics
+
+A footer bar summarizing your product graph: total entity count, total assertions (evidence items), and mean confidence across all entities.
+
+---
+
+## Entity explorer
+
+The entity explorer is a master/detail view for browsing all entities Ravell has extracted.
+
+### Entity types
+
+| Type | What it represents | Badge color |
+|------|--------------------|-------------|
+| **Problem** | A customer issue or pain point | Red |
+| **Feature request** | Something customers are asking for | Blue |
+| **Topic** | A general theme extracted from your data | Green |
+
+### Browsing entities
+
+The left panel shows a searchable, tabbed list:
+
+- **All** — every entity
+- **Problems** — only problems
+- **Requests** — only feature requests
+- **Topics** — only topics
+
+You can sort by **mentions** (most evidence first) or **name**, and filter to show all entities, only those with mentions, or only those without.
+
+### Entity detail
+
+Select an entity to see its detail in the right panel:
+
+- **Evidence** — individual assertions (claims) extracted from your sources. Each shows the confidence percentage, source type, a content excerpt, and when it was last seen.
+- **Connections** — relationships between this entity and others. Each connection shows the related entity, the relationship type, direction, and confidence.
+
+<Tip>Entities with a confidence below 60% display a low-confidence indicator. This means Ravell found some evidence but isn't highly certain about the extraction. Review the evidence to decide if it's accurate.</Tip>
+
+---
+
+## Weekly brief
+
+Set up a weekly Slack digest summarizing your product intelligence. The brief covers top problems, emerging issues, and trends.
+
+<Steps>
+  <Step title="Open Intelligence">
+    Go to **Intelligence** from the sidebar and scroll to the **Weekly brief** section.
+  </Step>
+  <Step title="Configure delivery">
+    Choose a Slack channel, day of the week, time, and timezone.
+  </Step>
+  <Step title="Enable the brief">
+    Click **Enable** to start receiving weekly digests.
+  </Step>
+</Steps>
+
+You can **pause**, **resume**, **test** (send immediately), or **disable** the brief at any time from the same section.
+
+---
+
+## Auto-merge
+
+When Ravell detects duplicate entities (e.g. "Login timeout" and "Login times out"), it automatically merges them and shows a notification with the similarity score. You can **undo** the merge if the entities are actually distinct.
+
+---
+
+## How it connects to Asks
+
+Product Intelligence feeds into the same knowledge graph that powers Web Asks and Agents. When you ask a question like "What are the top customer problems?", Ravell can draw on extracted entities and their evidence — not just raw documents.
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents and resolves entities across sources.
+  </Card>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect more sources to improve entity extraction.
+  </Card>
+  <Card title="Agents" icon="bolt" href="/agents">
+    Schedule recurring reports based on product intelligence data.
+  </Card>
+  <Card title="System overview" icon="gear" href="/system-overview">
+    The full architecture from question to answer.
+  </Card>
+</CardGroup>

@@ -1,0 +1,81 @@
+---
+title: "API keys"
+description: "Create and manage API keys for programmatic access and MCP integration"
+---
+
+## What are API keys?
+
+**API keys** let you connect external tools and automations to your Ravell workspace programmatically. Use them to integrate Ravell with AI assistants like Claude Desktop via the MCP (Model Context Protocol) server, or to build custom integrations.
+
+Manage API keys in **Settings → API Keys**.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API key settings">
+    Go to **Settings → API Keys**.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API key**. Enter a descriptive name (e.g. "Claude Desktop" or "CI pipeline").
+  </Step>
+  <Step title="Choose access level">
+    Select the scope for this key:
+
+    | Scope | What it can do |
+    |-------|---------------|
+    | **Read** | Search, entities, and product graph queries |
+    | **Read & Write** | Everything in Read, plus AI-powered queries and digests |
+  </Step>
+  <Step title="Copy and store the key">
+    The full token is shown **only once**. Copy it and store it somewhere safe — you won't be able to see it again.
+  </Step>
+</Steps>
+
+---
+
+## MCP integration
+
+Ravell provides an MCP server that lets AI assistants (like Claude Desktop) query your workspace data. After creating an API key, add this configuration to your MCP client:
+
+```json
+{
+  "mcpServers": {
+    "ravell": {
+      "command": "npx",
+      "args": ["-y", "@ravell-io/mcp"],
+      "env": {
+        "RAVELL_API_KEY": "<your-api-key>"
+      }
+    }
+  }
+}
+```
+
+Replace `<your-api-key>` with the token you copied when creating the key.
+
+---
+
+## Manage existing keys
+
+The API keys list shows each key's name, token prefix (masked), scopes, creation date, and last used date.
+
+### Revoke a key
+
+To revoke an API key, click the revoke button next to it and confirm. Revoking is immediate and permanent — any integrations using this key stop working right away.
+
+<Warning>Revoking an API key cannot be undone. Make sure no active integrations depend on it before revoking.</Warning>
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Workspace setup" icon="building" href="/workspace-setup">
+    Create and configure your workspace.
+  </Card>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect your tools to give API integrations access to more data.
+  </Card>
+</CardGroup>
