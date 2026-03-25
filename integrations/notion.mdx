@@ -1,11 +1,11 @@
 ---
 title: "Notion"
-description: "Connect Notion to search your workspace and push reports"
+description: "Connect Notion to search your workspace, create pages, and manage content"
 ---
 
 ## Overview
 
-Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. You can also **push reports to Notion** from Asks and Inbox.
+Connect **Notion** to Ravell to search across your Notion workspace. Ravell indexes pages and databases so you can ask questions like "What did we document about the checkout flow?" and get answers with citations. You can also take actions in Notion — push reports, create pages, update content, and more — directly from Asks and the Slack Agent.
 
 ---
 
@@ -41,7 +41,23 @@ Ravell uses this data to answer questions and provide citations back to Notion p
 
 ---
 
-## Push to Notion
+## Actions in Notion
+
+Beyond searching, Ravell can take actions in your Notion workspace. These are available from follow-up messages in Asks and through the Slack Agent.
+
+| Action | What it does |
+|--------|-------------|
+| **Push to Notion** | Export an Ask answer or Agent report as a new Notion page |
+| **Create page** | Create a new page in any Notion workspace or database |
+| **Update page** | Modify properties or content of an existing page |
+| **Append content** | Add blocks (text, headings, lists) to an existing page |
+| **Create comment** | Add a comment on a Notion page |
+| **Create database** | Create a new Notion database with a schema you define |
+| **Update database** | Modify an existing database's properties or schema |
+| **Search Notion** | Search your Notion workspace by keyword or topic |
+| **Set default database** | Choose a default database for future push operations |
+
+### Push to Notion
 
 Push any Ask answer or Agent report to Notion as a new page:
 
@@ -60,11 +76,21 @@ Push any Ask answer or Agent report to Notion as a new page:
   </Step>
 </Steps>
 
-**Use cases for Push to Notion:**
+### Set a default database
+
+If you frequently push content to the same Notion database, set it as your default:
+
+1. When pushing to Notion, select a database as the destination.
+2. Choose **Set as default** to remember this choice.
+3. Future pushes use this database automatically. You can change it anytime.
+
+### Use cases for Notion actions
+
 - Share answers with your team as Notion docs
 - Build a knowledge base of recurring agent reports
 - Archive sprint reviews and weekly roundups
 - Create meeting prep docs from Ravell answers
+- Add follow-up comments to existing Notion pages from Slack
 
 ---
 

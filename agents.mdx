@@ -26,7 +26,7 @@ Agents use the same search and synthesis quality as Web Asks. The only differenc
 
 ## Behind the scenes
 
-At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after several failures, the agent pauses so you can fix the issue.
+At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried automatically; after 5 consecutive failures, the agent **auto-pauses** so you can investigate and fix the issue. Resume it from the agent settings once the problem is resolved.
 
 ---
 
@@ -91,12 +91,20 @@ See the full [Agent templates gallery](/agent-templates) for details, customizat
 
 ---
 
+## Limits
+
+Each workspace can have up to **25 agents**. This includes both standard agents and the Product Intelligence Brief. If you need more, consider consolidating agents that cover similar topics.
+
+---
+
 ## Manage agents
 
 - **Pause** — Pause an agent to stop it from running. Resume when ready.
 - **Edit** — Change the question, schedule, visibility, or Slack delivery.
 - **Run now** — Trigger a run immediately instead of waiting for the schedule.
 - **Delete** — Remove the agent. Past runs remain in the Inbox.
+
+If an agent auto-pauses after 5 consecutive failures, you'll see a paused status. Check the question and connected sources, then resume the agent to restart it. Resuming resets the failure counter.
 
 ---
 
@@ -118,6 +126,14 @@ When Slack is connected, you can deliver agent reports directly to a Slack chann
 4. Save. When the agent runs, the report is posted to the selected channel.
 
 Reports appear in the channel with the same format as in the Inbox: evidence-backed, with citations. Teammates can read them without opening Ravell.
+
+---
+
+## Product intelligence brief
+
+The **Product Intelligence Brief** is a special type of agent powered by the [Product Graph](/product-graph). Instead of running a custom question, it generates a curated weekly report covering ranked problems, blind spots, velocity trends, and graph health.
+
+See [Product graph → Weekly product intelligence brief](/product-graph#weekly-product-intelligence-brief) for setup instructions.
 
 ---
 

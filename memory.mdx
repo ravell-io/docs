@@ -21,22 +21,61 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ---
 
+## Enable or disable Memory
+
+Memory is **disabled by default**. You need to turn it on before Ravell starts learning from your conversations.
+
+1. Go to **Settings → Memory**.
+2. Toggle **Memory** on to enable extraction.
+3. When enabled, Ravell begins extracting facts from your conversations automatically.
+
+You can turn Memory off at any time. When disabled, Ravell stops extracting new memories but keeps existing ones. Toggle it back on to resume.
+
+---
+
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Memories are organized into categories:
 
-Memory is used to improve relevance and avoid repeating information you've already provided.
+| Category | What it captures |
+|----------|-----------------|
+| **Role & profile** | Your role, title, team, and responsibilities |
+| **Projects** | Projects you're working on or tracking |
+| **Preferences** | How you like answers formatted, level of detail, communication style |
+| **Product** | Product context, features, and domain knowledge you've shared |
+| **Internal workflow** | Your processes, tools, and ways of working |
+| **Company & business** | Company context, goals, strategy, and business information |
+| **Roadmap** | Roadmap items, priorities, and planned work |
+
+Each memory also tracks:
+
+- **Source** — Whether it was auto-extracted from a conversation, manually created by you, or edited.
+- **Confidence** — How certain Ravell is about the fact (0–100%). Memories below a confidence threshold are excluded from retrieval.
+- **Verification status** — Unverified (new), user-asserted (you confirmed it), corroborated (supported by multiple conversations), or contradicted (conflicting evidence found). Contradicted memories are excluded from answers.
+
+---
+
+## How auto-extraction works
+
+When Memory is enabled, Ravell analyzes your conversations and extracts relevant facts automatically. Not every conversation triggers extraction — Ravell looks for signals like:
+
+- First-person statements about your role, preferences, or projects
+- Workflow and process descriptions
+- Product or business context you share
+- Recurring topics and patterns
+
+Extraction has a cooldown period to avoid over-extracting from rapid conversations. Strong signals (like explicit role statements) can bypass the cooldown. Each conversation can produce up to 5 memories.
 
 ---
 
 ## View and edit Memory
 
 1. Go to **Settings → Memory**.
-2. You'll see what Ravell has stored about you.
+2. You'll see what Ravell has stored about you, organized by category.
 3. You can **edit** or **delete** individual items.
 4. Use **Add** to explicitly tell Ravell something to remember.
+
+Manually added memories are marked as "user-created" and given higher confidence than auto-extracted ones.
 
 ---
 
@@ -76,6 +115,7 @@ This helps Ravell resolve references in your questions more accurately.
 
 ## Control what gets stored
 
-- **Explicit additions**: When you add something in Settings → Memory, it's stored.
+- **Explicit additions**: When you add something in Settings → Memory, it's stored as user-created with high confidence.
 - **Conversation context**: Ravell may infer facts from your questions and answers. You can delete anything you don't want stored.
+- **Contradicted memories**: If Ravell finds conflicting information across conversations, it marks the memory as contradicted and excludes it from future answers.
 - **Privacy**: Memory is scoped to your account. Workspace members do not see your personal memory.
