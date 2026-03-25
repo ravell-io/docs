@@ -1,0 +1,254 @@
+---
+title: "Knowledge API"
+description: "Access Ravell's search, entities, and synthesis capabilities programmatically"
+---
+
+## Overview
+
+The Knowledge API gives you programmatic access to Ravell's search and synthesis engine. Use it to integrate Ravell into your own tools, dashboards, or workflows.
+
+All endpoints require an [API key](/api-keys) passed as a Bearer token.
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_token_here" \
+  https://app.ravell.io/api/knowledge/search?query=recent+bugs
+```
+
+---
+
+## Authentication
+
+Include your API key in the `Authorization` header:
+
+```
+Authorization: Bearer ravelk_your_token_here
+```
+
+Requests without a valid key return a `401 Unauthorized` error.
+
+---
+
+## Endpoints
+
+### Search
+
+Search across indexed documents using semantic and lexical matching.
+
+```
+GET /api/knowledge/search
+```
+
+**Scope required:** `read`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | The search query |
+| `source_types` | string | No | Filter by source type (e.g. `linear`, `slack`, `notion`) |
+| `team_ids` | string | No | Filter by team IDs |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+| `limit` | integer | No | Maximum number of results |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://app.ravell.io/api/knowledge/search?query=checkout+bugs&source_types=linear&date_from=2025-01-01"
+```
+
+---
+
+### Entities
+
+Look up entities (people, companies, products, features) in your knowledge graph.
+
+```
+GET /api/knowledge/entities
+```
+
+**Scope required:** `read`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | One of `query` or `entity_id` | Search entities by name or description |
+| `entity_id` | string | One of `query` or `entity_id` | Look up a specific entity by ID |
+| `limit` | integer | No | Maximum number of results |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://app.ravell.io/api/knowledge/entities?query=checkout+team"
+```
+
+---
+
+### Related
+
+Find documents and entities related to a specific document or entity.
+
+```
+GET /api/knowledge/related
+```
+
+**Scope required:** `read`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string | One of `document_id` or `entity_id` | Find items related to a document |
+| `entity_id` | string | One of `document_id` or `entity_id` | Find items related to an entity |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://app.ravell.io/api/knowledge/related?entity_id=123"
+```
+
+---
+
+### Query
+
+Ask a question and get a synthesized answer with citations — the same quality as a Web Ask.
+
+```
+POST /api/knowledge/query
+```
+
+**Scope required:** `read_write`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | Yes | The question to answer |
+| `source_types` | string | No | Filter by source type |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+
+**Example:**
+
+```bash
+curl -X POST -H "Authorization: Bearer ravelk_..." \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What are the top customer complaints this week?"}' \
+  "https://app.ravell.io/api/knowledge/query"
+```
+
+**Response:**
+
+```json
+{
+  "data": {
+    "answer": "The top customer complaints this week are...",
+    "citations": [...],
+    "follow_up_suggestions": []
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 5,
+    "query_time_ms": 3200.1,
+    "request_id": "req_abc123"
+  }
+}
+```
+
+---
+
+### Digest
+
+Generate an automated digest for a time period, optionally focused on a specific topic.
+
+```
+POST /api/knowledge/digest
+```
+
+**Scope required:** `read_write`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | Yes | Time period: `today`, `this_week`, or `last_7_days` |
+| `focus` | string | No | Topic focus: `bugs`, `feature_requests`, `sentiment`, or `all` (default: `all`) |
+
+**Example:**
+
+```bash
+curl -X POST -H "Authorization: Bearer ravelk_..." \
+  -H "Content-Type: application/json" \
+  -d '{"period": "this_week", "focus": "bugs"}' \
+  "https://app.ravell.io/api/knowledge/digest"
+```
+
+**Response:**
+
+```json
+{
+  "data": {
+    "summary": "This week, 12 bug reports were filed...",
+    "citations": [...],
+    "period": "this_week",
+    "focus": "bugs"
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 8,
+    "query_time_ms": 4100.3,
+    "request_id": "req_def456"
+  }
+}
+```
+
+---
+
+## Response format
+
+All successful responses follow this structure:
+
+```json
+{
+  "data": { ... },
+  "meta": {
+    "tier": "tier1",
+    "result_count": 10,
+    "query_time_ms": 150.2,
+    "request_id": "req_abc123"
+  }
+}
+```
+
+Error responses:
+
+```json
+{
+  "error": "Description of the error",
+  "meta": {
+    "request_id": "req_abc123"
+  }
+}
+```
+
+---
+
+## Rate limits
+
+Endpoints are rate-limited per API key:
+
+| Tier | Endpoints | Limit |
+|------|-----------|-------|
+| Tier 1 | Search, entities, related | 100 requests per minute |
+| Tier 2 | Query, digest | 20 requests per minute |
+
+When you exceed the limit, the API returns `429 Too Many Requests` with a `Retry-After` header indicating how long to wait.
+
+---
+
+## Query length limits
+
+| Tier | Max query length |
+|------|-----------------|
+| Tier 1 (search, entities, related) | 1,000 characters |
+| Tier 2 (query, digest) | 2,000 characters |
+
+---
+
+## Date filtering
+
+Date parameters must use `YYYY-MM-DD` format. Invalid formats return a `400 Bad Request` error. Both `date_from` and `date_to` are optional and can be used independently.

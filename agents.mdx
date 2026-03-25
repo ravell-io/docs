@@ -26,7 +26,7 @@ Agents use the same search and synthesis quality as Web Asks. The only differenc
 
 ## Behind the scenes
 
-At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after several failures, the agent pauses so you can fix the issue.
+At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after 5 consecutive failures, the agent automatically pauses so you can investigate and fix the issue.
 
 ---
 
@@ -34,11 +34,15 @@ At the scheduled time, Ravell runs your question through the same pipeline as We
 
 1. Open **Agents** in the sidebar.
 2. Click **Create agent** (or start from a template).
-3. Enter your question — same format as Web Asks. Be specific: time ranges and topics improve results.
+3. Enter your question — same format as Web Asks. Be specific: time ranges and topics improve results. The prompt can be up to 2,000 characters.
 4. Choose a schedule (see below).
 5. Set visibility (private or shared).
-6. Optionally enable **Deliver to Slack** and select a channel (requires shared visibility).
+6. Optionally enable **Deliver to Slack** and select a channel (requires shared visibility). Both public and private Slack channels are supported.
 7. Save. The agent runs at the next scheduled time.
+
+<Note>
+  Each workspace can have up to 25 agents. If you've reached the limit, pause or delete agents you no longer need.
+</Note>
 
 ---
 
@@ -62,7 +66,7 @@ Run every N hours. Examples:
 - Every 2 hours
 - Every 4 hours
 
-Useful for high-frequency digests (e.g. "What's new in the last hour?"). The interval starts from when the agent was created.
+The minimum interval is 1 hour. Useful for high-frequency digests (e.g. "What's new in the last hour?"). The interval starts from when the agent was created.
 
 ---
 
@@ -93,10 +97,10 @@ See the full [Agent templates gallery](/agent-templates) for details, customizat
 
 ## Manage agents
 
-- **Pause** — Pause an agent to stop it from running. Resume when ready.
+- **Pause** — Pause an agent to stop it from running. Resume when ready. Agents that fail 5 times in a row are automatically paused.
 - **Edit** — Change the question, schedule, visibility, or Slack delivery.
 - **Run now** — Trigger a run immediately instead of waiting for the schedule.
-- **Delete** — Remove the agent. Past runs remain in the Inbox.
+- **Delete** — Remove the agent. Past runs remain accessible in the Inbox.
 
 ---
 

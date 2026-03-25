@@ -1,0 +1,82 @@
+---
+title: "MCP integration"
+description: "Connect AI tools like Claude Desktop and Cursor to Ravell via Model Context Protocol"
+---
+
+## What is MCP?
+
+**Model Context Protocol (MCP)** is an open standard that lets AI tools connect to external data sources. Ravell supports MCP, which means you can access your connected sources directly from tools like Claude Desktop, Cursor, or any MCP-compatible client.
+
+When connected via MCP, your AI tool can search your Ravell knowledge base, look up entities, and ask questions — all without leaving your editor or chat interface.
+
+---
+
+## Set up MCP
+
+<Steps>
+  <Step title="Generate an MCP token">
+    Go to **Settings → MCP** in Ravell and click **Generate token**. This creates a full-access API key for MCP use.
+  </Step>
+  <Step title="Copy the token">
+    Copy the generated token. It is shown only once — store it securely.
+  </Step>
+  <Step title="Configure your MCP client">
+    Add Ravell as an MCP server in your client's configuration. The exact steps depend on which tool you use (see below).
+  </Step>
+</Steps>
+
+<Warning>
+  MCP tokens have full read and write access to your workspace. Treat them like any other secret credential.
+</Warning>
+
+---
+
+## Configure your AI tool
+
+### Claude Desktop
+
+Add the following to your Claude Desktop MCP configuration file:
+
+```json
+{
+  "mcpServers": {
+    "ravell": {
+      "url": "https://app.ravell.io/api/knowledge",
+      "headers": {
+        "Authorization": "Bearer ravelk_your_token_here"
+      }
+    }
+  }
+}
+```
+
+### Cursor
+
+Add Ravell as an MCP server in Cursor's settings under the MCP section, using the same URL and token format.
+
+### Other MCP clients
+
+Any MCP-compatible client can connect to Ravell. Use the base URL `https://app.ravell.io/api/knowledge` with your token in the `Authorization: Bearer` header.
+
+---
+
+## What you can do via MCP
+
+Once connected, your AI tool can:
+
+- **Search** across all your connected sources (Slack, Linear, Notion, Intercom, Attio)
+- **Look up entities** like people, companies, and features in your knowledge graph
+- **Find related content** for any document or entity
+- **Ask questions** and get synthesized, citation-backed answers
+- **Generate digests** for specific time periods and topics
+
+These are the same capabilities available through the [Knowledge API](/knowledge-api).
+
+---
+
+## Security
+
+- Each MCP token is tied to your user account and workspace.
+- Tokens have full access (`read_write` scope) to the [Knowledge API](/knowledge-api).
+- You can revoke MCP tokens at any time from **Settings → API Keys**.
+- MCP tokens follow the same `ravelk_` format as regular API keys.
