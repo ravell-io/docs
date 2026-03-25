@@ -1,0 +1,100 @@
+---
+title: "API keys"
+description: "Create and manage API keys for programmatic access and MCP integrations"
+---
+
+## Overview
+
+API keys let you connect external tools to Ravell programmatically. Use them to integrate with MCP-compatible clients like Claude Desktop, or to build custom workflows that query your workspace data.
+
+Manage API keys from **Settings → API Keys**.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API key settings">
+    Go to **Settings → API Keys** and click **Create key**.
+  </Step>
+  <Step title="Name the key">
+    Give the key a descriptive name (e.g., "Claude Desktop" or "CI pipeline").
+  </Step>
+  <Step title="Choose access level">
+    Select a scope:
+
+    | Scope | What it allows |
+    |-------|---------------|
+    | **Read** | Search, entities, and product graph queries |
+    | **Read & Write** | Everything in Read, plus AI-powered queries and digests |
+  </Step>
+  <Step title="Copy the key">
+    The full key is shown once after creation. Copy it immediately — you will not be able to see it again.
+  </Step>
+</Steps>
+
+<Warning>
+  Store your API key securely. If you lose it, you'll need to create a new one.
+</Warning>
+
+---
+
+## Revoke a key
+
+To revoke an API key, go to **Settings → API Keys**, find the key, and click **Revoke**. Revoking is permanent — any integration using that key will stop working immediately.
+
+---
+
+## MCP integration
+
+Ravell provides an MCP (Model Context Protocol) server that lets AI assistants like Claude query your workspace. The API keys page includes a quick-start configuration snippet.
+
+To connect Ravell to an MCP-compatible client:
+
+1. Create a **Read & Write** API key.
+2. Add the Ravell MCP server to your client's configuration:
+
+```json
+{
+  "mcpServers": {
+    "ravell": {
+      "command": "npx",
+      "args": ["-y", "@ravell-io/mcp"],
+      "env": {
+        "RAVELL_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+3. Restart your MCP client. Ravell will be available as a tool your AI assistant can use to search your connected sources.
+
+<Tip>
+  The MCP integration gives AI assistants access to your full Ravell workspace — the same sources, knowledge graph, and context that power Web Asks.
+</Tip>
+
+---
+
+## Key management
+
+Each key displays:
+
+- **Name**: The label you gave it during creation.
+- **Prefix**: The first characters of the key (for identification).
+- **Scope**: Read or Read & Write.
+- **Last used**: When the key was last used for an API call.
+- **Created by**: The workspace member who created it.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Workspace management" icon="users" href="/workspace-management">
+    Manage members and roles.
+  </Card>
+  <Card title="Security & privacy" icon="shield" href="/security-privacy">
+    How Ravell handles your data.
+  </Card>
+</CardGroup>
