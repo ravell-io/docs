@@ -1,0 +1,103 @@
+---
+title: "API keys"
+description: "Create API keys for programmatic access and connect AI assistants via MCP"
+---
+
+API keys let you access the Ravell API programmatically and connect AI assistants like Claude through the Model Context Protocol (MCP).
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open API settings">
+    Go to **Settings → API**.
+  </Step>
+  <Step title="Click New Key">
+    Enter a name for the key (e.g., "Claude Desktop" or "CI pipeline").
+  </Step>
+  <Step title="Select a scope">
+    Choose the permission level:
+
+    | Scope | Access |
+    |-------|--------|
+    | **Read** | Search, entities, and product graph queries |
+    | **Read & Write** | Everything in Read, plus AI-powered queries and digests |
+  </Step>
+  <Step title="Copy the token">
+    The full token is shown **once**. Copy it and store it securely — you won't be able to see it again.
+  </Step>
+</Steps>
+
+---
+
+## Manage keys
+
+In **Settings → API**, you can see all active keys with their:
+
+- **Name** and **token prefix** (e.g., `rvl_xxxx...`)
+- **Scopes** assigned to the key
+- **Created** and **last used** dates
+
+To revoke a key, click the revoke button next to it. Revoked keys stop working immediately — any integrations using the key will lose access.
+
+---
+
+## Connect via MCP
+
+The [Model Context Protocol](https://modelcontextprotocol.io) (MCP) lets AI assistants like Claude query Ravell directly. To set it up:
+
+<Steps>
+  <Step title="Create an API key">
+    Follow the steps above to create a key with **Read & Write** scope.
+  </Step>
+  <Step title="Add the MCP configuration">
+    Copy this configuration into your `.mcp.json` or Claude Desktop settings, replacing `<your-api-key>` with your actual key:
+
+    ```json
+    {
+      "mcpServers": {
+        "ravell": {
+          "command": "npx",
+          "args": ["-y", "@ravell-io/mcp"],
+          "env": {
+            "RAVELL_API_KEY": "<your-api-key>"
+          }
+        }
+      }
+    }
+    ```
+  </Step>
+  <Step title="Restart your AI assistant">
+    Restart Claude Desktop or your MCP-compatible tool. Ravell should appear as an available tool.
+  </Step>
+</Steps>
+
+<Tip>
+You can also find this configuration snippet directly in **Settings → API** under the MCP Quick Start section.
+</Tip>
+
+---
+
+## Browser-based MCP authentication
+
+If you're using a CLI tool like `@ravell-io/mcp`, it can authenticate automatically through your browser:
+
+1. The CLI opens a browser window for you to sign in to Ravell.
+2. Once authenticated, a key is created automatically and passed back to the CLI.
+3. You can close the browser tab — the CLI is now connected.
+
+This flow avoids manual key copying for local development setups.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Workspace setup" icon="gear" href="/workspace-setup">
+    Create a workspace and manage members.
+  </Card>
+  <Card title="Security & privacy" icon="shield-halved" href="/security-privacy">
+    How Ravell handles your data.
+  </Card>
+</CardGroup>

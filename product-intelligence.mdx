@@ -1,0 +1,107 @@
+---
+title: "Product Intelligence"
+description: "Automatically surface top problems, emerging issues, and trends from your connected sources"
+---
+
+Product Intelligence analyzes data from your connected sources — Slack, Linear, Intercom — and builds a **product graph** of problems, feature requests, and topics your customers keep mentioning. Instead of manually triaging feedback, you get a ranked dashboard of what matters most.
+
+---
+
+## Overview dashboard
+
+The dashboard shows a curated summary of your product landscape:
+
+- **Top problems** — Ranked by a priority score that combines evidence count, source diversity, recency, and velocity. Each problem shows its trend (rising, stable, or declining) and whether it has a response.
+- **Emerging issues** — Blind spots where evidence is surging or a coverage gap exists. These are issues that might not rank highly yet but are changing fast.
+- **Health metrics** — Aggregate stats including total entities, assertions, and mean confidence across your product graph.
+
+You can **dismiss** irrelevant problems from the ranked list to keep the dashboard focused.
+
+---
+
+## Entity explorer
+
+Click **Browse all** from the dashboard to open the entity explorer — a searchable, filterable view of everything in your product graph.
+
+### Browsing entities
+
+- **Search** by name across all entities
+- **Filter by type** — Problems, Feature requests, or Topics
+- **Sort** by mention count or name
+- Select any entity to see its full detail in the side panel
+
+### Entity detail
+
+Each entity shows:
+
+- **Evidence** — Individual assertions extracted from your sources, each with the source content, source type, confidence score, and date
+- **Connections** — Relationships to other entities (e.g., a problem is related to a feature request), with relationship type and confidence
+
+Entities with a confidence below 60% display a **low-confidence badge** to indicate the extraction is uncertain.
+
+---
+
+## Weekly brief
+
+The weekly brief is an automated Slack digest that delivers your top problems and trends on a recurring schedule.
+
+<Steps>
+  <Step title="Open Product Intelligence">
+    Navigate to **Product Intelligence** from the sidebar.
+  </Step>
+  <Step title="Set up the brief">
+    Click **Set up weekly brief** in the onboarding card (or the brief section if you've already explored the dashboard).
+  </Step>
+  <Step title="Choose a Slack channel">
+    Select the channel where you want the brief delivered.
+  </Step>
+  <Step title="Configure the schedule">
+    Pick the day of the week, time, and timezone. The default is Monday morning.
+  </Step>
+  <Step title="Save">
+    Click **Save**. You can also **Send test** to preview the brief immediately.
+  </Step>
+</Steps>
+
+Once active, you can **pause**, **resume**, or **edit** the brief at any time from the dashboard.
+
+---
+
+## Getting started
+
+Product Intelligence activates automatically once you connect sources. The onboarding flow guides you through three stages:
+
+1. **Connect your tools** — Link Slack, Linear, or Intercom so Ravell has data to analyze.
+2. **Building your intelligence** — Ravell extracts entities and builds the product graph. This happens in the background.
+3. **Insights ready** — Once extraction completes, you see how many problems were found and can set up the weekly brief.
+
+<Tip>
+The more sources you connect, the richer your product graph becomes. Problems mentioned across multiple sources score higher in the rankings.
+</Tip>
+
+---
+
+## Key concepts
+
+| Concept | What it means |
+|---------|---------------|
+| **Entity** | A product concept — problem, feature request, or topic — extracted from your connected sources |
+| **Assertion** | A single piece of evidence linking a source mention to an entity, with a confidence score |
+| **Priority score** | A composite score ranking problems by evidence count, source diversity, recency, and velocity |
+| **Velocity** | Whether mentions of a problem are rising, steady, or declining over time |
+| **Blind spot** | An emerging issue where evidence is changing significantly — a new surge or coverage gap |
+| **Confidence** | A 0–100% score indicating how certain the extraction is. Below 60% triggers a visual indicator |
+| **Source diversity** | How many distinct source types (Slack, Linear, Intercom) mention a problem |
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents and resolves entities across tools.
+  </Card>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect and manage your integrations.
+  </Card>
+</CardGroup>
