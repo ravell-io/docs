@@ -47,6 +47,15 @@ Reply in the same thread to ask follow-up questions. Ravell keeps the full conve
 
 You don't need to repeat the original question. Follow-ups can refine, narrow, or extend the answer.
 
+<Accordion title="How follow-ups work behind the scenes">
+Ravell automatically decides the fastest way to answer a follow-up:
+
+- **From context** — If the answer can be derived from the existing conversation (e.g. filtering or summarizing prior results), Ravell responds immediately without re-searching your sources.
+- **Fresh search** — If the follow-up asks for new data, uses keywords like "find", "search", or references a specific issue ID, Ravell runs a full retrieval pipeline against your sources.
+
+You can also trigger a fresh search explicitly by saying things like "rerun", "refresh", or "start over".
+</Accordion>
+
 ---
 
 ## Citations
@@ -68,7 +77,7 @@ The **Sources** rail (next to the answer) may show a "Context used" panel. This 
 
 By default, Ravell searches across all connected sources. You can narrow the search:
 
-- **All sources** (default) — Linear, Notion, Intercom, Slack.
+- **All sources** (default) — Linear, Notion, Intercom, Slack, Attio.
 - **Specific source** — Use the source selector to limit (e.g. "Linear only" or "Notion only").
 
 Scoping is useful when:
@@ -132,6 +141,22 @@ You see this progress as **streaming thoughts** — short status updates that sh
 For a full prompt engineering guide, see [Better questions](/better-questions).
 
 ---
+
+## Organizing Asks
+
+### Folders
+
+You can organize Asks into **folders** to keep your sidebar clean:
+
+1. Create a folder from the sidebar.
+2. Drag an Ask into a folder, or use the **•••** menu and select **Move to folder**.
+3. Rename, reorder, or delete folders at any time. Deleting a folder does not delete the Asks inside — they move back to the top level.
+
+Folders can be **private** (only you see them) or **shared** (visible to workspace members).
+
+### Saving an Ask
+
+When you find an answer you want to revisit, use the **Save** action to bookmark it. Saved Asks are available in your sidebar for quick access. You can add an optional name and notes to each saved Ask.
 
 ## Where Asks live
 
