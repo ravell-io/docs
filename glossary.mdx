@@ -7,17 +7,25 @@ description: "Definitions of key Ravell terms"
 
 | Term | Definition |
 |------|------------|
+| **API key** | A token that grants programmatic access to the Knowledge API. Scoped to a workspace with read or read-write permissions. |
 | **Ask** | A conversation thread where you ask questions and get evidence-backed answers with citations. Each Ask can have multiple follow-up messages. |
 | **Agent** | A scheduled query that runs on a recurring basis (e.g. every Monday at 9am). Agents produce reports that appear in your Inbox. |
 | **Citation** | A clickable reference in an answer that links to the original source data (Linear issue, Notion page, Intercom conversation, or Slack message). |
 | **Context** | The central view combining your individual profile, workspace profile, and Memory. Used to personalize answers. |
+| **Entity** | A person, project, team, or other real-world object that Ravell identifies and tracks across your connected sources. Used for cross-source linking. |
+| **Folder** | An organizational container for Asks. Folders can be private or shared and help keep your sidebar organized. |
+| **Follow-up** | A reply within an existing Ask thread. Ravell uses conversation context to answer follow-ups, either from prior results or by running a fresh search. |
 | **Inbox** | Where proactive reports from your agents land. Each agent run produces a report you can read, follow up on, or push to Notion. |
+| **Knowledge API** | The HTTP API for programmatic access to search, entity lookup, AI-powered queries, and digests. Authenticated with API keys. |
+| **Knowledge graph** | The internal layer that stores indexed documents, entities, and the links between them. Powers graph expansion during retrieval. |
 | **Memory** | Facts Ravell learns about you over time from conversations and manual entries. Used to personalize answers across sessions. |
 | **Profile (Individual)** | Your personal context: role, focus areas, current work, preferences. Auto-generated from your connected sources and editable manually. |
 | **Profile (Workspace)** | Your team's context: company mission, goals, product context, ICP. Shared across all workspace members. |
+| **Push to Notion** | Export an answer or report to a Notion database as a formatted page with citations. |
+| **Saved Ask** | A bookmarked Ask for quick access later. You can add a name and notes to saved Asks. |
 | **Scoping** | Limiting a question to specific sources (e.g. "Linear only") or time ranges (e.g. "last 30 days") for faster, more focused answers. |
 | **Slack Agent** | The interface for using Ravell in Slack via @Ravell mentions or the `/ravell` command. Supports questions, Linear actions, and agent management. |
 | **Source** | A connected integration (Linear, Notion, Intercom, Slack, Attio) that Ravell syncs and indexes for search. |
 | **Template** | A pre-built agent configuration with a question and schedule for common use cases like weekly roundups or standup prep. |
-| **Visibility** | Whether an Ask or Agent is **private** (only you) or **shared** (visible to your workspace). |
+| **Visibility** | Whether an Ask, Agent, or folder is **private** (only you) or **shared** (visible to your workspace). |
 | **Workspace** | Your team's shared space in Ravell. All sources, Asks, Agents, and reports live in a workspace. |

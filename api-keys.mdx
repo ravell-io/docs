@@ -1,0 +1,172 @@
+---
+title: "API keys"
+description: "Access Ravell's Knowledge API programmatically with API keys"
+---
+
+## What are API keys?
+
+API keys let you access Ravell's **Knowledge API** programmatically — from scripts, CI pipelines, MCP-compatible AI tools, or custom integrations. Each key is scoped to a workspace and supports either read-only or read-write access.
+
+The Knowledge API provides the same search, entity resolution, and synthesis capabilities that power Web Asks, but exposed as HTTP endpoints you can call directly.
+
+---
+
+## Creating an API key
+
+<Steps>
+  <Step title="Open Settings">
+    Go to **Settings → API keys** in your workspace.
+  </Step>
+  <Step title="Create a key">
+    Click **Create API key**. Give it a descriptive name (e.g. "CI pipeline" or "MCP client") and select the scopes you need:
+
+    | Scope | Access level | Use case |
+    |-------|-------------|----------|
+    | **Read** | Search, entity lookup, related items | Dashboards, scripts, lookups |
+    | **Read-write** | Everything in Read, plus AI-powered queries and digests | AI tools, MCP clients, automated reports |
+
+  </Step>
+  <Step title="Copy the token">
+    The raw token is shown **once** at creation time. Copy and store it securely — you cannot retrieve it later. Tokens start with `ravelk_` for easy identification.
+  </Step>
+</Steps>
+
+<Warning>
+Treat API keys like passwords. Do not commit them to version control or share them in public channels.
+</Warning>
+
+---
+
+## Managing API keys
+
+From **Settings → API keys**, you can:
+
+- View all active keys with their name, creation date, and last-used timestamp.
+- **Revoke** a key to permanently disable it. Revoked keys cannot be restored.
+- Set an optional **expiration date** when creating a key.
+
+---
+
+## Knowledge API endpoints
+
+All endpoints are authenticated with a Bearer token. Include your API key in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_token_here" \
+  https://api.ravell.io/api/knowledge/search?query=checkout+feedback
+```
+
+### Search
+
+`GET /api/knowledge/search`
+
+Semantic search across your workspace's indexed documents.
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `query` | Yes | The search query |
+| `source_types` | No | Comma-separated list of sources to search (e.g. `linear,notion`) |
+| `date_from` | No | ISO 8601 date — only return documents after this date |
+| `date_to` | No | ISO 8601 date — only return documents before this date |
+| `limit` | No | Maximum number of results |
+
+**Scope required:** `read`
+
+### Entities
+
+`GET /api/knowledge/entities`
+
+Look up entities (people, projects, teams) in your workspace's knowledge graph.
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `query` | No | Text search for entities by name |
+| `entity_id` | No | Direct lookup by entity ID |
+| `limit` | No | Maximum number of results |
+
+Provide either `query` or `entity_id`.
+
+**Scope required:** `read`
+
+### Related
+
+`GET /api/knowledge/related`
+
+Find items related to a specific document or entity through the knowledge graph.
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `document_id` | No | Find items related to this document |
+| `entity_id` | No | Find items related to this entity |
+
+Provide either `document_id` or `entity_id`.
+
+**Scope required:** `read`
+
+### Query
+
+`POST /api/knowledge/query`
+
+AI-powered question answering — the same pipeline that powers Web Asks.
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `question` | Yes | The question to answer |
+| `source_types` | No | Comma-separated list of sources |
+| `date_from` | No | ISO 8601 date |
+| `date_to` | No | ISO 8601 date |
+
+Returns an `answer` with `citations` and `follow_up_suggestions`.
+
+**Scope required:** `read_write`
+
+### Digest
+
+`POST /api/knowledge/digest`
+
+Generate a summary digest of recent activity.
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `period` | Yes | Time period for the digest |
+| `focus` | No | Focus area (defaults to all) |
+
+Returns a `summary` with `citations`.
+
+**Scope required:** `read_write`
+
+---
+
+## Using with MCP
+
+Ravell supports [Model Context Protocol (MCP)](https://modelcontextprotocol.io) for connecting AI tools like IDE assistants and CLI agents to your workspace knowledge.
+
+To set up MCP access:
+
+<Steps>
+  <Step title="Generate an MCP key">
+    Go to **Settings → API keys** and create a key with **read-write** scope, or use the built-in MCP setup flow if your tool supports it.
+  </Step>
+  <Step title="Configure your MCP client">
+    Point your MCP-compatible tool to the Ravell Knowledge API using the token as the Bearer credential. Your tool can then search your workspace, look up entities, and ask questions through the Knowledge API endpoints.
+  </Step>
+</Steps>
+
+---
+
+## Rate limits
+
+API requests are rate-limited per key. Read-only operations (search, entities, related) have higher limits than synthesis operations (query, digest). If you hit a rate limit, the response includes a `Retry-After` header.
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Sources" icon="plug" href="/sources">
+    Connect integrations to enrich the data available through the API.
+  </Card>
+  <Card title="System overview" icon="sitemap" href="/system-overview">
+    Understand the pipeline behind search and synthesis.
+  </Card>
+</CardGroup>
