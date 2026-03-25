@@ -27,8 +27,25 @@ When Attio is connected alongside Intercom, Ravell can connect customer support 
 1. Go to **Sources** or **Settings → Integrations**.
 2. Click **Connect** next to Attio.
 3. Sign in to Attio and authorize Ravell.
-4. Select which objects and data to sync.
-5. Ravell starts syncing. Initial sync may take a few minutes.
+4. Ravell starts syncing notes and call transcripts automatically.
+
+---
+
+## Configure CRM context records
+
+After connecting, you can optionally enable CRM context records to give Ravell richer account data. Go to **Settings → Integrations → Attio → Manage** to configure:
+
+| Record type | What it adds |
+|-------------|-------------|
+| **People** | Contact records and associated attributes |
+| **Companies** | Company records with metadata |
+| **Deals** | Deal stages, values, and pipeline context |
+
+Toggle each record type on or off depending on what data you want Ravell to include. Click **Save** to apply your selection, then use **Sync now** to trigger an immediate re-sync with the new configuration.
+
+<Tip>
+  Notes and call transcripts are always synced. CRM context records (People, Companies, Deals) are optional and give Ravell additional structured data to enrich answers about specific accounts.
+</Tip>
 
 ---
 
@@ -40,7 +57,7 @@ When Attio is connected alongside Intercom, Ravell can connect customer support 
 | **Meeting transcripts** | Transcriptions of recorded meetings |
 | **Call recordings** | Call transcription content |
 | **Deals** | Deal names, stages, values, and associated context |
-| **Records** | Company and contact records with attributes |
+| **Records** | Company and contact records with attributes (when enabled) |
 | **Threads** | Internal discussion threads on records |
 
 ---
@@ -69,4 +86,4 @@ Attio is most powerful when combined with other sources:
 
 ## Re-sync and reindex
 
-Ravell syncs Attio data periodically. Trigger a manual **Reindex** or **Sync** from **Sources** to refresh data after adding new notes, closing deals, or importing records.
+Ravell syncs Attio data periodically. Trigger a manual **Sync** from **Settings → Integrations → Attio** to refresh data after adding new notes, closing deals, or importing records.

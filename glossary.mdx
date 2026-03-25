@@ -9,15 +9,25 @@ description: "Definitions of key Ravell terms"
 |------|------------|
 | **Ask** | A conversation thread where you ask questions and get evidence-backed answers with citations. Each Ask can have multiple follow-up messages. |
 | **Agent** | A scheduled query that runs on a recurring basis (e.g. every Monday at 9am). Agents produce reports that appear in your Inbox. |
-| **Citation** | A clickable reference in an answer that links to the original source data (Linear issue, Notion page, Intercom conversation, or Slack message). |
+| **Citation** | A clickable reference in an answer that links to the original source data (Linear issue, Notion page, Intercom conversation, Slack message, or Attio note). |
 | **Context** | The central view combining your individual profile, workspace profile, and Memory. Used to personalize answers. |
+| **Entity** | A structured concept (problem, feature request, or topic) that Ravell extracts from your connected sources as part of product intelligence. |
+| **Entity resolution** | The process of recognizing that different names across tools refer to the same concept (e.g. "Project Phoenix" in Linear and "the Phoenix project" in Slack). |
+| **Graph expansion** | During retrieval, Ravell follows links in the knowledge graph to discover related evidence beyond direct search matches. |
 | **Inbox** | Where proactive reports from your agents land. Each agent run produces a report you can read, follow up on, or push to Notion. |
+| **Knowledge graph** | The web of connections Ravell builds between documents across your tools, using shared entities, explicit references, authorship, threads, and URLs. |
 | **Memory** | Facts Ravell learns about you over time from conversations and manual entries. Used to personalize answers across sessions. |
+| **MCP** | Model Context Protocol — an open standard that lets AI assistants like Claude query your Ravell workspace programmatically via API keys. |
+| **Product intelligence** | Ravell's automated layer that extracts entities, tracks trends, surfaces blind spots, and delivers weekly briefs from your connected sources. |
 | **Profile (Individual)** | Your personal context: role, focus areas, current work, preferences. Auto-generated from your connected sources and editable manually. |
 | **Profile (Workspace)** | Your team's context: company mission, goals, product context, ICP. Shared across all workspace members. |
+| **Push to Notion** | Export an AI-generated answer or report from Ravell to a Notion database as a new page. |
 | **Scoping** | Limiting a question to specific sources (e.g. "Linear only") or time ranges (e.g. "last 30 days") for faster, more focused answers. |
+| **Section override** | A manual correction to an auto-generated profile section, either as enrichment (adding context) or source of truth (replacing content). |
 | **Slack Agent** | The interface for using Ravell in Slack via @Ravell mentions or the `/ravell` command. Supports questions, Linear actions, and agent management. |
 | **Source** | A connected integration (Linear, Notion, Intercom, Slack, Attio) that Ravell syncs and indexes for search. |
+| **Streaming thoughts** | The real-time display of Ravell's reasoning process as it searches, evaluates, and synthesizes an answer. |
 | **Template** | A pre-built agent configuration with a question and schedule for common use cases like weekly roundups or standup prep. |
 | **Visibility** | Whether an Ask or Agent is **private** (only you) or **shared** (visible to your workspace). |
+| **Weekly brief** | An automated Slack summary of product intelligence delivered on a schedule, covering top problems, blind spots, and trends. |
 | **Workspace** | Your team's shared space in Ravell. All sources, Asks, Agents, and reports live in a workspace. |

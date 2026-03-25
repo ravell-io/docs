@@ -1,0 +1,147 @@
+---
+title: "Product intelligence"
+description: "Automatically extract entities, track problems, spot trends, and receive weekly briefs from your connected sources"
+---
+
+## What is product intelligence?
+
+**Product intelligence** is Ravell's automated layer that continuously extracts structured insights from your connected sources. Instead of waiting for you to ask, Ravell identifies entities (problems, feature requests, topics), tracks trends, surfaces blind spots, and can deliver a weekly brief to Slack.
+
+Open **Product Intelligence** from the sidebar to access the overview dashboard and entity explorer.
+
+---
+
+## Overview dashboard
+
+The overview shows a high-level summary of what Ravell has learned from your sources:
+
+- **Top problems**: Ranked list of the most significant problems extracted from your data, scored by evidence count, source diversity, confidence, and recency.
+- **Blind spots**: Emerging issues that are gaining momentum but may not be on your radar yet — based on recent evidence spikes compared to baseline activity.
+- **Health metrics**: A summary footer showing total entities, assertions, and mean confidence across your knowledge graph.
+
+---
+
+## Entities
+
+Ravell extracts three types of entities from your connected sources:
+
+| Entity type | What it represents | Example |
+|-------------|-------------------|---------|
+| **Problem** | A pain point or issue users are experiencing | "Slow checkout flow on mobile" |
+| **Feature request** | Something users have asked for | "Add bulk export to CSV" |
+| **Topic** | A recurring theme or area of discussion | "Enterprise onboarding" |
+
+### Exploring entities
+
+Use the **Entity Explorer** to browse, search, and filter all extracted entities:
+
+- **Filter by type**: View all entities, or narrow to problems, feature requests, or topics.
+- **Search**: Find entities by name.
+- **Sort**: Order by mention count or name.
+
+Click any entity to see its detail view, including:
+
+- **Evidence**: Individual assertions extracted from your sources, each with a confidence score and source reference.
+- **Relationships**: Connections to other entities (e.g., a feature request related to a problem).
+- **Confidence**: A mean confidence indicator showing how strongly the evidence supports this entity.
+
+### Confidence scores
+
+Each assertion has a confidence score from 0 to 1:
+
+- **Green (80%+)**: Strong evidence from reliable sources.
+- **Amber (50–79%)**: Moderate evidence — may need more data.
+- **Red (below 50%)**: Weak evidence — treat as a signal, not a conclusion.
+
+Entities with an overall mean confidence below 60% display a visual indicator so you can quickly see which ones need more supporting data.
+
+---
+
+## Top problems
+
+The top problems view ranks issues by a composite priority score that considers:
+
+- **Evidence count**: How many assertions support this problem.
+- **Source diversity**: Whether the problem appears across multiple tools (e.g., both Intercom and Slack).
+- **Confidence**: Mean confidence of supporting evidence.
+- **Recency**: How recently evidence was seen.
+- **Response status**: Whether the problem has been addressed or remains unresponded.
+
+You can dismiss problems you've already addressed or don't consider relevant.
+
+---
+
+## Blind spots
+
+Blind spots are emerging issues where recent evidence has spiked relative to baseline activity. Each blind spot shows:
+
+- **Severity score**: How significant the spike is.
+- **Source types**: Which tools the evidence is coming from.
+- **Evidence counts**: Recent vs. baseline evidence volume.
+
+Blind spots help you catch issues early — before they become top problems.
+
+---
+
+## Velocity and trends
+
+Entities track velocity data showing whether mentions are rising, steady, or declining:
+
+- **Rising**: Evidence is increasing — this topic is gaining momentum.
+- **Steady**: Consistent level of mentions over time.
+- **Declining**: Mentions are decreasing — the issue may be resolving.
+
+Trend data appears as sparkline charts in the entity views.
+
+---
+
+## Weekly brief
+
+Set up a weekly brief to receive a Slack summary of your product intelligence automatically.
+
+<Steps>
+  <Step title="Open product intelligence">
+    Go to **Product Intelligence** from the sidebar.
+  </Step>
+  <Step title="Enable the brief">
+    Click **Set up weekly brief** and select a Slack channel (public or private) to deliver to.
+  </Step>
+  <Step title="Configure the schedule">
+    Choose a day (Monday–Friday), hour, and timezone. The default is Monday at 9am UTC.
+  </Step>
+  <Step title="Test it">
+    Use **Send test brief** to preview what the brief looks like in your chosen channel.
+  </Step>
+</Steps>
+
+Once enabled, you can pause, resume, update the schedule, or disable the brief at any time from the product intelligence settings.
+
+<Tip>
+  The weekly brief summarizes top problems, emerging blind spots, and notable trends — giving your team a shared starting point for the week without anyone needing to open Ravell.
+</Tip>
+
+---
+
+## Dismissing entities
+
+If an entity is no longer relevant or has been addressed, you can dismiss it from the top problems or blind spots views. Dismissed entities are removed from the active lists but remain in the entity explorer for reference.
+
+---
+
+## Getting started
+
+Product intelligence works automatically once you have sources connected. The more sources you connect, the richer the entity extraction:
+
+1. **Connect sources**: Ravell extracts entities from all connected integrations. See [Managing sources](/sources).
+2. **Wait for extraction**: Initial entity extraction begins after your first sync. You'll see an onboarding indicator while this is in progress.
+3. **Explore entities**: Browse the entity explorer once extraction completes.
+4. **Set up a brief**: Configure a weekly Slack brief to keep your team informed.
+
+<CardGroup cols={2}>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect tools to feed product intelligence.
+  </Card>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How entities and documents are linked.
+  </Card>
+</CardGroup>

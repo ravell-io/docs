@@ -56,7 +56,7 @@
       },
       {
         "group": "How Ravell Works",
-        "pages": ["system-overview", "knowledge-graph", "security-privacy"]
+        "pages": ["system-overview", "knowledge-graph", "product-intelligence", "security-privacy"]
       },
       {
         "group": "By Role",
@@ -90,7 +90,8 @@
           "workspace-setup",
           "workspace-management",
           "billing",
-          "visibility-sharing"
+          "visibility-sharing",
+          "api-keys"
         ]
       },
       {

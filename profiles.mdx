@@ -37,6 +37,10 @@ Your individual profile helps Ravell tailor answers to you. It includes:
 
 Ravell uses this to surface relevant issues, conversations, and context when you ask questions.
 
+<Note>
+  Some sections like current work and planned work are sourced live from Linear at query time when the data is volatile, ensuring you always get the latest picture.
+</Note>
+
 ---
 
 ## Workspace profile
@@ -54,11 +58,65 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Confidence indicators
+
+Each profile section shows a confidence score indicating how strongly the underlying data supports the generated content:
+
+- **Green (70%+)**: Well-supported by multiple sources.
+- **Amber (40–69%)**: Moderate support — review for accuracy.
+- **Red (below 40%)**: Limited evidence — consider adding a section override or connecting more sources.
+
+Items within list-based sections (like current work or team projects) that fall below 60% confidence are grouped into a collapsible "Lower confidence" section, so you can focus on the most reliable data first.
+
+---
+
+## Section overrides
+
+When auto-generated profile content isn't quite right, you can override individual sections manually.
+
+There are two override modes:
+
+- **Enrichment**: Adds additional context to the auto-generated content. Use this when the generated content is mostly correct but missing key details.
+- **Source of truth**: Replaces the section entirely with your provided content. Use this when you have a canonical document (e.g., a product brief or team charter) that should define the section.
+
+### Adding an override
+
+<Steps>
+  <Step title="Open the section">
+    In **Context → Profiles**, find the section you want to override and click the override icon.
+  </Step>
+  <Step title="Choose the mode">
+    Select **Enrichment** to add context, or **Source of truth** to replace the section.
+  </Step>
+  <Step title="Provide the content">
+    Either upload a file or paste a URL. Ravell will extract and use the content from your provided source.
+  </Step>
+  <Step title="Save">
+    After saving, Ravell regenerates the profile section using your override.
+  </Step>
+</Steps>
+
+You can remove an override at any time to revert to the auto-generated version.
+
+---
+
+## Source exclusions
+
+If a web source is adding noise or irrelevant data to your profile, you can exclude it:
+
+1. In the profile view, find the source you want to exclude.
+2. Click the remove icon to exclude it.
+3. The source URL is blacklisted from future profile generations.
+
+This is useful when web search results include outdated or incorrect information about you or your company.
+
+---
+
+## Refresh and regeneration
 
 - **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+- Refreshing triggers a full regeneration. The UI shows a "Regenerating context..." indicator while this is in progress (typically under two minutes).
+- Both individual and workspace profiles can be refreshed independently.
 
 ---
 
@@ -80,3 +138,5 @@ When you ask a question, Ravell considers your individual profile, workspace pro
 ## Context used panel
 
 When viewing an answer, the **Sources** rail may show a "Context used" panel. This displays which profile versions were used, freshness, and any quality flags. Quality flags indicate when profile data may need attention (e.g. stale or incomplete sections).
+
+Sections with low-quality web context display an amber warning badge, letting you know which areas might benefit from a section override.
