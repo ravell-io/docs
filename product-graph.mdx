@@ -1,0 +1,117 @@
+---
+title: "Product graph"
+description: "Track ranked problems, blind spots, and entity relationships across your product"
+---
+
+The **Product Graph** is Ravell's structured view of what's happening across your product. It goes beyond search results — it identifies, ranks, and tracks the problems, entities, and patterns that matter most. While the [knowledge graph](/knowledge-graph) links documents across tools, the Product Graph surfaces actionable intelligence from those connections.
+
+<Note>
+Product Graph is progressively rolling out. If you don't see it in your workspace yet, it may not be enabled for your account.
+</Note>
+
+---
+
+## Problems
+
+The **Problems** view shows ranked issues affecting your product, ordered by priority score. Each problem is backed by assertions — evidence extracted from your connected sources.
+
+Problems include:
+
+- **Priority score** — A computed rank based on evidence volume, recency, and cross-source corroboration.
+- **Velocity** — Whether a problem is trending up, stable, or declining over time.
+- **Assertions** — The specific claims and evidence supporting each problem, with confidence scores.
+- **Related entities** — People, teams, features, and projects connected to the problem.
+
+Use the Problems view to understand what your users and team are struggling with, prioritized by signal strength rather than gut feeling.
+
+---
+
+## Blind spots
+
+**Blind spots** are rising issues that haven't yet received attention. Ravell detects these by looking for problems with increasing evidence that don't appear in your tracked work (e.g. no corresponding Linear issues or Notion specs).
+
+Blind spots help you catch emerging concerns before they become critical — gaps between what your users are experiencing and what your team is actively working on.
+
+---
+
+## Entity browser
+
+Browse the entities (people, companies, features, projects, teams) that Ravell has identified across your sources. For each entity, you can see:
+
+- **Assertions** — Claims about the entity extracted from your data, ranked by confidence.
+- **Relationships** — How the entity connects to other entities (e.g. a person is associated with a project, a feature relates to a problem).
+- **Source diversity** — How many different sources contribute evidence about this entity.
+
+### Managing entities
+
+- **Dismiss** — Remove an entity from your view if it's not relevant.
+- **Unmerge** — If Ravell incorrectly merged two entities, reverse the merge to restore them as separate entries.
+
+---
+
+## Weekly product intelligence brief
+
+The Product Intelligence Brief is an automated weekly report delivered to Slack. It summarizes the most important signals from your Product Graph:
+
+- **Top problems** with priority scores and velocity trends
+- **Blind spots** — emerging issues without tracked work
+- **Improving problems** — issues that are getting better
+- **Week-over-week delta** — what changed since the last brief
+- **Merge suggestions** — potential duplicate entities to clean up
+- **Graph health** — overall coverage and quality of your Product Graph
+
+### Set up the brief
+
+<Steps>
+  <Step title="Open the Product Graph">
+    Navigate to the Product Graph section in the app.
+  </Step>
+  <Step title="Enable the brief">
+    Click **Enable brief**. Ravell creates a weekly automation that runs every Monday at 9 AM (UTC by default).
+  </Step>
+  <Step title="Choose a Slack channel">
+    Select the Slack channel where the brief should be delivered. The channel can be public or private.
+  </Step>
+  <Step title="Adjust timezone and schedule">
+    Optionally change the timezone and delivery schedule to match your team's rhythm.
+  </Step>
+</Steps>
+
+<Tip>
+Use **Test brief** to send an immediate preview to your chosen Slack channel before waiting for the next scheduled run.
+</Tip>
+
+### Managing the brief
+
+- **Pause** — Disable the brief without deleting the configuration. Re-enable it anytime.
+- **Update** — Change the Slack channel, timezone, or schedule.
+- **Test** — Send a one-off brief immediately to verify the setup.
+
+<Note>
+The brief requires at least 5 product-related entities in your graph to generate meaningful content. Connect more sources and ask more questions to build up the graph.
+</Note>
+
+---
+
+## How the Product Graph works
+
+The Product Graph is built on top of the [knowledge graph](/knowledge-graph). As Ravell indexes documents and resolves entities, it also extracts **assertions** — structured claims about relationships between entities. These assertions have:
+
+- **Confidence scores** (0.0–1.0) — How certain Ravell is about the claim.
+- **Review states** — Assertions can be pending, accepted, rejected, or auto-promoted based on evidence strength.
+- **Temporal tracking** — When the assertion was first and last seen, enabling velocity and trend analysis.
+
+Problems are scored by aggregating assertion evidence, weighing recency, cross-source corroboration, and volume. This produces a ranked view that adapts as your data changes.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents and resolves entities across tools.
+  </Card>
+  <Card title="Agents" icon="clock" href="/agents">
+    Schedule recurring questions and reports.
+  </Card>
+</CardGroup>
