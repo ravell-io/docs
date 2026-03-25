@@ -38,7 +38,9 @@ flowchart TB
 
     subgraph Core["Ravell Core"]
         KG[(Knowledge Graph)]
+        PG[Product Graph]
         SE[Synthesis Engine]
+        KG --> PG
     end
 
     subgraph Output["Output"]
@@ -94,7 +96,7 @@ flowchart LR
 
 **Linear, Notion, Intercom, Slack** — these are your connected sources. Ravell syncs and indexes their content (issues, pages, conversations, messages) into a unified **Knowledge Graph**. The more you connect, the richer the answers.
 
-Data is stored as indexed documents with embeddings for semantic search. When a document is indexed, Ravell extracts entities (people, projects, issues) from metadata and content, then builds links to related documents. Retrieval uses these links to discover evidence you didn't directly search for.
+Data is stored as indexed documents with embeddings for semantic search. When a document is indexed, Ravell extracts entities (people, companies, customers, teams) from metadata and content, resolves them against a unified entity graph, and builds links to related documents. It also identifies product concepts — problems, feature requests, and topics — to power the [product graph](/knowledge-graph#product-graph). Retrieval uses these links to discover evidence you didn't directly search for.
 
 ### How documents are linked
 
@@ -129,14 +131,19 @@ Profiles are synthesized from Linear projects, Slack activity, and memories. The
 
 ### Knowledge Graph
 
-The Knowledge Graph stores your indexed documents and the links between them. It supports:
+The Knowledge Graph stores your indexed documents, entity profiles, and the links between them. It supports:
 
 - **Semantic search** — find by meaning, not just keywords
 - **Lexical search** — exact text and phrase matching
 - **Structured search** — filters by team, status, date, source
 - **Graph expansion** — follow document links to discover related evidence
+- **Entity resolution** — unify people, companies, and teams across tools using normalization, alias matching, and semantic similarity
 
 When you ask a question, Ravell classifies intent, plans retrieval, and searches across these lanes. Results are fused, filtered, and re-ranked so the best evidence surfaces first.
+
+### Product graph
+
+Built on the knowledge graph, the **product graph** extracts product-relevant concepts — problems, feature requests, and topics — from your indexed documents. It tracks how these evolve over time with priority scoring, velocity trends, and blind spot detection. See [Knowledge graph](/knowledge-graph#product-graph) for details.
 
 ### Synthesis Engine
 
@@ -167,7 +174,7 @@ Both outputs are evidence-backed: every claim ties to a source. You can click ci
 Ravell improves as you use it:
 
 - **More Users** — More questions, more conversations, more data to learn from
-- **Better Linking** — More document links, entity resolution, and cross-source connections
+- **Better Linking** — More document links, entity resolution, semantic deduplication, and cross-source connections
 - **More Value** — Richer answers, better retrieval, more relevant proactive reports
 
 The flywheel reinforces itself: better answers attract more usage, which improves linking and context, which delivers more value.
