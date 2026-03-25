@@ -1,0 +1,298 @@
+---
+title: "Knowledge API"
+description: "Programmatic access to search, query, and retrieve data from your connected sources"
+---
+
+## Overview
+
+The **Knowledge API** gives you programmatic access to Ravell's search and synthesis capabilities. Use it to search indexed documents, look up entities, find related content, ask natural-language questions, and generate digests — all from your own code.
+
+The Knowledge API is authenticated with [API keys](/api-keys). All endpoints are workspace-scoped: you only see data from the workspace the API key belongs to.
+
+**Base URL:** `https://app.ravell.io/api/knowledge`
+
+---
+
+## Authentication
+
+Include your API key in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_key_here" \
+  https://app.ravell.io/api/knowledge/search?query=your+search
+```
+
+See [API keys](/api-keys) for how to create and manage keys.
+
+---
+
+## Endpoints
+
+### Search
+
+Search indexed documents across all connected sources using semantic and lexical matching.
+
+```
+GET /api/knowledge/search
+```
+
+**Scope required:** `read`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | The search query |
+| `source_types` | string[] | No | Filter by source type (e.g. `linear`, `notion`, `intercom`, `slack`, `attio`) |
+| `team_ids` | string[] | No | Filter by team ID |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+| `limit` | integer | No | Maximum results to return (default: 20) |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://app.ravell.io/api/knowledge/search?query=checkout+bugs&source_types[]=linear&date_from=2026-03-01"
+```
+
+**Response:**
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_abc123",
+      "source_type": "linear",
+      "source_id": "ENG-142",
+      "title": "Checkout flow crashes on mobile",
+      "text": "Users report checkout fails when...",
+      "score": 0.92,
+      "url": "https://linear.app/team/issue/ENG-142",
+      "created_at": "2026-03-15T10:30:00Z"
+    }
+  ],
+  "meta": {
+    "tier": "tier1",
+    "result_count": 1,
+    "query_time_ms": 245.3,
+    "request_id": "req_xyz"
+  }
+}
+```
+
+---
+
+### Entities
+
+Look up entities (people, companies, projects, features) in your knowledge graph by name or ID.
+
+```
+GET /api/knowledge/entities
+```
+
+**Scope required:** `read`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | One of `query` or `entity_id` | Fuzzy search by name or alias |
+| `entity_id` | integer | One of `query` or `entity_id` | Direct lookup by entity ID |
+| `limit` | integer | No | Maximum results (default: 20) |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://app.ravell.io/api/knowledge/entities?query=Acme+Corp"
+```
+
+The response includes entity details and known aliases.
+
+---
+
+### Related
+
+Find documents and mentions related to a specific document or entity.
+
+```
+GET /api/knowledge/related
+```
+
+**Scope required:** `read`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string | One of `document_id` or `entity_id` | Find documents linked to this document |
+| `entity_id` | integer | One of `document_id` or `entity_id` | Find document mentions of this entity |
+
+**Example:**
+
+```bash
+curl -H "Authorization: Bearer ravelk_..." \
+  "https://app.ravell.io/api/knowledge/related?entity_id=42"
+```
+
+When using `document_id`, you get documents linked via explicit references, shared entities, shared authors, and URL references. When using `entity_id`, you get all documents that mention that entity.
+
+---
+
+### Query
+
+Ask a natural-language question and receive an AI-synthesized answer with citations. This runs the same pipeline as Web Asks.
+
+```
+POST /api/knowledge/query
+```
+
+**Scope required:** `read_write`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | Yes | The question to answer |
+| `source_types` | string[] | No | Filter by source type |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+
+**Example:**
+
+```bash
+curl -X POST -H "Authorization: Bearer ravelk_..." \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What are the top customer complaints this week?"}' \
+  https://app.ravell.io/api/knowledge/query
+```
+
+**Response:**
+
+```json
+{
+  "data": {
+    "answer": "The top customer complaints this week are...",
+    "citations": [
+      {
+        "source_type": "intercom",
+        "title": "Conversation with Jane",
+        "url": "https://app.intercom.com/..."
+      }
+    ],
+    "follow_up_suggestions": []
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 5,
+    "query_time_ms": 3200.1,
+    "request_id": "req_abc"
+  }
+}
+```
+
+<Note>
+  The `query` endpoint uses AI synthesis and takes longer than read endpoints. Expect response times of a few seconds depending on query complexity.
+</Note>
+
+---
+
+### Digest
+
+Generate a summary of activity for a given time period, optionally focused on a specific topic.
+
+```
+POST /api/knowledge/digest
+```
+
+**Scope required:** `read_write`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | Yes | Time period: `today`, `this_week`, or `last_7_days` |
+| `focus` | string | No | Topic focus: `bugs`, `feature_requests`, `sentiment`, or `all` (default: `all`) |
+
+**Example:**
+
+```bash
+curl -X POST -H "Authorization: Bearer ravelk_..." \
+  -H "Content-Type: application/json" \
+  -d '{"period": "this_week", "focus": "bugs"}' \
+  https://app.ravell.io/api/knowledge/digest
+```
+
+**Response:**
+
+```json
+{
+  "data": {
+    "summary": "This week, the team addressed...",
+    "citations": [...],
+    "period": "this_week",
+    "focus": "bugs"
+  },
+  "meta": {
+    "tier": "synthesis",
+    "result_count": 8,
+    "query_time_ms": 4100.5,
+    "request_id": "req_def"
+  }
+}
+```
+
+---
+
+## Response format
+
+All endpoints return a consistent structure:
+
+```json
+{
+  "data": { ... },
+  "meta": {
+    "tier": "tier1 | tier2 | synthesis",
+    "result_count": 10,
+    "query_time_ms": 245.3,
+    "request_id": "req_abc123"
+  }
+}
+```
+
+Error responses:
+
+```json
+{
+  "error": "Description of what went wrong",
+  "meta": {
+    "request_id": "req_abc123"
+  }
+}
+```
+
+---
+
+## Rate limits
+
+Endpoints are grouped into tiers with separate rate limits:
+
+| Tier | Endpoints | Description |
+|------|-----------|-------------|
+| Tier 1 | `search`, `entities`, `related` | Read-only retrieval — higher rate limit |
+| Synthesis | `query`, `digest` | AI-powered answers — lower rate limit |
+
+When rate-limited, the response includes a `Retry-After` header with the number of seconds to wait.
+
+---
+
+## Date filtering
+
+Date parameters use `YYYY-MM-DD` format. Both `date_from` and `date_to` are optional and can be used independently:
+
+- `date_from=2026-03-01` — documents from March 1 onward
+- `date_to=2026-03-15` — documents up to March 15
+- Both together — documents within that range
+
+---
+
+## Use cases
+
+| Use case | Endpoint | Example |
+|----------|----------|---------|
+| Build an internal dashboard | `search` | Search for issues, feedback, or docs matching a keyword |
+| Enrich a CRM with product context | `entities` + `related` | Look up a customer entity and find all related documents |
+| Automated weekly reports | `digest` | Generate a weekly summary focused on bugs or feature requests |
+| AI assistant integration | `query` | Ask natural-language questions from a chatbot or Slack bot |
+| Data pipeline enrichment | `search` | Pull relevant documents for a given topic into your pipeline |
