@@ -1,0 +1,117 @@
+---
+title: "API keys"
+description: "Create and manage API keys for programmatic access to Ravell's Knowledge API"
+---
+
+## Overview
+
+**API keys** give you programmatic access to Ravell's [Knowledge API](/knowledge-api). Use them to search your connected sources, query entities, retrieve related documents, and generate AI-synthesized answers — all from your own code, scripts, or tools.
+
+API keys are workspace-scoped. Any key you create can access data from the workspace it belongs to.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open Settings">
+    Go to **Settings → API Keys**.
+  </Step>
+  <Step title="Click Create key">
+    Click **Create API key**.
+  </Step>
+  <Step title="Configure the key">
+    - **Name**: A descriptive label (e.g. "CI pipeline" or "Internal dashboard").
+    - **Scopes**: Choose what the key can do (see [Scopes](#scopes) below).
+    - **Expiration** (optional): Set an expiry date. Keys without an expiry remain active until revoked.
+  </Step>
+  <Step title="Copy the key">
+    The full key is shown **once** after creation. Copy it immediately — you cannot retrieve it later. Keys start with `ravelk_`.
+  </Step>
+</Steps>
+
+<Warning>
+  Store your API key securely. Treat it like a password. Do not commit it to source control or share it in plain text.
+</Warning>
+
+---
+
+## Scopes
+
+Each API key has one or more scopes that control what it can access:
+
+| Scope | Access level | Knowledge API endpoints |
+|-------|-------------|----------------------|
+| `read` | Read-only | `search`, `entities`, `related` |
+| `read_write` | Read and write | All endpoints including `query` and `digest` |
+
+The `read_write` scope includes everything in `read`. If you only need to search and retrieve data, use `read`. If you need AI-synthesized answers (the `query` and `digest` endpoints), use `read_write`.
+
+---
+
+## Use the API key
+
+Include your API key in the `Authorization` header of every request:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_key_here" \
+  https://app.ravell.io/api/knowledge/search?query=checkout+feedback
+```
+
+See the [Knowledge API](/knowledge-api) page for full endpoint documentation.
+
+---
+
+## Manage keys
+
+From **Settings → API Keys**, you can:
+
+- **View** all active keys, their scopes, and when they were last used.
+- **Revoke** a key to permanently disable it. Revoked keys cannot be restored.
+
+<Note>
+  Only workspace owners can create and manage API keys.
+</Note>
+
+---
+
+## MCP integration
+
+Ravell supports the **Model Context Protocol (MCP)**, which lets AI coding assistants and other MCP-compatible tools query your Ravell workspace directly.
+
+When you connect via MCP, Ravell generates a full-access API key automatically. This key has all scopes enabled and is named after your account (e.g. "MCP — Jane Smith").
+
+To connect an MCP client:
+
+<Steps>
+  <Step title="Open MCP settings">
+    Go to **Settings → MCP** (or follow your MCP client's instructions for adding a new tool).
+  </Step>
+  <Step title="Authenticate">
+    Sign in to Ravell when prompted. A dedicated API key is created for the MCP connection.
+  </Step>
+  <Step title="Start querying">
+    Your MCP client can now search your Ravell workspace, ask questions, and retrieve answers.
+  </Step>
+</Steps>
+
+---
+
+## Rate limits
+
+API keys are rate-limited to ensure fair usage:
+
+- **Read endpoints** (`search`, `entities`, `related`): Higher rate limit.
+- **Synthesis endpoints** (`query`, `digest`): Lower rate limit, as these use AI processing.
+
+If you exceed the limit, you receive a `429 Too Many Requests` response with a `Retry-After` header indicating when you can retry.
+
+---
+
+## Security best practices
+
+- Use the **minimum scope** needed for your use case.
+- Set an **expiration date** for keys used in temporary scripts or integrations.
+- **Rotate keys** periodically — revoke old keys and create new ones.
+- Store keys in environment variables or a secrets manager, never in code.
+- **Revoke immediately** if a key is compromised.
