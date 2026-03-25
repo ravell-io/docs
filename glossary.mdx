@@ -9,15 +9,25 @@ description: "Definitions of key Ravell terms"
 |------|------------|
 | **Ask** | A conversation thread where you ask questions and get evidence-backed answers with citations. Each Ask can have multiple follow-up messages. |
 | **Agent** | A scheduled query that runs on a recurring basis (e.g. every Monday at 9am). Agents produce reports that appear in your Inbox. |
+| **Blind spot** | A rising problem in the product graph that has no feature request or solution addressing it yet. Blind spots help you catch emerging issues early. |
 | **Citation** | A clickable reference in an answer that links to the original source data (Linear issue, Notion page, Intercom conversation, or Slack message). |
 | **Context** | The central view combining your individual profile, workspace profile, and Memory. Used to personalize answers. |
+| **Entity** | A person, company, customer, or team recognized across your connected tools. Entities are resolved into canonical profiles that unify mentions from different platforms. |
+| **Entity alias** | An alternative name for an entity (e.g. "Acme Inc" and "Acme Corp" as aliases for the same company). Aliases are created automatically through resolution and merging. |
+| **Entity resolution** | The process of matching different names and identities across tools to the same underlying entity. Uses normalization, alias lookup, and semantic matching. |
+| **Feature request** | A product graph entity representing a specific capability or improvement that customers or teammates have asked for. |
 | **Inbox** | Where proactive reports from your agents land. Each agent run produces a report you can read, follow up on, or push to Notion. |
+| **Knowledge graph** | The layer that stores indexed documents, entity profiles, and the links between them. Powers cross-tool search and evidence discovery. |
 | **Memory** | Facts Ravell learns about you over time from conversations and manual entries. Used to personalize answers across sessions. |
+| **Problem** | A product graph entity representing an issue, bug, friction point, or feature gap experienced by customers. Problems have subtypes: bug, feature gap, UX friction, or integration issue. |
+| **Product graph** | An intelligence layer built on the knowledge graph that extracts product problems, feature requests, and topics from your documents and tracks how they evolve over time. |
 | **Profile (Individual)** | Your personal context: role, focus areas, current work, preferences. Auto-generated from your connected sources and editable manually. |
 | **Profile (Workspace)** | Your team's context: company mission, goals, product context, ICP. Shared across all workspace members. |
 | **Scoping** | Limiting a question to specific sources (e.g. "Linear only") or time ranges (e.g. "last 30 days") for faster, more focused answers. |
 | **Slack Agent** | The interface for using Ravell in Slack via @Ravell mentions or the `/ravell` command. Supports questions, Linear actions, and agent management. |
 | **Source** | A connected integration (Linear, Notion, Intercom, Slack, Attio) that Ravell syncs and indexes for search. |
 | **Template** | A pre-built agent configuration with a question and schedule for common use cases like weekly roundups or standup prep. |
+| **Topic** | A product graph entity representing a recurring theme or product area that groups related problems and feature requests. |
+| **Velocity** | A trend signal on product graph entities indicating whether mentions are rising, steady, or declining compared to a baseline period. |
 | **Visibility** | Whether an Ask or Agent is **private** (only you) or **shared** (visible to your workspace). |
 | **Workspace** | Your team's shared space in Ravell. All sources, Asks, Agents, and reports live in a workspace. |
