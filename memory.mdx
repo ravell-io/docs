@@ -21,11 +21,32 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ---
 
+## Enable or disable Memory
+
+Memory extraction is on by default. If you prefer Ravell not store learned facts:
+
+1. Go to **Settings → Memory**.
+2. Toggle **Memory enabled** off.
+
+When disabled, Ravell stops extracting new memories from your conversations. Existing memories remain but are not used. You can re-enable Memory at any time.
+
+---
+
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Ravell organizes memories into categories:
+
+| Category | What it captures |
+|----------|-----------------|
+| **Role & identity** | Your job title, team, and responsibilities |
+| **Projects** | Current and past projects you work on |
+| **Preferences** | How you like answers formatted, level of detail |
+| **Product** | Product knowledge you've shared (features, architecture) |
+| **Internal workflow** | Team processes, tools, and conventions |
+| **Company & business** | Company context, competitors, market info |
+| **Roadmap** | Planned work, goals, and timelines |
+
+Each memory also has a **confidence score** reflecting how certain Ravell is about the fact. Memories you add manually are treated as high-confidence. Facts inferred from conversations start at moderate confidence and increase when corroborated by later interactions.
 
 Memory is used to improve relevance and avoid repeating information you've already provided.
 
@@ -74,8 +95,17 @@ This helps Ravell resolve references in your questions more accurately.
 
 ---
 
+## How Memory retrieval works
+
+When you ask a question, Ravell searches your memories semantically — not just by keyword match. The most relevant memories are pulled into context based on meaning, so even if you phrase things differently, the right facts surface. Your role and identity are always included.
+
+Memories that have been contradicted by newer information are automatically excluded from retrieval.
+
+---
+
 ## Control what gets stored
 
 - **Explicit additions**: When you add something in Settings → Memory, it's stored.
 - **Conversation context**: Ravell may infer facts from your questions and answers. You can delete anything you don't want stored.
+- **Disable entirely**: Toggle Memory off in **Settings → Memory** to stop all extraction.
 - **Privacy**: Memory is scoped to your account. Workspace members do not see your personal memory.
