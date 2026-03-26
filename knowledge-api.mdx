@@ -1,0 +1,282 @@
+---
+title: "Knowledge API"
+description: "Access your workspace knowledge programmatically with the Ravell Knowledge API"
+---
+
+## What is the Knowledge API?
+
+The Knowledge API lets you query your workspace knowledge programmatically. Use it to integrate Ravell into your own tools, scripts, or AI workflows — including MCP-compatible clients like Claude Desktop and Cursor.
+
+The API provides five endpoints covering search, entity lookup, related content discovery, AI-synthesized answers, and automated digests.
+
+---
+
+## Authentication
+
+All API requests require an **API key** passed in the `Authorization` header:
+
+```bash
+Authorization: Bearer ravelk_your_api_key_here
+```
+
+### Creating an API key
+
+<Steps>
+  <Step title="Open Settings">
+    Go to **Settings → API Keys** in the Ravell app.
+  </Step>
+  <Step title="Create a key">
+    Click **Create API Key**. Give it a name and choose a scope:
+
+    - **read** — Search, entities, and related content (Tier 1 endpoints).
+    - **read_write** — Everything in `read`, plus AI-synthesized queries and digests (Tier 2 endpoints).
+  </Step>
+  <Step title="Copy the token">
+    Copy the token immediately — it is only shown once. Tokens start with `ravelk_`.
+  </Step>
+</Steps>
+
+You can optionally set an expiration date when creating a key. Revoke keys at any time from **Settings → API Keys**.
+
+<Warning>
+  Store API keys securely. Never commit them to source control or share them in plain text.
+</Warning>
+
+---
+
+## Base URL
+
+```
+https://app.ravell.io/api/knowledge
+```
+
+All endpoints return JSON responses with this structure:
+
+```json
+{
+  "data": { ... },
+  "meta": {
+    "tier": "tier1",
+    "result_count": 10,
+    "query_time_ms": 142.3,
+    "request_id": "abc-123"
+  }
+}
+```
+
+Error responses use:
+
+```json
+{
+  "error": "Description of the problem",
+  "meta": { "request_id": "abc-123" }
+}
+```
+
+---
+
+## Endpoints
+
+### Search
+
+Semantic search across all indexed documents in your workspace.
+
+```
+GET /api/knowledge/search
+```
+
+**Scope required:** `read`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | The search query (max 1,000 characters) |
+| `source_types` | string | No | Comma-separated source filter (e.g. `linear`, `slack`, `notion`, `intercom`, `attio`) |
+| `team_ids` | string | No | Filter by specific team IDs |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+| `limit` | integer | No | Maximum number of results to return |
+
+**Example:**
+
+```bash
+curl "https://app.ravell.io/api/knowledge/search?query=checkout+bugs&source_types=linear&date_from=2025-01-01" \
+  -H "Authorization: Bearer ravelk_your_key"
+```
+
+---
+
+### Entities
+
+Search for entities (people, companies, products, projects) tracked in your workspace.
+
+```
+GET /api/knowledge/entities
+```
+
+**Scope required:** `read`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | One of `query` or `entity_id` | Search text to find matching entities |
+| `entity_id` | string | One of `query` or `entity_id` | Look up a specific entity by ID |
+| `limit` | integer | No | Maximum number of results |
+
+**Example:**
+
+```bash
+curl "https://app.ravell.io/api/knowledge/entities?query=Acme+Corp" \
+  -H "Authorization: Bearer ravelk_your_key"
+```
+
+---
+
+### Related
+
+Find content related to a specific document or entity.
+
+```
+GET /api/knowledge/related
+```
+
+**Scope required:** `read`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string | One of `document_id` or `entity_id` | Find content related to this document |
+| `entity_id` | string | One of `document_id` or `entity_id` | Find content related to this entity |
+
+**Example:**
+
+```bash
+curl "https://app.ravell.io/api/knowledge/related?entity_id=123" \
+  -H "Authorization: Bearer ravelk_your_key"
+```
+
+---
+
+### Query
+
+Get an AI-synthesized answer to a natural language question, with citations.
+
+```
+POST /api/knowledge/query
+```
+
+**Scope required:** `read_write`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | Yes | The question to answer (max 2,000 characters) |
+| `source_types` | string | No | Comma-separated source filter |
+| `date_from` | string | No | Start date filter (`YYYY-MM-DD`) |
+| `date_to` | string | No | End date filter (`YYYY-MM-DD`) |
+
+**Example:**
+
+```bash
+curl -X POST "https://app.ravell.io/api/knowledge/query" \
+  -H "Authorization: Bearer ravelk_your_key" \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What are the top customer complaints this week?"}'
+```
+
+**Response:**
+
+```json
+{
+  "data": {
+    "answer": "The top customer complaints this week are...",
+    "citations": [...],
+    "follow_up_suggestions": []
+  },
+  "meta": { "tier": "synthesis", "result_count": 5, "query_time_ms": 3200.1 }
+}
+```
+
+---
+
+### Digest
+
+Generate an AI-powered summary for a specific time period and focus area.
+
+```
+POST /api/knowledge/digest
+```
+
+**Scope required:** `read_write`
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | Yes | Time period: `today`, `this_week`, or `last_7_days` |
+| `focus` | string | No | Focus area: `all` (default), `bugs`, `feature_requests`, or `sentiment` |
+
+**Example:**
+
+```bash
+curl -X POST "https://app.ravell.io/api/knowledge/digest" \
+  -H "Authorization: Bearer ravelk_your_key" \
+  -H "Content-Type: application/json" \
+  -d '{"period": "this_week", "focus": "bugs"}'
+```
+
+**Response:**
+
+```json
+{
+  "data": {
+    "summary": "This week's bug report highlights...",
+    "citations": [...],
+    "period": "this_week",
+    "focus": "bugs"
+  },
+  "meta": { "tier": "synthesis", "result_count": 8, "query_time_ms": 4100.5 }
+}
+```
+
+---
+
+## Rate limits
+
+Endpoints are grouped into two tiers with separate rate limits:
+
+| Tier | Endpoints | Rate limit |
+|------|-----------|------------|
+| **Tier 1** (read) | `search`, `entities`, `related` | 100 requests per minute |
+| **Tier 2** (synthesis) | `query`, `digest` | 20 requests per minute |
+
+When you hit a rate limit, the API returns a `429` status with a `Retry-After` header indicating when you can retry.
+
+---
+
+## MCP integration
+
+Ravell supports the [Model Context Protocol (MCP)](https://modelcontextprotocol.io), so you can connect AI tools like Claude Desktop or Cursor directly to your workspace knowledge.
+
+<Steps>
+  <Step title="Generate an MCP key">
+    In the Ravell app, go to **Settings → API Keys** and create a key with `read_write` scope. Alternatively, use the MCP quick-setup flow if available in your app — it generates a key automatically.
+  </Step>
+  <Step title="Configure your MCP client">
+    Add Ravell as an MCP server in your client's configuration. Point it at `https://app.ravell.io/api/knowledge` and provide your API key for authentication.
+  </Step>
+  <Step title="Start querying">
+    Your AI tool can now search your workspace, look up entities, and get synthesized answers through the Knowledge API.
+  </Step>
+</Steps>
+
+<Tip>
+  MCP keys are created with full `read_write` access so your AI tool can use all API endpoints including synthesis.
+</Tip>
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Managing sources" icon="plug" href="/sources">
+    Connect more tools to expand what the API can search.
+  </Card>
+  <Card title="System overview" icon="sitemap" href="/system-overview">
+    Understand how Ravell's retrieval and synthesis pipeline works.
+  </Card>
+</CardGroup>
