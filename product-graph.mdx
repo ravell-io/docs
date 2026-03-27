@@ -1,0 +1,119 @@
+---
+title: "Product graph"
+description: "Automatic product intelligence from your connected sources"
+---
+
+## What is the Product graph?
+
+The **Product graph** is Ravell's product intelligence layer built on top of the [knowledge graph](/knowledge-graph). While the knowledge graph links documents across your tools, the Product graph extracts and tracks higher-level product concepts — problems, feature requests, and topics — from your connected sources.
+
+Ravell automatically identifies these entities from Slack conversations, Linear issues, Intercom tickets, Notion pages, and Attio records, then scores and ranks them so you can see what matters most.
+
+**Why it matters:** Instead of manually combing through hundreds of issues and conversations to understand what customers are struggling with, the Product graph surfaces prioritized problems, detects blind spots, and tracks how things change over time — all automatically.
+
+<Note>
+The Product graph is being rolled out gradually. If you don't see it in your workspace yet, it may not be enabled for your team.
+</Note>
+
+---
+
+## Entity types
+
+The Product graph tracks three types of entities:
+
+| Entity type | What it represents | Example |
+|-------------|-------------------|---------|
+| **Problem** | A customer pain point or issue pattern | "Checkout flow errors on mobile" |
+| **Feature request** | A requested capability (not yet shipped) | "Add CSV export to dashboard" |
+| **Topic** | A grouping category that connects related entities | "Onboarding", "Payments" |
+
+Ravell extracts these entities from your indexed documents using a combination of metadata analysis, semantic matching, and language model extraction. Entities are linked to the documents that mention them and to each other through relationships like "feature request addresses problem" or "problem affects customer."
+
+---
+
+## Problem prioritization
+
+Not all problems are equal. Ravell scores each problem using a weighted composite of six factors:
+
+| Factor | What it measures |
+|--------|-----------------|
+| **Evidence volume** | How many documents across your sources mention this problem |
+| **Recency** | How recently the problem was last seen (recent mentions weigh more) |
+| **Source diversity** | How many different tools (Slack, Linear, Intercom, etc.) the problem appears in |
+| **Engagement** | How much user interaction and discussion the problem generates |
+| **Velocity** | Whether the problem is accelerating — are mentions increasing in the last two weeks? |
+| **Confidence** | How confident Ravell is in the entity extraction |
+
+Problems with evidence from multiple sources and recent, accelerating mentions rank highest. You can view the ranked list from the Product graph view in the app.
+
+---
+
+## Blind spots
+
+A **blind spot** is a rising problem that has no corresponding feature request addressing it. Ravell detects blind spots by looking for problems where:
+
+- Evidence is increasing significantly compared to the historical baseline
+- No feature request has been linked to the problem
+
+Blind spots help you catch issues that are growing but haven't made it onto anyone's roadmap yet. Each blind spot shows its severity (how fast it's growing relative to its baseline) and which sources the evidence comes from.
+
+---
+
+## Weekly product intelligence brief
+
+The **Weekly product intelligence brief** is an automated report that summarizes your Product graph each week. When enabled, it delivers a Slack message covering:
+
+- **Top problems** — The highest-priority problems with velocity trends (rising, falling, stable)
+- **Blind spots** — Rising problems with no feature request response
+- **Improving areas** — Problems that are showing declining evidence (getting better)
+- **Changes since last week** — What moved up or down in the rankings
+- **Merge suggestions** — Duplicate entities that may need to be combined
+- **Graph health** — Summary stats on your Product graph coverage
+
+### Enable the brief
+
+1. Open the **Product graph** view in the app.
+2. Click **Enable brief** (requires admin permissions).
+3. Optionally select a Slack channel for delivery.
+4. The brief runs weekly. You can also trigger a **test brief** to preview the output.
+
+Admins can update the delivery channel, timezone, and schedule, or disable the brief at any time.
+
+<Note>
+The brief requires at least 5 product entities in your workspace to generate meaningful insights.
+</Note>
+
+---
+
+## Reviewing entities
+
+As Ravell extracts entities from your documents, you can review and manage them:
+
+- **Browse entities** — View all extracted problems, feature requests, and topics with their evidence and relationships.
+- **Dismiss** — Mark an entity as irrelevant to remove it from rankings and the brief.
+- **Unmerge** — If Ravell incorrectly merged two distinct entities, you can separate them back out.
+
+Entity assertions (the links between entities and documents) have review states: they start as pending, and can be automatically promoted based on confidence thresholds or manually accepted/rejected.
+
+---
+
+## How the Product graph relates to the knowledge graph
+
+The [knowledge graph](/knowledge-graph) operates at the **document level** — linking Linear issues, Notion pages, Slack messages, and Intercom conversations to each other through shared references, entities, authors, and threads.
+
+The Product graph operates at the **concept level** — extracting product-relevant patterns (problems, feature requests, topics) from those same documents and tracking them over time with scoring and trend detection.
+
+Think of it this way: the knowledge graph is your tool for finding specific documents and evidence. The Product graph is your tool for understanding what your customers are experiencing and whether your team is responding.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Knowledge graph" icon="diagram-project" href="/knowledge-graph">
+    How Ravell links documents and resolves entities across your tools.
+  </Card>
+  <Card title="Agents" icon="clock" href="/agents">
+    Schedule recurring questions and get reports in your Inbox or Slack.
+  </Card>
+</CardGroup>

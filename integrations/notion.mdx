@@ -66,6 +66,34 @@ Push any Ask answer or Agent report to Notion as a new page:
 - Archive sprint reviews and weekly roundups
 - Create meeting prep docs from Ravell answers
 
+### Set a default export database
+
+You can set a default Notion database so future exports skip the destination selection step:
+
+1. Ask Ravell to "set my default Notion database to [database name]" in a chat or via the Slack Agent.
+2. Ravell saves this as your personal preference.
+3. Future **Push to Notion** actions use this database automatically unless you specify a different one.
+
+Each user can have their own default. If no personal default is set, Ravell uses the workspace default (if configured) or asks you to choose.
+
+---
+
+## Notion actions beyond export
+
+When Notion is connected, Ravell can do more than just search and push reports. You can ask Ravell to perform Notion actions directly from an Ask or the Slack Agent:
+
+| Action | What it does | Example prompt |
+|--------|-------------|----------------|
+| **Create a page** | Creates a new page in a database or under an existing page | "Create a Notion page called 'Sprint 12 Retro' in my meeting notes database" |
+| **Update a page** | Renames or archives an existing page | "Rename the 'Q1 Goals' Notion page to 'Q1 Goals (Final)'" |
+| **Append content** | Adds content to the end of an existing page | "Add this summary to the bottom of our 'Weekly Updates' page in Notion" |
+| **Add a comment** | Leaves a discussion comment on a page | "Add a comment on the 'Product Roadmap' Notion page about the new timeline" |
+| **Create a database** | Creates a new database with custom columns | "Create a Notion database called 'Feature Tracking' with Status and Priority columns" |
+| **Update a database** | Modifies a database's title or schema | "Add a 'Due Date' column to the 'Feature Tracking' database" |
+| **Search Notion** | Finds pages and databases by name | "Find my Notion page about the checkout redesign" |
+
+Ravell automatically converts markdown formatting to native Notion blocks (headings, lists, links) and handles large content by batching it across multiple requests.
+
 ---
 
 ## Re-sync and reindex

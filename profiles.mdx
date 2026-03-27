@@ -54,11 +54,54 @@ This helps Ravell understand context when answering questions that span the whol
 
 ---
 
-## Refresh and exclusions
+## Refresh profiles
 
-- **Refresh**: Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
-- **Source exclusions**: Exclude specific sources (e.g. Linear) from being used in your profile context if needed (e.g. for privacy or relevance).
-- **Section overrides**: You can manually override AI-generated sections when the auto-generated content isn't quite right.
+Update your profile when your role or focus changes. Use **Refresh** in Context to regenerate from your connected sources. Stale profiles lead to less relevant answers.
+
+Ravell refreshes profiles periodically in the background, but you can trigger a manual refresh at any time.
+
+---
+
+## Source exclusions
+
+You can exclude specific integration sources from being used in profile generation. When a source is excluded, data from that integration does not influence your AI-generated profile sections.
+
+<Steps>
+  <Step title="Open source exclusions">
+    Go to **Context → Profile** and find the source exclusions setting.
+  </Step>
+  <Step title="Select sources to exclude">
+    Choose which sources to exclude (e.g., Linear, Slack, Intercom, Notion, Attio).
+  </Step>
+  <Step title="Save">
+    Your profile regenerates without data from the excluded sources.
+  </Step>
+</Steps>
+
+**When to use source exclusions:**
+- A source contains noisy or irrelevant data for your profile (e.g., a shared support inbox)
+- You want to keep certain work activity private from your profile
+- A source is temporarily producing low-quality data
+
+---
+
+## Section overrides
+
+You can manually override specific AI-generated profile sections when the auto-generated content isn't accurate or complete.
+
+<Steps>
+  <Step title="Find the section">
+    Open **Context → Profile** and find the section you want to override.
+  </Step>
+  <Step title="Create an override">
+    Click to override the section and enter your own content.
+  </Step>
+  <Step title="Save">
+    Your override replaces the AI-generated content for that section. A profile refresh is triggered automatically.
+  </Step>
+</Steps>
+
+Overrides take precedence over AI-generated content. You can remove an override at any time to revert to the auto-generated version.
 
 ---
 
