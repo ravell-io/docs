@@ -23,11 +23,19 @@ Memory lives in the **Context** view. Open **Context** from the sidebar to view 
 
 ## What Memory stores
 
-- **Preferences**: How you like answers formatted, level of detail.
-- **Context**: Facts you've shared (role, projects, team structure).
-- **Patterns**: Recurring topics or sources you use often.
+Ravell organizes memories into categories:
 
-Memory is used to improve relevance and avoid repeating information you've already provided.
+| Category | Examples |
+|----------|---------|
+| **Role and profile** | Your job title, team, responsibilities |
+| **Projects** | Active projects, ownership, timelines |
+| **Preferences** | How you like answers formatted, level of detail |
+| **Product knowledge** | Product features, architecture, technical details you've shared |
+| **Internal workflow** | Processes, tools, team conventions |
+| **Company and business** | Company context, market, customers |
+| **Roadmap** | Planned work, upcoming initiatives |
+
+Each memory also tracks how confident Ravell is in it and how often it's been useful in past answers. Memories that are referenced frequently and recently are prioritized when generating answers.
 
 ---
 
@@ -74,8 +82,28 @@ This helps Ravell resolve references in your questions more accurately.
 
 ---
 
+## Disable memory
+
+If you prefer Ravell not to extract or use memories at all:
+
+1. Go to **Settings → Memory**.
+2. Toggle **Memory** off.
+3. When disabled, Ravell stops extracting new memories from your conversations and does not use existing memories when generating answers.
+
+You can re-enable memory at any time. Existing memories are preserved when disabled — they just aren't used until you turn memory back on.
+
+---
+
+## How memory extraction works
+
+Ravell automatically extracts memories from your conversations. When you share a fact (e.g., "I'm leading the mobile team"), Ravell identifies it and stores it for future use. You don't need to do anything — extraction happens in the background.
+
+Extracted memories start as **unverified**. Over time, if the same fact appears in multiple conversations, it becomes **corroborated** (higher confidence). If you contradict a previous memory, Ravell marks it as **contradicted** and uses the newer information. Memories you add or edit manually are marked as **user-asserted** and given higher priority.
+
+---
+
 ## Control what gets stored
 
-- **Explicit additions**: When you add something in Settings → Memory, it's stored.
+- **Explicit additions**: When you add something in Settings → Memory, it's stored with the highest priority.
 - **Conversation context**: Ravell may infer facts from your questions and answers. You can delete anything you don't want stored.
 - **Privacy**: Memory is scoped to your account. Workspace members do not see your personal memory.

@@ -26,7 +26,7 @@ Agents use the same search and synthesis quality as Web Asks. The only differenc
 
 ## Behind the scenes
 
-At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after several failures, the agent pauses so you can fix the issue.
+At the scheduled time, Ravell runs your question through the same pipeline as Web Asks — intent, plan, search, synthesize, verify. The report appears in your Inbox and, if you enabled it, in Slack. If the same question was answered recently, Ravell may reuse that result to speed things up. Failed runs are retried; after 5 consecutive failures, the agent automatically pauses so you can investigate and fix the issue.
 
 ---
 
@@ -88,6 +88,14 @@ See the full [Agent templates gallery](/agent-templates) for details, customizat
 
 - **Private** — Only you see the agent and its runs. Runs appear in your Inbox only.
 - **Shared** — Visible to your workspace. Teammates can see the agent and its runs. Required for Slack delivery.
+
+---
+
+## Limits
+
+- **Up to 25 agents** per workspace.
+- **Minimum 1-hour interval** for hourly schedules.
+- Agents auto-pause after **5 consecutive failures**. Check the run status and adjust the question or schedule before resuming.
 
 ---
 
