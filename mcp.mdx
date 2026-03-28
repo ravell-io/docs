@@ -1,0 +1,75 @@
+---
+title: "MCP"
+description: "Connect Ravell to AI coding tools via the Model Context Protocol"
+---
+
+## What is MCP?
+
+**MCP (Model Context Protocol)** is an open standard that lets AI tools access external data sources. Ravell supports MCP, so you can query your product knowledge base directly from tools like **Claude Desktop**, **Cursor**, **Windsurf**, and other MCP-compatible clients.
+
+When connected, your AI coding tool can search Ravell's indexed documents, look up entities, ask questions, and generate digests — all without leaving your editor.
+
+---
+
+## Set up MCP
+
+<Steps>
+  <Step title="Generate an MCP key">
+    Go to **Settings → API Keys** and click **Generate MCP key**. Ravell creates a key named "MCP — [Your Name]" with full Knowledge API access.
+  </Step>
+  <Step title="Copy the token and workspace name">
+    Copy the token and workspace name shown in the dialog. The token is displayed only once.
+  </Step>
+  <Step title="Configure your MCP client">
+    Add Ravell as a data source in your MCP client. The exact steps depend on which tool you use — see below for examples.
+  </Step>
+</Steps>
+
+---
+
+## Client configuration examples
+
+### Claude Desktop
+
+Add the following to your Claude Desktop MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "ravell": {
+      "url": "https://api.ravell.io/api/knowledge",
+      "headers": {
+        "Authorization": "Bearer ravelk_your_token_here"
+      }
+    }
+  }
+}
+```
+
+### Cursor
+
+In Cursor settings, add Ravell as an MCP server with your API token and the Knowledge API base URL.
+
+---
+
+## What you can do
+
+Once connected, your AI tool can use Ravell's Knowledge API capabilities:
+
+| Capability | What it does |
+|------------|-------------|
+| **Search** | Find relevant documents across all your connected sources |
+| **Entities** | Look up customers, companies, people, and topics |
+| **Related** | Discover documents and entities related to a given item |
+| **Query** | Ask a natural-language question and get an AI-synthesized answer |
+| **Digest** | Get an automated summary for a time period |
+
+This means you can ask your coding assistant questions like "What did customers say about the checkout flow?" or "What bugs were filed this week?" and get answers grounded in your actual product data.
+
+---
+
+## Permissions
+
+The MCP key is created with full Knowledge API scopes (`read` and `read_write`). You can revoke it anytime from **Settings → API Keys**.
+
+For more details on API endpoints, scopes, and rate limits, see [API keys & Knowledge API](/api-keys).
