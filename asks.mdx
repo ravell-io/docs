@@ -89,7 +89,26 @@ You can change visibility later from the report menu (**Make private** / **Share
 
 ---
 
-## Push to Notion
+## Actions from chat
+
+You can take actions directly from a web Ask — not just get answers. When Linear or Notion is connected, Ravell can create and update records as part of the conversation.
+
+### Linear actions
+
+Ask Ravell to create or update Linear records as a follow-up:
+
+| Action | Example prompt |
+|--------|---------------|
+| **Create issue** | "Create a bug for the login timeout we just discussed" |
+| **Update issue** | "Mark ENG-123 as done" |
+| **Create project** | "Create a project for the checkout redesign" |
+| **Create initiative** | "Create an initiative for Q2 platform improvements" |
+| **Create document** | "Create a Linear document summarizing these findings" |
+| **Add comment** | "Add a comment on ENG-142 with this summary" |
+
+Ravell uses conversation context to fill in details — you don't need to specify title, description, or team explicitly. It also checks for duplicates before creating issues.
+
+### Push to Notion
 
 When Notion is connected, you can **push** an answer to a Notion page:
 
@@ -98,7 +117,34 @@ When Notion is connected, you can **push** an answer to a Notion page:
 3. Choose the Notion page or database to add the report.
 4. The answer (with citations) is added as content in Notion.
 
-Use this to turn Ask results into shared docs, meeting prep, or recurring reports. The content is formatted for Notion (headings, lists, links).
+You can also ask Ravell directly: "Push this to Notion" or "Save these results to Notion" as a follow-up prompt. Ravell can create new Notion pages, append to existing pages, and manage databases through natural language.
+
+<Tip>
+All the same Linear and Notion actions available in the [Slack Agent](/slack-agent) also work from web Asks. Use follow-up prompts to act on your results without switching tools.
+</Tip>
+
+---
+
+## Organizing Asks
+
+### Folders
+
+Create **folders** to group related Asks in the sidebar:
+
+- Click the folder icon or use **New folder** in the sidebar.
+- Give the folder a name and optional icon.
+- Drag Asks into folders, or move them via the Ask menu.
+- Folders can be **private** (only you) or **shared** (visible to the workspace). A chat's visibility must match its folder's visibility.
+- Deleting a folder moves its Asks back to the top level — the Asks themselves are not deleted.
+
+### Favorites
+
+**Favorite** an Ask to bookmark it for quick access:
+
+- Click the star icon on any Ask, or use the Ask menu.
+- Add a custom name and optional notes.
+- Access all favorites from the favorites section in the sidebar.
+- Unfavoriting removes the bookmark but keeps the original Ask.
 
 ---
 
@@ -137,6 +183,8 @@ For a full prompt engineering guide, see [Better questions](/better-questions).
 
 - **Sidebar → Asks** — List of your past and current conversations. Click one to reopen it.
 - **Sidebar → New Ask** — Start a fresh conversation.
+- **Sidebar → Folders** — Asks organized into folders you create.
+- **Sidebar → Favorites** — Bookmarked Asks for quick access.
 - **Cmd+K** — Open chat search to find an Ask by title.
 - **Copy link** — Share a direct URL (e.g. `https://app.ravell.io/app?chat=<slug>`).
 

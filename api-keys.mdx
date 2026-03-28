@@ -1,0 +1,179 @@
+---
+title: "API keys & Knowledge API"
+description: "Programmatic access to your Ravell knowledge base via REST API"
+---
+
+## Overview
+
+The **Knowledge API** gives you programmatic access to your Ravell knowledge base. Use it to search indexed documents, look up entities, ask questions, and generate digests — all from your own code, scripts, or AI tools.
+
+Authentication uses **API keys** that you create in Ravell. Each key is scoped to a workspace and can be restricted to read-only or read-write access.
+
+---
+
+## Create an API key
+
+<Steps>
+  <Step title="Open settings">
+    Go to **Settings → API Keys**.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API key**. Enter a name (e.g. "CI pipeline" or "Internal dashboard") and select scopes:
+
+    - **Read** — search, entities, and related endpoints only.
+    - **Read + Write** — adds query and digest endpoints (these consume your query quota).
+  </Step>
+  <Step title="Copy the token">
+    The raw token is shown **once**. Copy it and store it securely. All tokens start with `ravelk_` for easy identification.
+  </Step>
+</Steps>
+
+Optionally set an **expiration date**. Keys without an expiration remain active until revoked.
+
+---
+
+## Manage keys
+
+In **Settings → API Keys** you can:
+
+- View all active keys with their name, scopes, creation date, and last-used date.
+- **Revoke** a key permanently. Revocation is irreversible — create a new key if needed.
+
+Only workspace admins and owners can create or revoke API keys.
+
+---
+
+## Authentication
+
+Include your API key in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer ravelk_your_token_here" \
+  https://api.ravell.io/api/knowledge/search \
+  -d '{"query": "checkout bugs"}'
+```
+
+---
+
+## Endpoints
+
+### Search
+
+`POST /api/knowledge/search`
+
+Semantic search across all indexed documents. Returns ranked results with titles, snippets, and source URLs.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | yes | The search query |
+| `source_types` | array | no | Filter by source type (e.g. `["linear", "slack"]`) |
+| `team_ids` | array | no | Filter by team IDs |
+| `date_from` | string | no | Start date (`YYYY-MM-DD`) |
+| `date_to` | string | no | End date (`YYYY-MM-DD`) |
+| `limit` | integer | no | Maximum results to return |
+
+**Scope required:** `read`
+
+### Entities
+
+`GET /api/knowledge/entities`
+
+Search for entities (customers, companies, people, topics) by name, or look up a specific entity by ID.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | one of `query` or `entity_id` | Search entities by name |
+| `entity_id` | string | one of `query` or `entity_id` | Look up a specific entity |
+| `limit` | integer | no | Maximum results to return |
+
+**Scope required:** `read`
+
+### Related
+
+`GET /api/knowledge/related`
+
+Find documents and entities related to a given document or entity.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `document_id` | string | one of `document_id` or `entity_id` | Find items related to this document |
+| `entity_id` | string | one of `document_id` or `entity_id` | Find items related to this entity |
+
+**Scope required:** `read`
+
+### Query
+
+`POST /api/knowledge/query`
+
+Ask a natural-language question and receive an AI-synthesized answer with citations. Uses the same pipeline as web Asks.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `question` | string | yes | The question to ask |
+| `source_types` | array | no | Filter by source type |
+| `date_from` | string | no | Start date (`YYYY-MM-DD`) |
+| `date_to` | string | no | End date (`YYYY-MM-DD`) |
+
+**Scope required:** `read_write`
+
+### Digest
+
+`POST /api/knowledge/digest`
+
+Get an automated summary for a time period, optionally focused on a specific area.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | yes | One of `daily`, `weekly`, `monthly`, `quarterly` |
+| `focus` | string | no | One of `all` (default), `bugs`, `feature_requests`, `customer_feedback`, `internal` |
+
+**Scope required:** `read_write`
+
+---
+
+## Rate limits
+
+The API is rate-limited per key. If you exceed the limit, you receive a `429 Too Many Requests` response with a `Retry-After` header indicating when to retry.
+
+- **Read endpoints** (search, entities, related) have a higher burst allowance.
+- **Write endpoints** (query, digest) have a lower burst allowance and consume your workspace query quota.
+
+---
+
+## Response format
+
+All endpoints return JSON with a consistent structure:
+
+```json
+{
+  "data": { ... },
+  "meta": {
+    "tier": "tier1",
+    "result_count": 12,
+    "query_time_ms": 245.3,
+    "request_id": "req_abc123"
+  }
+}
+```
+
+Errors return:
+
+```json
+{
+  "error": "Description of the problem",
+  "meta": { "request_id": "req_abc123" }
+}
+```
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="MCP setup" icon="plug" href="/mcp">
+    Connect Ravell to AI coding tools like Claude Desktop or Cursor.
+  </Card>
+  <Card title="Security & privacy" icon="shield" href="/security-privacy">
+    How Ravell handles your data.
+  </Card>
+</CardGroup>
